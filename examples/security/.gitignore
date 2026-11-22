@@ -1,0 +1,4 @@
+# Demo CA and server keys made by prod/gen_certs.sh; never commit private keys
+prod/certs/
+*.log
+__pycache__/

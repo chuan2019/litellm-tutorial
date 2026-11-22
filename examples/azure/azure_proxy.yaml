@@ -1,0 +1,43 @@
+model_list:
+  - model_name: gpt                             # one alias, two Azure regions: load-balanced, and failover
+    litellm_params:
+      model: azure/gpt4o-prod                   # azure/<your deployment name>, not the model name
+      api_base: os.environ/AZURE_EASTUS_BASE    # https://<eastus resource>.openai.azure.com
+      api_key: os.environ/AZURE_EASTUS_KEY
+      api_version: "2024-10-21"
+    model_info:
+      base_model: azure/gpt-4o                  # what the deployment runs, so LiteLLM can price it
+  - model_name: gpt
+    litellm_params:
+      model: azure/gpt4o-prod
+      api_base: os.environ/AZURE_SWEDEN_BASE    # https://<swedencentral resource>.openai.azure.com
+      api_key: os.environ/AZURE_SWEDEN_KEY
+      api_version: "2024-10-21"
+    model_info:
+      base_model: azure/gpt-4o
+
+  - model_name: claude                          # Claude deployed in Microsoft Foundry
+    litellm_params:
+      model: azure_ai/claude-haiku-5-5
+      api_base: os.environ/AZURE_FOUNDRY_BASE   # https://<foundry resource>.services.ai.azure.com
+      api_key: os.environ/AZURE_FOUNDRY_KEY
+
+  - model_name: gpt-entra                       # no key: a federated token exchanged for an Entra ID token
+    litellm_params:
+      model: azure/gpt4o-prod
+      api_base: os.environ/AZURE_EASTUS_BASE
+      api_version: "2024-10-21"
+      azure_ad_token: oidc/env/AZURE_FEDERATED_TOKEN
+      tenant_id: os.environ/AZURE_TENANT_ID
+      client_id: os.environ/AZURE_CLIENT_ID
+    model_info:
+      base_model: azure/gpt-4o
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 1
+  cooldown_time: 30
+  content_policy_fallbacks: [{"gpt": ["claude"]}]   # Azure's content filter refused: try another model family
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

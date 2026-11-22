@@ -1,0 +1,41 @@
+# Section 16b: the agent gateway. Needs DATABASE_URL (section 13), fake_agents.py on 4016 and _fake_upstream.py on 4011.
+model_list:
+  - model_name: gpt
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: fake
+      api_base: http://127.0.0.1:4011/v1
+
+agents:
+  - agent_name: triage
+    agent_card_params:
+      protocolVersion: "0.3.0"
+      name: triage
+      description: Classifies a support ticket as billing, bug or other.
+      url: http://127.0.0.1:4016/triage
+      version: "1.0.0"
+      capabilities: {streaming: true}
+      defaultInputModes: [text]
+      defaultOutputModes: [text]
+      skills: [{id: classify, name: Classify ticket, description: Return one category., tags: [support]}]
+    litellm_params:
+      cost_per_query: 0.002              # what the proxy charges per message/send
+    static_headers:
+      x-team: support                     # sent to the agent on every call
+    extra_headers: [x-ticket-id]          # copied from the client request when present
+
+  - agent_name: billing
+    agent_card_params:
+      protocolVersion: "0.3.0"
+      name: billing
+      description: Answers refund and invoice questions.
+      url: http://127.0.0.1:4016/billing
+      version: "1.0.0"
+      capabilities: {streaming: true}
+      defaultInputModes: [text]
+      defaultOutputModes: [text]
+      skills: [{id: refund, name: Refund status, description: Say whether a refund is due., tags: [billing]}]
+    rpm_limit: 2
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

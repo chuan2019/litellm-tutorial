@@ -1,0 +1,33 @@
+model_list:
+  - model_name: claude                          # Anthropic's own API
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      api_base: os.environ/FAKE_UPSTREAM        # the fake; leave out for api.anthropic.com
+  - model_name: gpt                             # OpenAI's own API
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+      api_base: os.environ/FAKE_UPSTREAM_V1     # the fake; leave out for api.openai.com
+
+  - model_name: local                           # Ollama on this machine (or a GPU box on your network)
+    litellm_params:
+      model: ollama_chat/qwen2.5:0.5b
+      api_base: os.environ/OLLAMA_API_BASE      # http://localhost:11434
+  - model_name: local-gpu                       # a vLLM server; this one points at a closed port, to show failover
+    litellm_params:
+      model: hosted_vllm/Qwen/Qwen2.5-7B-Instruct
+      api_base: http://127.0.0.1:9/v1
+  - model_name: qwen-vllm                       # a vLLM server with a price, so budgets see its traffic
+    litellm_params:
+      model: hosted_vllm/Qwen/Qwen2.5-7B-Instruct
+      api_base: os.environ/FAKE_UPSTREAM_V1     # the fake stands in for http://<vllm host>:8000/v1
+      input_cost_per_token: 0.0000002           # your own figure: GPU hours / tokens served
+      output_cost_per_token: 0.0000008
+
+router_settings:
+  num_retries: 0
+  fallbacks: [{"local-gpu": ["local"]}, {"claude": ["gpt"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

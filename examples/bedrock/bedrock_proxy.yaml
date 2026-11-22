@@ -1,0 +1,44 @@
+# Bedrock behind the proxy. Every deployment points at fake_bedrock.py through BEDROCK_ENDPOINT;
+# for real calls, unset BEDROCK_ENDPOINT and give the proxy an AWS identity (see the tutorial).
+model_list:
+  - model_name: claude                          # one alias, two regions: load-balanced, and failover
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+  - model_name: claude
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-east-1
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+
+  - model_name: nova                            # a different model family and region, as the last resort
+    litellm_params:
+      model: bedrock/us.amazon.nova-2-lite-v1:0
+      aws_region_name: us-east-2
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+
+  - model_name: claude-team-b                   # billed to another AWS account through an assumed role
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+      aws_role_name: arn:aws:iam::210987654321:role/team-b-bedrock
+      aws_session_name: litellm-team-b
+      aws_sts_endpoint: os.environ/BEDROCK_ENDPOINT   # the fake also plays STS; leave out for real AWS
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+
+  - model_name: claude-guarded                  # Amazon Bedrock Guardrails applied by Bedrock itself
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+      guardrailConfig: {guardrailIdentifier: gr-abc123, guardrailVersion: "1"}
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 1
+  cooldown_time: 30                             # a 429 takes the deployment out for 30 s (no allowed_fails set)
+  fallbacks: [{"claude": ["nova"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

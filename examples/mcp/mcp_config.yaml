@@ -1,0 +1,36 @@
+model_list:
+  - model_name: chat
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "An apple costs $0.50."   # delete for real calls
+  - model_name: chat-tools                    # same model, but the mock first "calls" a tool
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "An apple costs $0.50."
+      mock_tool_calls:                        # delete for real calls
+        - id: call_1
+          type: function
+          function: {name: catalog-lookup_price, arguments: '{"sku": "apple"}'}
+
+mcp_servers:
+  catalog:
+    url: http://127.0.0.1:4111/mcp
+    transport: http
+    description: Product prices and stock
+    mcp_info:
+      mcp_server_cost_info:
+        default_cost_per_query: 0.001
+        tool_name_to_cost_per_query:
+          lookup_price: 0.01
+  mathbox:
+    transport: stdio                          # needs LITELLM_ENABLE_MCP_STDIO=true
+    command: python
+    args: ["math_server.py"]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+litellm_settings:
+  callbacks: cost_logger.proxy_handler_instance

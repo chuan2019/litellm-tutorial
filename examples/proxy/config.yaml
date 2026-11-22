@@ -1,0 +1,26 @@
+model_list:
+  - model_name: chat                      # the alias clients ask for
+    litellm_params:
+      model: anthropic/claude-sonnet-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      mock_response: "Hi from Claude (via the proxy)"   # delete this line for real calls
+  - model_name: chat-cheap
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "Hi from GPT-4o mini (via the proxy)"
+  - model_name: chat-broken                 # always fails, to show fallbacks
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: sk-invalid
+      api_base: http://127.0.0.1:9/v1
+
+router_settings:
+  num_retries: 1
+  fallbacks: [{"chat-broken": ["chat-cheap"]}]
+
+litellm_settings:
+  drop_params: true
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

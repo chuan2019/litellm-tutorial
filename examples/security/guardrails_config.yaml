@@ -1,0 +1,53 @@
+model_list:
+  - model_name: chat
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_base: http://127.0.0.1:4012/v1       # echo_upstream.py: replies with what it received
+      api_key: os.environ/OPENAI_API_KEY
+
+guardrails:
+  - guardrail_name: pii-mask                    # mask personal data before it leaves your network
+    litellm_params:
+      guardrail: litellm_content_filter
+      mode: pre_call
+      default_on: true
+      patterns:
+        - {pattern_type: prebuilt, pattern_name: email, action: MASK}
+        - {pattern_type: prebuilt, pattern_name: us_ssn, action: MASK}
+        - {pattern_type: prebuilt, pattern_name: credit_card, action: MASK}
+        - {pattern_type: regex, name: employee_id, pattern: 'EMP-\d{6}', action: MASK}
+
+  - guardrail_name: secrets-block               # refuse requests that carry credentials
+    litellm_params:
+      guardrail: litellm_content_filter
+      mode: pre_call
+      default_on: true
+      patterns:
+        - {pattern_type: prebuilt, pattern_name: aws_access_key, action: BLOCK}
+        - {pattern_type: prebuilt, pattern_name: github_token, action: BLOCK}
+
+  - guardrail_name: prompt-injection            # keyword categories shipped with LiteLLM
+    litellm_params:
+      guardrail: litellm_content_filter
+      mode: pre_call
+      default_on: true
+      categories:
+        - {category: prompt_injection_jailbreak, action: BLOCK, severity_threshold: medium}
+        - {category: prompt_injection_system_prompt, action: BLOCK, severity_threshold: medium}
+
+  - guardrail_name: output-pii                  # mask what the model sends back
+    litellm_params:
+      guardrail: litellm_content_filter
+      mode: post_call
+      default_on: true
+      patterns:
+        - {pattern_type: prebuilt, pattern_name: email, action: MASK}
+        - {pattern_type: prebuilt, pattern_name: us_ssn, action: MASK}
+
+  - guardrail_name: topic-guard                 # your own code; opt-in per request, or per key with a licence
+    litellm_params:
+      guardrail: custom_guardrails.TopicGuard
+      mode: pre_call
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

@@ -1,0 +1,11 @@
+# Section 22: memory on the proxy. Needs DATABASE_URL (section 13) and _fake_upstream.py on port 4011.
+model_list:
+  - model_name: chat
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: fake
+      api_base: http://127.0.0.1:4011
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  store_prompts_in_spend_logs: true     # the Responses API rebuilds a session from these rows

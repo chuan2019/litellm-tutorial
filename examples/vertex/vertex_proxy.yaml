@@ -1,0 +1,40 @@
+model_list:
+  - model_name: gemini                          # one alias, two Vertex regions: load-balanced, and failover
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: os.environ/VERTEXAI_PROJECT
+      vertex_location: us-central1
+      vertex_credentials: os.environ/VERTEX_SA_FILE   # leave out to use Application Default Credentials
+      api_base: os.environ/VERTEX_API_BASE            # the fake; leave out for real Vertex AI
+  - model_name: gemini
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: os.environ/VERTEXAI_PROJECT
+      vertex_location: us-east4
+      vertex_credentials: os.environ/VERTEX_SA_FILE
+      api_base: os.environ/VERTEX_API_BASE
+
+  - model_name: gemini-global                   # Google picks the region: the fallback when both are exhausted
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: os.environ/VERTEXAI_PROJECT
+      vertex_location: global
+      vertex_credentials: os.environ/VERTEX_SA_FILE
+      api_base: os.environ/VERTEX_API_BASE
+
+  - model_name: claude                          # Claude on Vertex, with no Google key: workload identity federation
+    litellm_params:
+      model: vertex_ai/claude-haiku-5-5
+      vertex_project: os.environ/VERTEXAI_PROJECT
+      vertex_location: global
+      vertex_credentials: os.environ/VERTEX_WIF_FILE
+      api_base: os.environ/VERTEX_API_BASE
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 1
+  cooldown_time: 30
+  fallbacks: [{"gemini": ["gemini-global"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

@@ -1,0 +1,9 @@
+model_list:
+  - model_name: claude                    # the alias your apps ask for
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: os.environ/AWS_REGION
+      # mock_response: "Hi from the proxy"   # uncomment to try it without AWS
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

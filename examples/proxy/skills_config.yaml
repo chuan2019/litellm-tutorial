@@ -1,0 +1,24 @@
+# Section 16: skills hosted on the proxy. Needs DATABASE_URL (section 13) and _fake_upstream.py on port 4011.
+model_list:
+  - model_name: gpt
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: fake
+      api_base: http://127.0.0.1:4011/v1
+  - model_name: claude
+    litellm_params:
+      model: anthropic/claude-sonnet-5-5
+      api_key: fake
+      api_base: http://127.0.0.1:4011
+  - model_name: embed
+    litellm_params:
+      model: openai/text-embedding-3-small
+      api_key: fake
+      api_base: http://127.0.0.1:4011/v1
+
+litellm_settings:
+  public_skills_index: true             # serve /.well-known/agent-skills/index.json
+  skill_search_embedding_model: embed   # enables GET /v1/skills?query=
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

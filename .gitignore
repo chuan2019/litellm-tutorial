@@ -1,0 +1,10 @@
+# Local settings and credentials
+.env.local
+.env
+
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.ipynb_checkpoints/
+*.log

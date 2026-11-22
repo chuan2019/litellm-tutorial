@@ -1,0 +1,26 @@
+model_list:
+  - model_name: claude
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+      aws_bedrock_runtime_endpoint: os.environ/BEDROCK_ENDPOINT
+  - model_name: claude
+    litellm_params:
+      model: azure_ai/claude-haiku-5-5
+      api_base: os.environ/AZURE_FOUNDRY_BASE
+      api_key: os.environ/AZURE_FOUNDRY_KEY
+  - model_name: claude
+    litellm_params:
+      model: vertex_ai/claude-haiku-5-5
+      vertex_project: ex-project
+      vertex_location: global
+      vertex_credentials: os.environ/VERTEX_SA_FILE
+      api_base: os.environ/VERTEX_API_BASE
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 2
+  cooldown_time: 5
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

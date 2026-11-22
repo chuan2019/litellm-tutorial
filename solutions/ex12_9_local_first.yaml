@@ -1,0 +1,23 @@
+model_list:
+  - model_name: chat                            # local first
+    litellm_params:
+      model: ollama_chat/qwen2.5:0.5b
+      api_base: os.environ/OLLAMA_API_BASE
+      input_cost_per_token: 0.0000001           # what a token costs you on your own hardware
+      output_cost_per_token: 0.0000004
+  - model_name: chat-down                       # the same model on a server that is down
+    litellm_params:
+      model: ollama_chat/qwen2.5:0.5b
+      api_base: http://127.0.0.1:9
+  - model_name: cloud
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      api_base: os.environ/FAKE_UPSTREAM        # leave out for api.anthropic.com
+
+router_settings:
+  num_retries: 0
+  fallbacks: [{"chat": ["cloud"]}, {"chat-down": ["cloud"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

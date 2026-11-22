@@ -1,0 +1,19 @@
+# The proxy connected to Lens. LITELLM_LENS_URL (set in the environment) turns the connection on;
+# tracing.store.type: lens says the same thing in the config.
+model_list:
+  - model_name: support                     # the support agent's model: fake_support_llm.py
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_base: http://127.0.0.1:4017/v1
+      api_key: unused
+  - model_name: analysis                    # the model Lens investigations use (19c); real Bedrock
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
+  tracing:
+    store:
+      type: lens
