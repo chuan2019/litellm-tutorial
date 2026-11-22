@@ -2402,7 +2402,7 @@ local-gpu  -> 'Paris.'                 served_by=local      cost=0.0000000 fallb
 - **A down GPU server falls back to another server.** `local-gpu` pointed at a closed port; the request was answered by the CPU Ollama (`fallbacks=1`). In practice the fallback is often a hosted model, as in exercise 12.9.
 - **A price makes self-hosted traffic count.** `qwen-vllm` cost $0.0000044 for 10 input and 3 output tokens at the configured rates, so virtual-key budgets and spend reports include it.
 - **When the proxy runs in Docker,** `localhost` is the container itself. Put Ollama and the proxy on one Docker network and use the container name: with `docker network create litellm-local`, `docker network connect litellm-local litellm-tutorial-ollama` and the proxy started with `--network litellm-local`, `api_base: http://litellm-tutorial-ollama:11434` answered from the official LiteLLM image. Docker Desktop also offers `http://host.docker.internal:11434`.
-- **vLLM needs a GPU for real models,** so I ran this subsection's vLLM deployments against the fake only. To serve one: `docker run --gpus all -p 8000:8000 vllm/vllm-openai --model Qwen/Qwen2.5-7B-Instruct`, then set `api_base: http://<host>:8000/v1`. The [vLLM tutorial](../vllm/TUTORIAL.md) covers serving in depth.
+- **vLLM needs a GPU for real models,** so I ran this subsection's vLLM deployments against the fake only. To serve one: `docker run --gpus all -p 8000:8000 vllm/vllm-openai --model Qwen/Qwen2.5-7B-Instruct`, then set `api_base: http://<host>:8000/v1`. The [vLLM docs](https://docs.vllm.ai/) cover serving in depth.
 - When you're done: `docker rm -f litellm-tutorial-ollama` (add `docker volume rm litellm-tutorial-ollama` to delete the downloaded model).
 
 **Which way to reach a model.** The same model is often available several ways. Claude Haiku 5.5, for example, was reachable in this section as `anthropic/`, `bedrock/`, `azure_ai/` and `vertex_ai/`:
@@ -7577,3 +7577,7 @@ NO_DOCS=True NO_REDOC=True NO_OPENAPI=True DISABLE_ADMIN_UI=True LITELLM_MODE=PR
   LITELLM_CORS_ORIGINS=https://app.example.com uv run litellm --config config.yaml --host 127.0.0.1   # hardened settings
 PROBE_KEY=sk-... uv run python examples/security/hardening_check.py https://llm.example.com           # external audit
 ```
+
+---
+
+© 2026 Chuan Zhang. The tutorial text and figures are all rights reserved; the code is MIT-licensed (see [LICENSE](LICENSE)).

@@ -33,3 +33,13 @@ git push origin --tags
 ```
 
 To start an edition for a new LiteLLM version: branch the current `main` as `litellm-<old version>`, push it, then on `main` change the pin and image tags, run `uv lock`, re-run every example and update the outputs and each "in <old version>" claim, add a row to the README's editions table, and release.
+
+## Publishing to the blog
+
+`publish_blog.py` copies a released edition to the blog repository (chuan2019.github.io), at `tutorials/litellm/<LiteLLM version>/`: the page as `index.html` and the self-test as `exercises/exam.html`. It refuses to run unless the working tree is clean and HEAD carries this edition's release tag, because every link to a file in this repository is rewritten to point at GitHub at that tag:
+
+```bash
+python3 build/publish_blog.py ../chuan2019.github.io
+```
+
+Then add the edition to the blog's `tutorials/litellm/index.md` if it is new, and deploy the blog with its `scripts/deploy.sh`.

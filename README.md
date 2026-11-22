@@ -15,7 +15,7 @@ Each LiteLLM version the tutorial covers is an edition with its own branch, impr
 ## Read it
 
 - [`TUTORIAL.md`](TUTORIAL.md): the tutorial.
-- `TUTORIAL.html`: the same content as a standalone page with navigation and search. Open it in a browser.
+- `TUTORIAL.html`: the same content as a standalone page with navigation and search. Open it in a browser, or read it online at https://chuan2019.github.io/tutorials/litellm/.
 - `exercises/exam.html`: a self-test.
 
 ## Run it
@@ -40,3 +40,7 @@ The tutorial's Setup section covers the rest, including Docker, AWS Bedrock and 
 | `solutions/` | Verified solutions for some exercises |
 | `notebooks/` | Sections 1–11 as Jupyter notebooks that call AWS Bedrock |
 | `build/` | The script that generates `TUTORIAL.html` from `TUTORIAL.md` |
+
+## Licence
+
+The code (examples, solutions, exercise helpers, notebook code cells and build scripts) is MIT-licensed; see [`LICENSE`](LICENSE). The tutorial text and figures are © 2026 Chuan Zhang, all rights reserved: read and link to them freely, but ask before copying or republishing them.
