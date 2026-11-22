@@ -4,6 +4,14 @@ A hands-on tutorial for [LiteLLM](https://github.com/BerriAI/litellm), the Pytho
 
 **Version 0.1.0, written for LiteLLM 1.109.1.** Every output in the tutorial was produced with that release, which `pyproject.toml` pins. On another LiteLLM version, expect differences.
 
+## Editions
+
+Each LiteLLM version the tutorial covers is an edition with its own branch, improved independently. `main` holds the newest edition. Releases are tags named `v<tutorial version>-litellm<LiteLLM version>`; pick the edition that matches the LiteLLM you run.
+
+| LiteLLM | Branch | Releases |
+| --- | --- | --- |
+| 1.109.1 | [`litellm-1.109.1`](../../tree/litellm-1.109.1) | [`v*-litellm1.109.1`](../../tags) |
+
 ## Read it
 
 - [`TUTORIAL.md`](TUTORIAL.md): the tutorial.

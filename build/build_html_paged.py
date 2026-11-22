@@ -18,6 +18,9 @@ from pygments.util import ClassNotFound
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extra_figures import EXTRA
+from check_versions import check
+
+check()
 
 FIGS = json.loads((Path(__file__).parent / "figures.json").read_text())
 
