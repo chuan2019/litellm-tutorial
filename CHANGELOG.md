@@ -2,6 +2,15 @@
 
 Every release of the tutorial, newest first. A release is tagged `v<tutorial version>-litellm<LiteLLM version>` (see [Editions](README.md#editions)). Each LiteLLM version is an edition on its own branch, so an older edition can get a later tutorial version than a newer one; the heading of each entry names both versions.
 
+## [0.2.2] for LiteLLM 1.110.2 (2026-11-23)
+
+### Added
+
+- **Setup, running the proxy on an EC2 instance.** The quick start's Bedrock proxy and section 13's Postgres on one instance with Docker Compose:
+  - an instance role instead of AWS keys, and SSM Session Manager and a port-forward instead of SSH and inbound ports;
+  - the problems hit on a real run: instance-role registration, the metadata hop limit, Compose interpolation, Postgres keeping its first password, the SSM region;
+  - the files are in `examples/ec2/`.
+
 ## [0.2.1] for LiteLLM 1.110.2 (2026-11-22)
 
 ### Added
@@ -49,6 +58,7 @@ Every release of the tutorial, newest first. A release is tagged `v<tutorial ver
 - **`build/publish_blog.py`** publishes a tagged edition to the blog.
 - **The licence:** the code is MIT-licensed; the tutorial text and figures are all rights reserved.
 
+[0.2.2]: ../../releases/tag/v0.2.2-litellm1.110.2
 [0.2.1]: ../../releases/tag/v0.2.1-litellm1.110.2
 [0.2.0]: ../../releases/tag/v0.2.0-litellm1.110.2
 [0.1.0]: ../../releases/tag/v0.1.0-litellm1.109.1

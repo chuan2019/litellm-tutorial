@@ -1,6 +1,6 @@
 # Tutorial: LiteLLM by Worked Example
 
-Nov 22, 2026 · Tutorial version 0.2.1 · written for LiteLLM 1.110.2
+Nov 23, 2026 · Tutorial version 0.2.2 · written for LiteLLM 1.110.2
 
 ## What LiteLLM is
 
@@ -161,7 +161,7 @@ Each section is one practical use case with a runnable script in [`examples/`](e
 | 22 | Context and memory management |
 | 23 | Other providers, for reference |
 
-**Which version this covers.** This is version 0.2.1 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
+**Which version this covers.** This is version 0.2.2 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
 
 **What changed since the 1.109.1 edition.** Most behaviour in this tutorial is the same on 1.110.2. These are the differences that show up in it:
 
