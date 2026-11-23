@@ -359,7 +359,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
     <button class="theme-btn" type="button" id="themeBtn">Theme</button></span></div>
   <div class="search"><input type="search" id="q" placeholder="Search all sections" aria-label="Search all sections" autocomplete="off">
     <ol id="hits" class="hits" hidden></ol></div>
-  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#provider-adapters-in-detail">Provider adapters in detail</a></li><li><a href="#aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</a></li><li><a href="#amazon-bedrock-mantle">Amazon Bedrock Mantle</a></li><li><a href="#ollama">Ollama</a></li><li><a href="#vllm">vLLM</a></li><li><a href="#other-major-providers">Other major providers</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
+  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#running-the-proxy-on-an-ec2-instance">Running the proxy on an EC2 instance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#provider-adapters-in-detail">Provider adapters in detail</a></li><li><a href="#aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</a></li><li><a href="#amazon-bedrock-mantle">Amazon Bedrock Mantle</a></li><li><a href="#ollama">Ollama</a></li><li><a href="#vllm">vLLM</a></li><li><a href="#other-major-providers">Other major providers</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
 </nav>
 <main>
 <article>
@@ -840,7 +840,168 @@ stream: 3 chunks -&gt; &#x27;1 2 3 4 5&#x27;
 <li>Only the master key works for now. Any other key gets <code>{&quot;error&quot;:{&quot;message&quot;:&quot;No connected db.&quot;, ...,&quot;code&quot;:&quot;400&quot;}}</code>. Per-app virtual keys need a database (section 13).</li>
 <li><code>docker rm -f litellm-quickstart</code> removes the container; Ctrl-C stops the local proxy.</li>
 </ul>
-<p>Where to go next: section 12 covers the proxy config in depth. It also covers Bedrock regions, identities and failover, Azure and Google Vertex AI, and providers called directly (OpenAI, Anthropic, Ollama, vLLM). Section 13 adds virtual keys, budgets and rate limits.</p>
+<p>Where to go next: section 12 covers the proxy config in depth. It also covers Bedrock regions, identities and failover, Azure and Google Vertex AI, and providers called directly (OpenAI, Anthropic, Ollama, vLLM). Section 13 adds virtual keys, budgets and rate limits. To run this proxy on a server that a team can share, see the next subsection.</p>
+<h3 id="running-the-proxy-on-an-ec2-instance">Running the proxy on an EC2 instance</h3>
+<p>The quick start runs the proxy on your own machine. To share one proxy with a team, run it on a server. This subsection puts the quick start's Bedrock proxy, plus the Postgres database that section 13's virtual keys need, on one EC2 instance with Docker Compose. It is a setup for trying the proxy out, not a production deployment: one instance, no load balancer, no TLS.</p>
+<p>The design keeps the instance closed:</p>
+<ul>
+<li><strong>No AWS keys.</strong> The instance has an IAM role (an <em>instance profile</em>), and boto3 inside the container picks up its temporary credentials, just as the quick start picks up your SSO session.</li>
+<li><strong>No SSH and no inbound ports.</strong> You open a shell with AWS Systems Manager (SSM) Session Manager, and reach the proxy through an SSM port-forward. The security group allows no inbound traffic, and the proxy listens on the instance's <code>127.0.0.1</code> only.</li>
+</ul>
+<p>You need console access to an AWS account where Bedrock is enabled. The files are in <a href="examples/ec2/"><code>examples/ec2/</code></a>.</p>
+<p><strong>Step 0: check Bedrock.</strong> In the Bedrock console, in us-west-2, send one message to Claude Haiku 5.5 in the chat playground. If that fails, fix model access first; the proxy can't work around it.</p>
+<p><strong>Step 1: create the instance role.</strong> IAM → Roles → Create role, with trusted entity <em>AWS service</em> and use case <em>EC2</em>.</p>
+<ul>
+<li>Attach the AWS-managed policy <code>AmazonSSMManagedInstanceCore</code>, which lets the SSM agent on the instance register and carry sessions.</li>
+<li>Add an inline policy from <a href="examples/ec2/bedrock-invoke-policy.json"><code>examples/ec2/bedrock-invoke-policy.json</code></a>, with your account ID in place of <code>&lt;account-id&gt;</code>. The region in each ARN is <code>*</code> on purpose: a <code>us.</code> inference profile can serve a request from any US region, and the role needs permission in whichever one answers.</li>
+</ul>
+<p><strong>Step 2: create a security group</strong> with no inbound rules and the default outbound rule. The instance needs outbound HTTPS to reach SSM and Bedrock and to pull the images.</p>
+<p><strong>Step 3: launch the instance.</strong> EC2 → Launch instances, in any region (the Bedrock region is set separately, in the proxy's environment):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AMI and type</td>
+<td>Amazon Linux 2023, x86_64, <code>t3.medium</code></td>
+</tr>
+<tr>
+<td>Key pair</td>
+<td>Proceed without a key pair</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>A private subnet with a NAT gateway, or a public subnet with a public IP. Either is safe with no inbound rules</td>
+</tr>
+<tr>
+<td>Security group</td>
+<td>The one from step 2</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>20 GiB gp3, encrypted</td>
+</tr>
+<tr>
+<td>Advanced → IAM instance profile</td>
+<td>The role from step 1</td>
+</tr>
+<tr>
+<td>Advanced → Metadata version</td>
+<td>V2 only (token required)</td>
+</tr>
+<tr>
+<td>Advanced → Metadata response hop limit</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>Advanced → User data</td>
+<td><a href="examples/ec2/user-data.sh"><code>examples/ec2/user-data.sh</code></a>, which installs Docker, the Compose plugin and git</td>
+</tr>
+</tbody>
+</table></div>
+<p>The hop limit is the setting that is easy to miss. A container reaches the instance metadata service through one more network hop than the host does, and with the default limit of 1 the proxy can't get the role's credentials.</p>
+<p><strong>Step 4: connect and check the role.</strong> After a few minutes, select the instance and choose Connect → Session Manager. The shell runs as <code>ssm-user</code>, so the commands below use <code>sudo</code>:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>aws<span class="w"> </span>sts<span class="w"> </span>get-caller-identity<span class="w">          </span><span class="c1"># the Arn names the role from step 1</span>
+aws<span class="w"> </span>bedrock-runtime<span class="w"> </span>converse<span class="w"> </span>--region<span class="w"> </span>us-west-2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--model-id<span class="w"> </span>us.anthropic.claude-haiku-5-5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--messages<span class="w"> </span><span class="s1">'[{"role":"user","content":[{"text":"hi"}]}]'</span>
+</code></pre></div>
+<p>If <code>converse</code> returns a reply, the instance can call Bedrock.</p>
+<p><strong>Step 5: start the proxy.</strong> Clone this edition, write the secrets and start the stack:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>sudo<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>--branch<span class="w"> </span>litellm-1.110.2<span class="w"> </span>https://github.com/chuan2019/litellm-tutorial.git<span class="w"> </span>/opt/litellm-tutorial
+<span class="nb">cd</span><span class="w"> </span>/opt/litellm-tutorial/examples/ec2
+sudo<span class="w"> </span>./make_env.sh<span class="w">                                 </span><span class="c1"># writes .env: master key, salt key, Postgres password</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--wait<span class="w">                   </span><span class="c1"># returns once Postgres and the proxy are healthy</span>
+curl<span class="w"> </span>-s<span class="w"> </span>localhost:4000/health/readiness
+<span class="c1"># {"status":"healthy","db":"connected"}</span>
+</code></pre></div>
+<p><a href="examples/ec2/make_env.sh"><code>make_env.sh</code></a> writes three random values to a <code>.env</code> file (git-ignored, readable by root only), and Compose reads them from there. <a href="examples/ec2/docker-compose.yml"><code>docker-compose.yml</code></a> is section 13's stack with three changes: the secrets come from <code>.env</code>, both containers restart with the instance, and the proxy gets the quick start's Bedrock model (<a href="examples/ec2/config.yaml"><code>config.yaml</code></a>) instead of mocked ones.</p>
+<p>Then create a virtual key for the team, so the master key stays on the instance:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">set</span><span class="w"> </span>-a<span class="p">;</span><span class="w"> </span>.<span class="w"> </span>&lt;<span class="o">(</span>sudo<span class="w"> </span>cat<span class="w"> </span>.env<span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>+a<span class="w">                 </span><span class="c1"># loads LITELLM_MASTER_KEY into this shell</span>
+curl<span class="w"> </span>-s<span class="w"> </span>localhost:4000/key/generate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$LITELLM_MASTER_KEY</span><span class="s2">"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"models":["claude"],"max_budget":1}'</span><span class="w">        </span><span class="c1"># prints {"key":"sk-...", ...}</span>
+</code></pre></div>
+<p><strong>Step 6: reach it from your machine.</strong> Install the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html" target="_blank" rel="noopener">Session Manager plugin</a> for the AWS CLI, then forward a local port to the instance:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>aws<span class="w"> </span>ssm<span class="w"> </span>start-session<span class="w"> </span>--profile<span class="w"> </span>&lt;profile&gt;<span class="w"> </span>--region<span class="w"> </span>&lt;instance<span class="w"> </span>region&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target<span class="w"> </span>&lt;instance<span class="w"> </span>id&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--document-name<span class="w"> </span>AWS-StartPortForwardingSession<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--parameters<span class="w"> </span><span class="s1">'{"portNumber":["4000"],"localPortNumber":["4000"]}'</span>
+</code></pre></div>
+<p>Leave it running; it prints <code>Waiting for connections...</code>. <code>--region</code> is the <strong>instance's</strong> region, which is not necessarily the Bedrock one. While the session is open, <code>http://localhost:4000</code> on your machine is the proxy on the instance, so the quick start's client works unchanged, given the virtual key:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples/proxy
+<span class="nb">export</span><span class="w"> </span><span class="nv">LITELLM_MASTER_KEY</span><span class="o">=</span>sk-...<span class="w">                   </span><span class="c1"># the virtual key from step 5; the script reads this variable</span>
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>quickstart_client.py
+</code></pre></div>
+<p>The admin UI is at <code>http://localhost:4000/ui</code>; sign in as <code>admin</code> with the master key from the instance's <code>.env</code>.</p>
+<p>Points to note:</p>
+<ul>
+<li><strong>The instance's region and the Bedrock region are independent.</strong> The proxy calls Bedrock in <code>AWS_REGION</code> (<code>BEDROCK_REGION</code>, default us-west-2) wherever the instance runs. Only the SSM commands need the instance's region.</li>
+<li><strong>Compose fills in <code>${...}</code> from <code>.env</code> before it creates the containers</strong>, and a variable exported in your shell overrides <code>.env</code> (<code>sudo</code> drops most of the shell's variables, so here <code>.env</code> wins). Each <code>${NAME:?run make_env.sh first}</code> makes Compose refuse to start when a value is missing, instead of starting with an empty one. <code>docker compose config</code> prints the file with every value filled in.</li>
+<li><strong>Editing <code>.env</code> needs <code>docker compose up -d</code>, not <code>restart</code>.</strong> The values are written into each container when it is created; <code>up -d</code> recreates the containers whose values changed, <code>restart</code> reuses them as they are.</li>
+<li><strong>Postgres keeps its first password.</strong> <code>POSTGRES_PASSWORD</code> is read only when the <code>pgdata</code> volume is created. With a new password in <code>.env</code>, the proxy fails with <em>&quot;password authentication failed&quot;</em>; <code>docker compose down -v</code> deletes the volume, and every key with it. That is why <code>make_env.sh</code> refuses to overwrite <code>.env</code>. The same goes for <code>LITELLM_SALT_KEY</code> once a credential is stored (section 20c).</li>
+<li><strong>Stop the instance when you're not using it.</strong> Keys and spend survive in the volume, and both containers come back when the instance starts.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session Manager can't connect; the instance's system log shows <em>&quot;Systems Manager's instance management role is not configured for account&quot;</em></td>
+<td>The SSM agent got no credentials from an instance role</td>
+<td>Attach the role (Actions → Security → Modify IAM role), check it has <code>AmazonSSMManagedInstanceCore</code>, reboot</td>
+</tr>
+<tr>
+<td><code>start-session</code> fails with <code>TargetNotConnected</code></td>
+<td><code>--region</code> is not the instance's region, or the agent isn't online yet</td>
+<td>Use the instance's region; wait until Systems Manager → Fleet Manager shows it online</td>
+</tr>
+<tr>
+<td><code>SessionManagerPlugin is not found</code></td>
+<td>The plugin isn't installed on your machine</td>
+<td>Install it (link in step 6)</td>
+</tr>
+<tr>
+<td>Proxy log: <em>&quot;Unable to locate credentials&quot;</em></td>
+<td>Metadata hop limit is 1</td>
+<td>Actions → Instance settings → Modify instance metadata options, set it to 2, then <code>sudo docker compose restart proxy</code></td>
+</tr>
+<tr>
+<td><em>&quot;P1001 ... fe_sendauth: no password supplied&quot;</em></td>
+<td><code>DATABASE_URL</code> reached the proxy without a password, from a misspelled variable or hidden characters pasted into the file</td>
+<td><code>sudo docker compose config | grep -E 'DATABASE_URL|POSTGRES_PASSWORD'</code> shows both resolved values; they must match</td>
+</tr>
+<tr>
+<td><em>&quot;password authentication failed&quot;</em></td>
+<td><code>.env</code> changed after Postgres first started</td>
+<td><code>sudo docker compose down -v</code>, then <code>up -d --wait</code></td>
+</tr>
+<tr>
+<td>Bedrock <code>AccessDeniedException</code></td>
+<td>Model access not enabled, the inline policy is missing, or the account's quota for the model is 0</td>
+<td>Test in the Bedrock playground; check the role; ask AWS support to raise the quota</td>
+</tr>
+<tr>
+<td><code>docker compose up</code> can't pull an image</td>
+<td>No route to the internet</td>
+<td>Public subnet with a public IP, or a private subnet with a NAT gateway</td>
+</tr>
+</tbody>
+</table></div>
+<p>Clean up, from the instance and then the console:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>/opt/litellm-tutorial/examples/ec2
+sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v<span class="w">                        </span><span class="c1"># containers, network and the pgdata volume</span>
+</code></pre></div>
+<p>Then terminate the instance, and delete the security group and the IAM role.</p>
 <h3 id="how-it-works">How it works</h3>
 <p>LiteLLM's own <a href="https://github.com/BerriAI/litellm/blob/v1.110.2/ARCHITECTURE.md" target="_blank" rel="noopener">architecture document</a> sums it up in one sentence: the proxy (which the project also calls the AI gateway) uses the SDK for every LLM call. The proxy adds authentication, rate limits, budgets and routing. The SDK makes the provider calls, translates requests and responses, and handles streaming. This subsection is a simplified version of that document and of the docs page <a href="https://docs.litellm.ai/docs/proxy/architecture" target="_blank" rel="noopener">Life of a Request</a>. Names and numbers are checked against the installed 1.110.2.</p>
 

@@ -1,0 +1,8 @@
+model_list:
+  - model_name: claude                    # the same alias as the quick start
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: os.environ/AWS_REGION
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

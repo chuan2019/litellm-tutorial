@@ -297,7 +297,123 @@ I ran both ways against real Bedrock in us-west-2 through an SSO profile, and bo
 - Only the master key works for now. Any other key gets `{"error":{"message":"No connected db.", ...,"code":"400"}}`. Per-app virtual keys need a database (section 13).
 - `docker rm -f litellm-quickstart` removes the container; Ctrl-C stops the local proxy.
 
-Where to go next: section 12 covers the proxy config in depth. It also covers Bedrock regions, identities and failover, Azure and Google Vertex AI, and providers called directly (OpenAI, Anthropic, Ollama, vLLM). Section 13 adds virtual keys, budgets and rate limits.
+Where to go next: section 12 covers the proxy config in depth. It also covers Bedrock regions, identities and failover, Azure and Google Vertex AI, and providers called directly (OpenAI, Anthropic, Ollama, vLLM). Section 13 adds virtual keys, budgets and rate limits. To run this proxy on a server that a team can share, see the next subsection.
+
+### Running the proxy on an EC2 instance
+
+The quick start runs the proxy on your own machine. To share one proxy with a team, run it on a server. This subsection puts the quick start's Bedrock proxy, plus the Postgres database that section 13's virtual keys need, on one EC2 instance with Docker Compose. It is a setup for trying the proxy out, not a production deployment: one instance, no load balancer, no TLS.
+
+The design keeps the instance closed:
+
+- **No AWS keys.** The instance has an IAM role (an *instance profile*), and boto3 inside the container picks up its temporary credentials, just as the quick start picks up your SSO session.
+- **No SSH and no inbound ports.** You open a shell with AWS Systems Manager (SSM) Session Manager, and reach the proxy through an SSM port-forward. The security group allows no inbound traffic, and the proxy listens on the instance's `127.0.0.1` only.
+
+You need console access to an AWS account where Bedrock is enabled. The files are in [`examples/ec2/`](examples/ec2/).
+
+**Step 0: check Bedrock.** In the Bedrock console, in us-west-2, send one message to Claude Haiku 5.5 in the chat playground. If that fails, fix model access first; the proxy can't work around it.
+
+**Step 1: create the instance role.** IAM → Roles → Create role, with trusted entity *AWS service* and use case *EC2*.
+
+- Attach the AWS-managed policy `AmazonSSMManagedInstanceCore`, which lets the SSM agent on the instance register and carry sessions.
+- Add an inline policy from [`examples/ec2/bedrock-invoke-policy.json`](examples/ec2/bedrock-invoke-policy.json), with your account ID in place of `<account-id>`. The region in each ARN is `*` on purpose: a `us.` inference profile can serve a request from any US region, and the role needs permission in whichever one answers.
+
+**Step 2: create a security group** with no inbound rules and the default outbound rule. The instance needs outbound HTTPS to reach SSM and Bedrock and to pull the images.
+
+**Step 3: launch the instance.** EC2 → Launch instances, in any region (the Bedrock region is set separately, in the proxy's environment):
+
+| Setting | Value |
+| --- | --- |
+| AMI and type | Amazon Linux 2023, x86_64, `t3.medium` |
+| Key pair | Proceed without a key pair |
+| Network | A private subnet with a NAT gateway, or a public subnet with a public IP. Either is safe with no inbound rules |
+| Security group | The one from step 2 |
+| Storage | 20 GiB gp3, encrypted |
+| Advanced → IAM instance profile | The role from step 1 |
+| Advanced → Metadata version | V2 only (token required) |
+| Advanced → Metadata response hop limit | **2** |
+| Advanced → User data | [`examples/ec2/user-data.sh`](examples/ec2/user-data.sh), which installs Docker, the Compose plugin and git |
+
+The hop limit is the setting that is easy to miss. A container reaches the instance metadata service through one more network hop than the host does, and with the default limit of 1 the proxy can't get the role's credentials.
+
+**Step 4: connect and check the role.** After a few minutes, select the instance and choose Connect → Session Manager. The shell runs as `ssm-user`, so the commands below use `sudo`:
+
+```bash
+aws sts get-caller-identity          # the Arn names the role from step 1
+aws bedrock-runtime converse --region us-west-2 \
+  --model-id us.anthropic.claude-haiku-5-5 \
+  --messages '[{"role":"user","content":[{"text":"hi"}]}]'
+```
+
+If `converse` returns a reply, the instance can call Bedrock.
+
+**Step 5: start the proxy.** Clone this edition, write the secrets and start the stack:
+
+```bash
+sudo git clone --depth 1 --branch litellm-1.110.2 https://github.com/chuan2019/litellm-tutorial.git /opt/litellm-tutorial
+cd /opt/litellm-tutorial/examples/ec2
+sudo ./make_env.sh                                 # writes .env: master key, salt key, Postgres password
+sudo docker compose up -d --wait                   # returns once Postgres and the proxy are healthy
+curl -s localhost:4000/health/readiness
+# {"status":"healthy","db":"connected"}
+```
+
+[`make_env.sh`](examples/ec2/make_env.sh) writes three random values to a `.env` file (git-ignored, readable by root only), and Compose reads them from there. [`docker-compose.yml`](examples/ec2/docker-compose.yml) is section 13's stack with three changes: the secrets come from `.env`, both containers restart with the instance, and the proxy gets the quick start's Bedrock model ([`config.yaml`](examples/ec2/config.yaml)) instead of mocked ones.
+
+Then create a virtual key for the team, so the master key stays on the instance:
+
+```bash
+set -a; . <(sudo cat .env); set +a                 # loads LITELLM_MASTER_KEY into this shell
+curl -s localhost:4000/key/generate \
+  -H "Authorization: Bearer $LITELLM_MASTER_KEY" -H "Content-Type: application/json" \
+  -d '{"models":["claude"],"max_budget":1}'        # prints {"key":"sk-...", ...}
+```
+
+**Step 6: reach it from your machine.** Install the [Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html) for the AWS CLI, then forward a local port to the instance:
+
+```bash
+aws ssm start-session --profile <profile> --region <instance region> \
+  --target <instance id> \
+  --document-name AWS-StartPortForwardingSession \
+  --parameters '{"portNumber":["4000"],"localPortNumber":["4000"]}'
+```
+
+Leave it running; it prints `Waiting for connections...`. `--region` is the **instance's** region, which is not necessarily the Bedrock one. While the session is open, `http://localhost:4000` on your machine is the proxy on the instance, so the quick start's client works unchanged, given the virtual key:
+
+```bash
+cd examples/proxy
+export LITELLM_MASTER_KEY=sk-...                   # the virtual key from step 5; the script reads this variable
+uv run python quickstart_client.py
+```
+
+The admin UI is at `http://localhost:4000/ui`; sign in as `admin` with the master key from the instance's `.env`.
+
+Points to note:
+
+- **The instance's region and the Bedrock region are independent.** The proxy calls Bedrock in `AWS_REGION` (`BEDROCK_REGION`, default us-west-2) wherever the instance runs. Only the SSM commands need the instance's region.
+- **Compose fills in `${...}` from `.env` before it creates the containers**, and a variable exported in your shell overrides `.env` (`sudo` drops most of the shell's variables, so here `.env` wins). Each `${NAME:?run make_env.sh first}` makes Compose refuse to start when a value is missing, instead of starting with an empty one. `docker compose config` prints the file with every value filled in.
+- **Editing `.env` needs `docker compose up -d`, not `restart`.** The values are written into each container when it is created; `up -d` recreates the containers whose values changed, `restart` reuses them as they are.
+- **Postgres keeps its first password.** `POSTGRES_PASSWORD` is read only when the `pgdata` volume is created. With a new password in `.env`, the proxy fails with *"password authentication failed"*; `docker compose down -v` deletes the volume, and every key with it. That is why `make_env.sh` refuses to overwrite `.env`. The same goes for `LITELLM_SALT_KEY` once a credential is stored (section 20c).
+- **Stop the instance when you're not using it.** Keys and spend survive in the volume, and both containers come back when the instance starts.
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| Session Manager can't connect; the instance's system log shows *"Systems Manager's instance management role is not configured for account"* | The SSM agent got no credentials from an instance role | Attach the role (Actions → Security → Modify IAM role), check it has `AmazonSSMManagedInstanceCore`, reboot |
+| `start-session` fails with `TargetNotConnected` | `--region` is not the instance's region, or the agent isn't online yet | Use the instance's region; wait until Systems Manager → Fleet Manager shows it online |
+| `SessionManagerPlugin is not found` | The plugin isn't installed on your machine | Install it (link in step 6) |
+| Proxy log: *"Unable to locate credentials"* | Metadata hop limit is 1 | Actions → Instance settings → Modify instance metadata options, set it to 2, then `sudo docker compose restart proxy` |
+| *"P1001 ... fe_sendauth: no password supplied"* | `DATABASE_URL` reached the proxy without a password, from a misspelled variable or hidden characters pasted into the file | `sudo docker compose config \| grep -E 'DATABASE_URL\|POSTGRES_PASSWORD'` shows both resolved values; they must match |
+| *"password authentication failed"* | `.env` changed after Postgres first started | `sudo docker compose down -v`, then `up -d --wait` |
+| Bedrock `AccessDeniedException` | Model access not enabled, the inline policy is missing, or the account's quota for the model is 0 | Test in the Bedrock playground; check the role; ask AWS support to raise the quota |
+| `docker compose up` can't pull an image | No route to the internet | Public subnet with a public IP, or a private subnet with a NAT gateway |
+
+Clean up, from the instance and then the console:
+
+```bash
+cd /opt/litellm-tutorial/examples/ec2
+sudo docker compose down -v                        # containers, network and the pgdata volume
+```
+
+Then terminate the instance, and delete the security group and the IAM role.
 
 ### How it works
 
