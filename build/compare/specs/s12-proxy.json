@@ -1,0 +1,1 @@
+{"env": {"LITELLM_MASTER_KEY": "sk-master-demo", "ANTHROPIC_API_KEY": "unused", "OPENAI_API_KEY": "unused", "LITELLM_KEY": "sk-master-demo"}, "cwd": "examples/proxy", "config": "config.yaml", "clients": [{"cmd": ["python", "client.py"], "cwd": "examples/proxy"}], "name": "s12-proxy"}

@@ -2,7 +2,7 @@
 
 A hands-on tutorial for [LiteLLM](https://github.com/BerriAI/litellm), the Python SDK and the proxy: 23 sections, each a practical use case with a runnable script, its real output and exercises.
 
-**Version 0.1.0, written for LiteLLM 1.109.1.** Every output in the tutorial was produced with that release, which `pyproject.toml` pins. On another LiteLLM version, expect differences.
+**Version 0.2.0, written for LiteLLM 1.110.2.** Every output in the tutorial was produced with that release, which `pyproject.toml` pins. On another LiteLLM version, expect differences.
 
 ## Editions
 
@@ -10,6 +10,7 @@ Each LiteLLM version the tutorial covers is an edition with its own branch, impr
 
 | LiteLLM | Branch | Releases |
 | --- | --- | --- |
+| 1.110.2 | [`litellm-1.110.2`](../../tree/litellm-1.110.2) (also `main`) | [`v*-litellm1.110.2`](../../tags) |
 | 1.109.1 | [`litellm-1.109.1`](../../tree/litellm-1.109.1) | [`v*-litellm1.109.1`](../../tags) |
 
 ## Read it

@@ -1,6 +1,6 @@
 # Tutorial: LiteLLM by Worked Example
 
-Nov 13, 2026 · Tutorial version 0.1.0 · written for LiteLLM 1.109.1
+Nov 22, 2026 · Tutorial version 0.2.0 · written for LiteLLM 1.110.2
 
 ## What LiteLLM is
 
@@ -139,12 +139,12 @@ LiteLLM is plumbing between your code and the model providers. It does not host 
 
 - **One provider, newest features.** If you use one provider and depend on its latest features (beta tools, new caching controls, new content-block types), call its native SDK. LiteLLM's translation can lag behind the provider, and the native SDK gets new features first.
 - **One more service to run.** The proxy holds every provider key, so it is a high-value target that has to be patched, monitored and kept available (sections 20 and 21 cover what that takes). If you only need the SDK's features, the SDK alone adds no service.
-- **Some controls need a licence.** JWT auth, SCIM, `/key/regenerate`, IP allowlists, per-key guardrails, request-size limits and several secret managers are LiteLLM Enterprise features. The next subsection explains the licence; section 20 lists what is free in 1.109.1 and the free workarounds.
+- **Some controls need a licence.** JWT auth, SCIM, `/key/regenerate`, IP allowlists, per-key guardrails, request-size limits and several secret managers are LiteLLM Enterprise features. The next subsection explains the licence; section 20 lists what is free in 1.110.2 and the free workarounds.
 - **Fast-moving dependency.** LiteLLM releases very often. Pin the exact version (as [`pyproject.toml`](pyproject.toml) does) and re-test when you upgrade.
 
 ### Open source vs. Enterprise
 
-LiteLLM is open core. The SDK and the proxy are MIT-licensed and free to run in production, commercially too; that covers virtual keys, teams, budgets, rate limits, spend tracking, the Admin UI, routing, guardrails and the MCP gateway. A commercial licence is a key (`LITELLM_LICENSE`) for the same image, and you need it only for Enterprise-tier features such as JWT auth, SCIM, SSO beyond 5 users, organizations, audit logs, IP allowlists and per-key guardrails. Section 20 opens with the full breakdown: what is free, what is licensed, how 1.109.1 actually enforces it, and the free workarounds. Nothing in sections 1–19 needs a licence.
+LiteLLM is open core. The SDK and the proxy are MIT-licensed and free to run in production, commercially too; that covers virtual keys, teams, budgets, rate limits, spend tracking, the Admin UI, routing, guardrails and the MCP gateway. A commercial licence is a key (`LITELLM_LICENSE`) for the same image, and you need it only for Enterprise-tier features such as JWT auth, SCIM, SSO beyond 5 users, organizations, audit logs, IP allowlists and per-key guardrails. Section 20 opens with the full breakdown: what is free, what is licensed, how 1.110.2 actually enforces it, and the free workarounds. Nothing in sections 1–19 needs a licence.
 
 ## What you will learn
 
@@ -161,22 +161,34 @@ Each section is one practical use case with a runnable script in [`examples/`](e
 | 22 | Context and memory management |
 | 23 | Other providers, for reference |
 
-**Which version this covers.** This is version 0.1.0 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.109.1. The same file pins `litellm[proxy,extra_proxy]==1.109.1`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.109.1`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.109.1". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
+**Which version this covers.** This is version 0.2.0 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
 
-**How this was verified.** The outputs in this tutorial are pasted from real runs with LiteLLM 1.109.1:
+**What changed since the 1.109.1 edition.** Most behaviour in this tutorial is the same on 1.110.2. These are the differences that show up in it:
 
-- **Sections 1–13:** every script ran on Python 3.12, and again offline in the uv environment on Python 3.13. Setup's proxy quick start ran against real Bedrock, both with `uv` and in Docker.
-- **Section 12's cloud subsections:** Azure, Google Vertex AI and the direct providers ran against local fakes of those services, and against a real Ollama in Docker (`qwen2.5:0.5b` on CPU). I had no Azure or Google Cloud account to run them live.
-- **Sections 14–18:** offline on Python 3.13; sections 15, 16 and 18 also ran against a local proxy, with Postgres where noted.
-- **Section 19:** against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run). The proxy ran on port 4002 there, because 4000 was taken on my machine; the commands in the text use 4000.
+- **The router core runs in Rust** (since 1.110.0). The `Router` API is unchanged, and so is every routing output in sections 6, 7, 12 and 14; log lines now name the Rust core's modules, such as `registry.py` (How it works, 20c).
+- **The proxy leaves out `x-litellm-response-cost` for a call it has no price for,** instead of sending `0.0`. Local Ollama models are the example in section 12.
+- **Bedrock Converse bodies ask for the output-token breakdown** (`additionalModelResponseFieldPaths`) for models that think by default (12).
+- **A per-call `azure_ad_token=` no longer leaks into the request body** of an `azure_ai/` Claude call; 1.109.1's workaround is no longer needed.
+- **A rate-limited request no longer writes a warning to the proxy log,** only the `429` in the access log (21b).
+- **Shared rate limits take longer to recover after a Redis outage:** up to about three minutes instead of one (21b).
+- **New, and not covered here:** a fifth smart router, Switchyard (14), and the Skills Hub (16a).
+
+**How this was verified.** The outputs in this tutorial are pasted from real runs. The tutorial was first written and run on LiteLLM 1.109.1; for 1.110.2 every script was run again under both versions side by side, and only what changed was rewritten (the scripts are in [`build/compare/`](build/compare/)):
+
+- **Sections 1–11, 14, 17, 18a and the SDK parts of 16 and 22:** offline, on Python 3.13 in the uv environment. Their output was the same on both versions, apart from timings, IDs and random load-balancing splits.
+- **Setup's proxy quick start and the notebooks:** against real Bedrock, the quick start both with `uv` and with the `v1.110.2` image.
+- **Section 12:** the proxy with `uv` and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (`qwen2.5:0.5b` on CPU). I had no Azure or Google Cloud account to run them live.
+- **Sections 13, 15, 16 and 18:** against a local proxy, with Postgres where noted; section 13 also with Docker Compose.
+- **Section 19:** against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).
 - **Sections 20–21:** against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.
-- **Section 22:** the SDK scripts ran offline with mocks and local fakes of the Anthropic API and Bedrock, and the proxy script against a local proxy with Postgres.
+- **Section 22:** the SDK scripts offline with mocks and local fakes of the Anthropic API and Bedrock, and the proxy script against a local proxy with Postgres.
+- **Exercises:** the reference solutions in [`solutions/`](solutions/) pass on 1.110.2. The other exercises were written and solved on 1.109.1; for 1.110.2 their text was checked against the changes listed above, not solved again.
 
 Where a claim comes from the source or the docs and was not run, the text says so.
 
 ## Setup
 
-Dependencies are managed with [uv](https://docs.astral.sh/uv/). [`pyproject.toml`](pyproject.toml) pins `litellm[proxy,extra_proxy]==1.109.1`, `openai`, `pydantic` and the OpenTelemetry SDK and OTLP exporter (section 18), and installs them from PyPI:
+Dependencies are managed with [uv](https://docs.astral.sh/uv/). [`pyproject.toml`](pyproject.toml) pins `litellm[proxy,extra_proxy]==1.110.2`, `openai`, `pydantic` and the OpenTelemetry SDK and OTLP exporter (section 18), and installs them from PyPI:
 
 ```bash
 uv sync                                  # creates .venv with the pinned versions
@@ -232,7 +244,7 @@ docker run -d --name litellm-quickstart -p 127.0.0.1:4000:4000 \
   -v "$PWD/quickstart.yaml:/app/config.yaml:ro" \
   -v "$HOME/.aws:/root/.aws:ro" \
   -e AWS_PROFILE -e AWS_REGION -e LITELLM_MASTER_KEY \
-  ghcr.io/berriai/litellm:v1.109.1 --config /app/config.yaml --port 4000
+  ghcr.io/berriai/litellm:v1.110.2 --config /app/config.yaml --port 4000
 docker logs -f litellm-quickstart                  # Ctrl-C to stop following
 ```
 
@@ -286,7 +298,7 @@ Where to go next: section 12 covers the proxy config in depth. It also covers Be
 
 ### How it works
 
-LiteLLM's own [architecture document](https://github.com/BerriAI/litellm/blob/v1.109.1/ARCHITECTURE.md) sums it up in one sentence: the proxy (which the project also calls the AI gateway) uses the SDK for every LLM call. The proxy adds authentication, rate limits, budgets and routing. The SDK makes the provider calls, translates requests and responses, and handles streaming. This subsection is a simplified version of that document and of the docs page [Life of a Request](https://docs.litellm.ai/docs/proxy/architecture). Names and numbers are checked against the installed 1.109.1.
+LiteLLM's own [architecture document](https://github.com/BerriAI/litellm/blob/v1.110.2/ARCHITECTURE.md) sums it up in one sentence: the proxy (which the project also calls the AI gateway) uses the SDK for every LLM call. The proxy adds authentication, rate limits, budgets and routing. The SDK makes the provider calls, translates requests and responses, and handles streaming. This subsection is a simplified version of that document and of the docs page [Life of a Request](https://docs.litellm.ai/docs/proxy/architecture). Names and numbers are checked against the installed 1.110.2.
 
 ```mermaid
 %% fig: overview
@@ -309,7 +321,7 @@ A request passes through up to three layers. Code that uses the SDK directly sta
 | Layer | What it does | Where it lives in the source |
 | --- | --- | --- |
 | **Proxy** (optional) | Checks the virtual key and its budget, applies rate limits and hooks such as guardrails, then hands the request to the router. After the reply it records spend and logs. | `proxy/`: `proxy_server.py` for the endpoints, `auth/` for keys, `hooks/` |
-| **Router** (optional in the SDK) | Picks one deployment from a model group, spreads load, retries, and falls back to another group when a call fails. | `router.py` |
+| **Router** (optional in the SDK) | Picks one deployment from a model group, spreads load, retries, and falls back to another group when a call fails. | `router.py` is the Python `Router` API. Since 1.110.0 the registry, selection, retries, fallbacks and cooldowns run in a Rust core (`router_rust/`, compiled into `rust_bridge/_native`); the strategies are still Python, in `router_strategy/` |
 | **SDK core and provider adapters** | `completion()` works out the provider from the model string, the provider's adapter translates the OpenAI-shaped request, httpx sends it (OpenAI and Azure OpenAI go through the `openai` SDK instead), the adapter translates the reply back, and the core prices it. Callbacks (logging, metrics) run afterwards, off the request path. | `main.py`, `llms/<provider>/chat/transformation.py`, `integrations/` |
 
 The provider adapters are LiteLLM's **translation layer**. Each provider has a config class with `transform_request()` (OpenAI format to the provider's format) and `transform_response()` (back again), and a handler calls them: many providers share one HTTP handler (`BaseLLMHTTPHandler`), while Anthropic, Bedrock, Azure and Vertex AI each have their own. The next subsection, "How LiteLLM reaches a provider", follows one call through the adapter step by step.
@@ -343,7 +355,7 @@ sequenceDiagram
 4. **The router** picks a deployment of the requested model group, as described below.
 5. **The SDK** translates the request, calls the provider, translates the reply and works out its cost.
 6. **The client gets the reply**, with the cost in the `x-litellm-response-cost` header.
-7. **After the reply, in the background**, callbacks send logs to their destinations, the rate-limit counters are updated, and spend is queued and written to Postgres in batches, every 10–15 seconds in 1.109.1 (`proxy_batch_write_at`). That is why `/key/info` can lag a few seconds behind (section 13).
+7. **After the reply, in the background**, callbacks send logs to their destinations, the rate-limit counters are updated, and spend is queued and written to Postgres in batches, every 10–15 seconds in 1.110.2 (`proxy_batch_write_at`). That is why `/key/info` can lag a few seconds behind (section 13).
 
 #### Inside the router: fallbacks wrap retries
 
@@ -380,9 +392,9 @@ LiteLLM holds no models. For most providers it builds the provider's own HTTP re
 | 4. Authenticate | The adapter finds the credential and attaches it the way the provider expects | `x-api-key: <ANTHROPIC_API_KEY>` | An AWS SigV4 signature, made with boto3 credentials for the region | A Foundry API key (sent as `api-key` and `x-api-key`), or a Microsoft Entra ID token as `Authorization: Bearer` | A short-lived Google OAuth2 access token as `Authorization: Bearer`, minted by `google-auth` from Application Default Credentials or `vertex_credentials` |
 | 5. Send | One HTTPS request (or a stream) to the provider | Anthropic's public API | Bedrock in your AWS account and region | Your Claude deployment in your Azure subscription and region | Vertex AI in your Google Cloud project, in the location you choose (`vertex_location`, default `us-central1`) |
 | 6. Translate the reply | The body becomes an OpenAI `ModelResponse` with `usage`; provider errors become OpenAI-style exceptions (`RateLimitError`, `AuthenticationError`, ...) | Anthropic content blocks → `choices[0].message` | Converse output → `choices[0].message`; `ThrottlingException` → `RateLimitError` | Anthropic content blocks → `choices[0].message`; Azure's 429 → `RateLimitError` | Anthropic content blocks → `choices[0].message`; Vertex's 429 → `RateLimitError` |
-| 7. Price and report | Token counts × the price table (bundled with LiteLLM; `LITELLM_LOCAL_MODEL_COST_MAP=True` keeps it offline) give `response_cost`; callbacks run | Anthropic's list price | Bedrock's price for that ID form (`us.` costs more than `global.`) | The same as Anthropic's list price in LiteLLM's 1.109.1 price table | A regional location costs 10% more than `global` in LiteLLM's 1.109.1 price table, as with Bedrock's `us.` and `global.` profiles |
+| 7. Price and report | Token counts × the price table (bundled with LiteLLM; `LITELLM_LOCAL_MODEL_COST_MAP=True` keeps it offline) give `response_cost`; callbacks run | Anthropic's list price | Bedrock's price for that ID form (`us.` costs more than `global.`) | The same as Anthropic's list price in LiteLLM's 1.110.2 price table | A regional location costs 10% more than `global` in LiteLLM's 1.110.2 price table, as with Bedrock's `us.` and `global.` profiles |
 
-Steps 1, 5 and 7 are the same for every provider and belong to the SDK core. Steps 2, 3, 4 and 6 are the **provider adapter**: code in `litellm/llms/<provider>/`, one adapter per provider (and per route, such as Bedrock's Converse and Invoke). Each adapter implements the same methods: `map_openai_params` (step 2), `get_complete_url` and `transform_request` (step 3), `validate_environment` or `sign_request` (step 4), and `transform_response` and `get_error_class` (step 6). Adding a provider to LiteLLM means writing an adapter; nothing else changes. In 1.109.1:
+Steps 1, 5 and 7 are the same for every provider and belong to the SDK core. Steps 2, 3, 4 and 6 are the **provider adapter**: code in `litellm/llms/<provider>/`, one adapter per provider (and per route, such as Bedrock's Converse and Invoke). Each adapter implements the same methods: `map_openai_params` (step 2), `get_complete_url` and `transform_request` (step 3), `validate_environment` or `sign_request` (step 4), and `transform_response` and `get_error_class` (step 6). Adding a provider to LiteLLM means writing an adapter; nothing else changes. In 1.110.2:
 
 | | Anthropic adapter | Bedrock adapter (Converse route) | Azure adapter (Claude in Foundry) | Google adapter (Claude on Vertex AI) |
 | --- | --- | --- | --- | --- |
@@ -460,7 +472,7 @@ export AWS_PROFILE=<profile> AWS_REGION=us-west-2
 litellm.completion(model="bedrock/us.anthropic.claude-haiku-5-5", messages=msgs)
 ```
 
-In AWS, also enable access to the model in the Bedrock console for each region it can run in, and give the identity `bedrock:InvokeModel` and `bedrock:InvokeModelWithResponseStream`. LiteLLM 1.109.1 installs `boto3` itself and needs it to sign Bedrock requests. The notebooks and exercises use this setup.
+In AWS, also enable access to the model in the Bedrock console for each region it can run in, and give the identity `bedrock:InvokeModel` and `bedrock:InvokeModelWithResponseStream`. LiteLLM 1.110.2 installs `boto3` itself and needs it to sign Bedrock requests. The notebooks and exercises use this setup.
 
 **Proxy, provider directly.** The vendor key moves from the app to the proxy. The proxy's `config.yaml` maps an alias to the provider model and reads the key from the proxy's environment; the app holds only a key the proxy issued:
 
@@ -596,7 +608,7 @@ When you have worked through the sections, test yourself with [`exercises/exam.h
 
 ### The `completion()` signature
 
-Every SDK section calls `litellm.completion()` (or `acompletion()`, which takes the same arguments). This is its signature in LiteLLM 1.109.1, from `inspect.signature(litellm.completion)`, grouped and with long type hints shortened:
+Every SDK section calls `litellm.completion()` (or `acompletion()`, which takes the same arguments). This is its signature in LiteLLM 1.110.2, from `inspect.signature(litellm.completion)`, grouped and with long type hints shortened:
 
 ```python
 def completion(
@@ -1165,7 +1177,7 @@ primary failed; answer came from gpt-4o-mini -> 'hello from the fallback'
 ```
 
 - **One set of exceptions.** Every provider's errors are mapped to OpenAI-style exception classes, so one `except` block handles them all. They also subclass the `openai` SDK's exceptions, so existing handlers keep working.
-- **Retry only what retrying can fix.** Retry 429, 500, 503 and timeouts. Don't retry 401, 400 or context-window errors; they will fail the same way again. `completion(..., num_retries=3)` is not selective: in 1.109.1 it retries every error type, 401 and 400 included, and by default retries at once with no wait. Pass `retry_strategy="exponential_backoff_retry"` for backoff, and write your own loop when only some errors should be retried (exercise 6.3).
+- **Retry only what retrying can fix.** Retry 429, 500, 503 and timeouts. Don't retry 401, 400 or context-window errors; they will fail the same way again. `completion(..., num_retries=3)` is not selective: in 1.110.2 it retries every error type, 401 and 400 included, and by default retries at once with no wait. Pass `retry_strategy="exponential_backoff_retry"` for backoff, and write your own loop when only some errors should be retried (exercise 6.3).
 - **Fallbacks** try other models in order when the primary fails. An entry can be a model string, or a dict that overrides parameters for that model (its own `api_key`, `api_base` or, here, a mock).
 - **Gotcha:** `ContextWindowExceededError` is a subclass of `BadRequestError`. When you catch both, put the more specific one first.
 
@@ -1344,7 +1356,7 @@ call 6 refused: budget $0.001 reached (spent $0.001100)
 - `get_model_info` returns context size, prices and capability flags (`supports_vision`, `supports_function_calling`, ...).
 - Prices come from LiteLLM's price table: the current one downloaded at import by default, or the copy bundled with your LiteLLM version when `LITELLM_LOCAL_MODEL_COST_MAP=True`. Some models have a second, higher rate for long prompts (Haiku 5.5 costs five times as much per token above 100k prompt tokens), so `cost_per_token(prompt_tokens=1_000_000, ...)` does not give the base rate; read it from `get_model_info`. For a private or fine-tuned model, register prices with `litellm.register_model({...})`.
 
-**Gotcha: don't rely on `litellm.max_budget` in 1.109.1.** The SDK has a global `litellm.max_budget` that should raise `BudgetExceededError`. I set it, made five calls costing $0.0011 in total, and `litellm._current_cost` stayed at `0.0`. The code that accumulates spend (`litellm_logging.py`) only counts results that are plain `dict`s, and a chat completion response is not a dict. Use your own guard like the one above, or the proxy's per-key budgets (section 13). Notice that the guard checks *before* each call, so spend can pass the limit by up to one call. Every budget system works this way.
+**Gotcha: don't rely on `litellm.max_budget` in 1.110.2.** The SDK has a global `litellm.max_budget` that should raise `BudgetExceededError`. I set it, made five calls costing $0.0011 in total, and `litellm._current_cost` stayed at `0.0`. The code that accumulates spend (`litellm_logging.py`) only counts results that are plain `dict`s, and a chat completion response is not a dict. Use your own guard like the one above, or the proxy's per-key budgets (section 13). Notice that the guard checks *before* each call, so spend can pass the limit by up to one call. Every budget system works this way.
 
 ### Exercises
 
@@ -1421,7 +1433,7 @@ The second call returned the *same response ID*: it came from the cache, not the
 | `"s3"`, `"gcs"`, `"azure-blob"` | Survives restarts; cheap long-term storage |
 | `"redis-semantic"`, `"qdrant-semantic"` | Also matches *similar* prompts, using embeddings |
 
-Use `ttl=` to make entries expire. The old `"disk"` backend has been removed. 1.109.1 logs *"Ignoring disk_cache_dir, the disk cache backend was removed"*, so for a cache that survives restarts on a laptop, run a local Redis.
+Use `ttl=` to make entries expire. The old `"disk"` backend has been removed. 1.110.2 logs *"Ignoring disk_cache_dir, the disk cache backend was removed"*, so for a cache that survives restarts on a laptop, run a local Redis.
 
 This response cache is a different thing from provider **prompt caching**, where Anthropic or OpenAI bill a repeated prompt prefix at a discount. That happens on the provider side and still returns a fresh answer.
 
@@ -1664,7 +1676,7 @@ Or run the official image instead, which needs no Python environment at all. The
 docker run -d --name litellm-proxy -p 127.0.0.1:4000:4000 \
   -v "$PWD/config.yaml:/app/config.yaml:ro" \
   -e LITELLM_MASTER_KEY -e ANTHROPIC_API_KEY -e OPENAI_API_KEY \
-  ghcr.io/berriai/litellm:v1.109.1 --config /app/config.yaml --port 4000
+  ghcr.io/berriai/litellm:v1.110.2 --config /app/config.yaml --port 4000
 docker logs -f litellm-proxy                       # Ctrl-C to stop following
 docker rm -f litellm-proxy                         # when you're done
 ```
@@ -1738,7 +1750,7 @@ Organisations that already run on a cloud usually go through its platform: there
 | Model ID form | Example | Runs in | Notes |
 | --- | --- | --- | --- |
 | Base model ID | `anthropic.claude-haiku-5-5` | The region you call | Newer models are offered only through an inference profile: this one returned 400 `Invocation of model ID ... with on-demand throughput isn't supported` |
-| Regional cross-region inference profile | `us.anthropic.claude-haiku-5-5` (also `eu.`, `apac.`) | Any region in that geography | Higher throughput; keeps data in the geography. 10% dearer than the base model in LiteLLM's 1.109.1 price table |
+| Regional cross-region inference profile | `us.anthropic.claude-haiku-5-5` (also `eu.`, `apac.`) | Any region in that geography | Higher throughput; keeps data in the geography. 10% dearer than the base model in LiteLLM's 1.110.2 price table |
 | Global inference profile | `global.anthropic.claude-haiku-5-5` | Any commercial region worldwide | Highest throughput; base price |
 | Application inference profile ARN | `arn:aws:bedrock:us-west-2:123456789012:application-inference-profile/a1b2c3` | As the profile defines | Tags usage for cost allocation per team or app. Pass `base_model` so LiteLLM can price it |
 | Provisioned throughput or imported model ARN | `arn:aws:bedrock:...:provisioned-model/...` | Your reserved capacity | Billed by the hour, not per token |
@@ -1792,7 +1804,7 @@ uv run python bedrock_inspect.py
 == model IDs and routes
 regional inference profile           cost $0.00000462
     POST /model/us.anthropic.claude-haiku-5-5/converse              SigV4 AKIAFAKEEXAMPLE0001 us-west-2/bedrock
-    body: {"messages": [{"role": "user", "content": [{"text": "Weather in Paris?"}]}], "inferenceConfig": {"maxTokens": 64}, "system": [{"text": "Be brief."}]}
+    body: {"messages": [{"role": "user", "content": [{"text": "Weather in Paris?"}]}], "inferenceConfig": {"maxTokens": 64}, "additionalModelResponseFieldPaths": ["/usage/output_tokens_details"], "system": [{"text": "Be brief."}]}
 same model, Invoke route             cost $0.00000462
     POST /model/us.anthropic.claude-haiku-5-5/invoke                SigV4 AKIAFAKEEXAMPLE0001 us-west-2/bedrock
     body: {"messages": [{"role": "user", "content": [{"type": "text", "text": "Weather in Paris?"}]}], "max_tokens": 64, "system": [{"type": "text", "text": "Be brief."}], "anthropic_version": "bedrock-2023-05-31"}
@@ -1805,10 +1817,10 @@ application inference profile ARN    cost $0.00000420
 == request features
 tools                                cost $0.00000462
     POST /model/us.anthropic.claude-haiku-5-5/converse              SigV4 AKIAFAKEEXAMPLE0001 us-west-2/bedrock
-    body: {"messages": [{"role": "user", "content": [{"text": "Weather in Paris?"}]}], "inferenceConfig": {"maxTokens": 64}, "system": [{"text": "Be brief."}], "toolConfig": {"tools": [{"toolSpec": {"inputSchema": {"json": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"]}}, "name": "get_weather", "description": "Weather for a city"}}]}}
+    body: {"messages": [{"role": "user", "content": [{"text": "Weather in Paris?"}]}], "inferenceConfig": {"maxTokens": 64}, "additionalModelResponseFieldPaths": ["/usage/output_tokens_details"], "system": [{"text": "Be brief."}], "toolConfig": {"tools": [{"toolSpec": {"inputSchema": {"json": {"type": "object", "properties": {"city": {"type": "string"}}, "required": ["city"]}}, "name": "get_weather", "description": "Weather for a city"}}]}}
 Bedrock Guardrails on the call       cost $0.00000462
     POST /model/us.anthropic.claude-haiku-5-5/converse              SigV4 AKIAFAKEEXAMPLE0001 us-west-2/bedrock
-    body: {"messages": [{"role": "user", "content": [{"guardContent": {"text": {"text": "Weather in Paris?"}}}]}], "inferenceConfig": {"maxTokens": 64}, "system": [{"text": "Be brief."}], "guardrailConfig": {"guardrailIdentifier": "gr-abc123", "guardrailVersion": "1"}}
+    body: {"messages": [{"role": "user", "content": [{"guardContent": {"text": {"text": "Weather in Paris?"}}}]}], "inferenceConfig": {"maxTokens": 64}, "additionalModelResponseFieldPaths": ["/usage/output_tokens_details"], "system": [{"text": "Be brief."}], "guardrailConfig": {"guardrailIdentifier": "gr-abc123", "guardrailVersion": "1"}}
 == credentials and region
 aws_region_name=eu-west-1            cost $0.00000462
     POST /model/eu.anthropic.claude-haiku-5-5/converse              SigV4 AKIAFAKEEXAMPLE0001 eu-west-1/bedrock
@@ -1830,7 +1842,7 @@ Bedrock answers 'unavailable'        ServiceUnavailableError 503
 
 The script sets fake static keys only so that requests to the fake endpoint can be signed. With a real account, rely on the credential chain instead. What the output shows:
 
-- **One OpenAI-shaped call becomes a different body per route.** Converse takes the system prompt as a top-level `system` list, `max_tokens` as `inferenceConfig.maxTokens`, and tools as `toolConfig.tools[].toolSpec`. Invoke for Claude takes Anthropic's Messages body with `anthropic_version`. Your code sends the same thing either way.
+- **One OpenAI-shaped call becomes a different body per route.** Converse takes the system prompt as a top-level `system` list, `max_tokens` as `inferenceConfig.maxTokens`, and tools as `toolConfig.tools[].toolSpec`. Since 1.110.0, when the call asks for thinking or the model thinks by default (LiteLLM's catalog marks Claude Haiku 5.5 so), the Converse body also carries `additionalModelResponseFieldPaths: ["/usage/output_tokens_details"]`, which asks Bedrock to return the breakdown of the output tokens, reasoning tokens included; 1.109.1 sent these bodies without it. Invoke for Claude takes Anthropic's Messages body with `anthropic_version`. Your code sends the same thing either way.
 - **The region is part of the signature, not only the URL.** `aws_region_name=eu-west-1` changed the SigV4 credential scope to `eu-west-1/bedrock`. Against real Bedrock, the `eu.` profile worked from `eu-west-1` and failed from `us-west-2` with 400 `The provided model identifier is invalid`: an inference profile exists only in the regions of its geography.
 - **Assuming a role costs one STS call, then it is cached.** The STS request was signed with the base identity; the Bedrock request with the temporary `ASIA...` key and a session token. In the proxy example below, three calls through an assumed role made one STS call.
 - **Prices differ by ID form.** The `us.` profile cost $0.00000462 for the same tokens that cost $0.00000420 on `global.` and on the base ID.
@@ -2136,7 +2148,7 @@ Vertex AI serves Google's Gemini models and partner models such as Claude, Llama
 | `vertex_ai/claude-haiku-5-5` | `.../publishers/anthropic/models/claude-haiku-5-5:rawPredict` | Anthropic's Messages body plus `anthropic_version: vertex-2023-10-16` |
 | `vertex_ai/meta/llama-...`, `vertex_ai/mistral-...` | The partner's own route | OpenAI-style or the partner's format |
 
-Two settings place the call: `vertex_project` (or `VERTEXAI_PROJECT`) and `vertex_location` (or `VERTEXAI_LOCATION`, default `us-central1`). Location `global` lets Google choose the region and uses the host `aiplatform.googleapis.com`; any other location uses `<location>-aiplatform.googleapis.com`. In LiteLLM 1.109.1's price table, Claude in a regional location costs 10% more than in `global`, as with Bedrock's `us.` and `global.` profiles. `gemini/<model>` is a different provider: Google AI Studio, with an API key (`GEMINI_API_KEY`) and no project.
+Two settings place the call: `vertex_project` (or `VERTEXAI_PROJECT`) and `vertex_location` (or `VERTEXAI_LOCATION`, default `us-central1`). Location `global` lets Google choose the region and uses the host `aiplatform.googleapis.com`; any other location uses `<location>-aiplatform.googleapis.com`. In LiteLLM 1.110.2's price table, Claude in a regional location costs 10% more than in `global`, as with Bedrock's `us.` and `global.` profiles. `gemini/<model>` is a different provider: Google AI Studio, with an API key (`GEMINI_API_KEY`) and no project.
 
 **The identity.** Vertex AI takes a short-lived Google OAuth2 access token as `Authorization: Bearer`. LiteLLM mints it with `google-auth` from the first of these it finds:
 
@@ -2336,7 +2348,7 @@ model info: {"max_input_tokens": 32768, "input_cost_per_token": 0.0, "supports_f
 ```
 
 - **OpenAI passes through; Anthropic is translated.** The OpenAI body is your request unchanged. For Anthropic, the system prompt moved to a top-level `system` list, content became typed blocks, and the key went in `x-api-key` with an `anthropic-version` header.
-- **Self-hosted models have no price.** vLLM and the generic `openai/` model had `cost=None`, because LiteLLM's price table doesn't know a model you serve. Ollama models are priced at `0.0`. Either way budgets see nothing. Set `input_cost_per_token` and `output_cost_per_token` on the deployment to your own figure, such as GPU hours divided by tokens served (below).
+- **Self-hosted models have no price.** vLLM and the generic `openai/` model had `cost=None`, because LiteLLM's price table doesn't know a model you serve. Ollama models are priced at `0.0`, and the proxy sends no cost header for them. Either way budgets see nothing. Set `input_cost_per_token` and `output_cost_per_token` on the deployment to your own figure, such as GPU hours divided by tokens served (below).
 - **`hosted_vllm/` sends a placeholder key.** With no `api_key`, LiteLLM sent `Bearer fake-api-key`. vLLM accepts any key unless it was started with `--api-key`, in which case set the real one.
 - **Prefer `ollama_chat/` to `ollama/`.** `ollama_chat/` uses Ollama's chat API, which keeps the roles and supports tools: the 0.5B model returned a `get_weather` tool call. `ollama/` uses the older generate API, which flattens the conversation into one prompt; the same question cost 44 prompt tokens instead of 22.
 - **Ollama reports what the model can do.** `get_model_info` asked the running server (`/api/show`): a 32k context and function calling. The proxy uses this for `/model/info` and for context-window checks.
@@ -2393,13 +2405,14 @@ LITELLM_KEY=sk-master-demo uv run python providers_proxy_client.py   # in anothe
 models: ['claude', 'gpt', 'local', 'local-gpu', 'qwen-vllm']
 claude     -> 'fake Anthropic reply'   served_by=claude     cost=0.0000025 fallbacks=0
 gpt        -> 'fake OpenAI reply'      served_by=gpt        cost=0.0000033 fallbacks=0
-local      -> 'Paris.'                 served_by=local      cost=0.0000000 fallbacks=0
+local      -> 'Paris.'                 served_by=local      cost=no header fallbacks=0
 qwen-vllm  -> 'fake OpenAI reply'      served_by=qwen-vllm  cost=0.0000044 fallbacks=0
-local-gpu  -> 'Paris.'                 served_by=local      cost=0.0000000 fallbacks=1
+local-gpu  -> 'Paris'                  served_by=local      cost=no header fallbacks=1
 ```
 
 - **Hosted and local models share one endpoint, one key scheme and one spend log.** Apps can't tell `claude` from `local`. That makes it easy to move a workload to a model you host when the hosted bill grows, or the other way when quality matters more.
 - **A down GPU server falls back to another server.** `local-gpu` pointed at a closed port; the request was answered by the CPU Ollama (`fallbacks=1`). In practice the fallback is often a hosted model, as in exercise 12.9.
+- **An unpriced call gets no cost header.** The Ollama calls cost `0.0` only because LiteLLM has no price for them, and since 1.110.0 the proxy then leaves out `x-litellm-response-cost` instead of sending `0.0` (1.109.1 sent it). A client that reads the header must handle it missing; give the deployment prices and the header comes back.
 - **A price makes self-hosted traffic count.** `qwen-vllm` cost $0.0000044 for 10 input and 3 output tokens at the configured rates, so virtual-key budgets and spend reports include it.
 - **When the proxy runs in Docker,** `localhost` is the container itself. Put Ollama and the proxy on one Docker network and use the container name: with `docker network create litellm-local`, `docker network connect litellm-local litellm-tutorial-ollama` and the proxy started with `--network litellm-local`, `api_base: http://litellm-tutorial-ollama:11434` answered from the official LiteLLM image. Docker Desktop also offers `http://host.docker.internal:11434`.
 - **vLLM needs a GPU for real models,** so I ran this subsection's vLLM deployments against the fake only. To serve one: `docker run --gpus all -p 8000:8000 vllm/vllm-openai --model Qwen/Qwen2.5-7B-Instruct`, then set `api_base: http://<host>:8000/v1`. The [vLLM docs](https://docs.vllm.ai/) cover serving in depth.
@@ -2653,7 +2666,7 @@ services:
       retries: 15
 
   proxy:
-    image: ghcr.io/berriai/litellm:v1.109.1
+    image: ghcr.io/berriai/litellm:v1.110.2
     command: ["--config", "/app/config.yaml", "--port", "4000"]
     ports:
       - "127.0.0.1:4000:4000"
@@ -2689,7 +2702,7 @@ bash keys_demo.sh                                  # same output as above
 
 `keys_demo.sh` printed the same seven steps, with the same 403, 422, 401 and 429 codes, as the `uv` run above. Points to note:
 
-- **No `prisma generate` and no `extra_proxy`.** The image includes the Prisma toolchain and applies the database migrations on start (the log reports *"Found 225 migrations"*). Both setup failures listed above disappear.
+- **No `prisma generate` and no `extra_proxy`.** The image includes the Prisma toolchain and applies the database migrations on start (the log reports *"Found 233 migrations"*). Both setup failures listed above disappear.
 - **Inside a container, `localhost` is the container itself.** The proxy reaches Postgres as `db`, the service name, on the internal port 5432. With `DATABASE_URL` pointing at `localhost:55432`, as in the `uv` setup, the proxy exits with *"P1001: Can't reach database server at `localhost:55432`"*.
 - **`depends_on: condition: service_healthy`** holds the proxy back until Postgres accepts connections. Without it, the proxy can start first and fail its migrations.
 - **`${LITELLM_MASTER_KEY:?...}`** makes Compose refuse to start if the master key isn't exported, rather than starting a proxy with an empty one. `${ANTHROPIC_API_KEY:-unused}` falls back to a placeholder, which is enough for the `mock_response` models.
@@ -2730,7 +2743,7 @@ Admin endpoints take the master key as `Authorization: Bearer`. `/key/update` ta
 **13.2 ★★ `ex13_2_team_and_customer_budgets.py`: shared and per-end-user budgets**
 
 1. Create a team with `/team/new` with a tiny `max_budget` (a few calls' worth) and two keys in it. Spend the budget with key A, then call with key B.
-2. Create a customer with `/customer/new` (`user_id`, tiny `max_budget`; this is the endpoint in 1.109.1, and the docs call it the legacy path now that 1.111 added `/management/v1/customer_*`), and send chat requests with `"user": "<that id>"` in the body until they are refused.
+2. Create a customer with `/customer/new` (`user_id`, tiny `max_budget`; this is the endpoint in 1.110.2, and the docs call it the legacy path now that 1.111 added `/management/v1/customer_*`), and send chat requests with `"user": "<that id>"` in the body until they are refused.
 3. Wait at least `PROXY_BATCH_WRITE_AT` (10 s by default), then read spend with `/key/info` and `/spend/logs`.
 
 Checks:
@@ -2766,7 +2779,7 @@ The container can't see your shell's AWS session, so for live Bedrock calls moun
 
 **Use case:** send each request to the cheapest model that can handle it, without the caller choosing a model.
 
-Section 7's router balances load across deployments of the same model. A smart router chooses between different models, request by request. LiteLLM 1.109.1 ships four. The current docs mark the semantic router as deprecated and steer new deployments to the complexity router, so read 14b to understand an existing setup, not to start a new one:
+Section 7's router balances load across deployments of the same model. A smart router chooses between different models, request by request. LiteLLM 1.110.2 ships five. This section covers four of them; the fifth, the Switchyard stage router (`switchyard_router_config`, new in 1.110.0), sends each turn to an efficient or a capable model and escalates on signals that the cheaper answer failed, optionally with an LLM judge. It needs the `litellm[switchyard]` extra, which pins an alpha package (`nemo-switchyard==0.4.0a1`), so it is not run here. The current docs mark the semantic router as deprecated and steer new deployments to the complexity router, so read 14b to understand an existing setup, not to start a new one:
 
 | Router | `litellm_params.model` | How it chooses | Needs | Subsection |
 | --- | --- | --- | --- | --- |
@@ -2778,7 +2791,7 @@ Section 7's router balances load across deployments of the same model. A smart r
 What all four have in common:
 
 - **A smart router is a model entry.** Its `model_name` is the alias callers use, its `litellm_params.model` starts with `auto_router/`, and its config names other model groups in the same `model_list`. The proxy config takes the same entries.
-- **They route only on the async path in 1.109.1.** `await router.acompletion(...)` works. The synchronous `router.completion(...)` fails with `BadRequestError: ... Every deployment for it is a strategy router marker (auto_router/...), which is not a callable model, and no pre-routing strategy selected a deployment for this request`. The proxy handles requests asynchronously, so it is not affected.
+- **They route only on the async path in 1.110.2.** `await router.acompletion(...)` works. The synchronous `router.completion(...)` fails with `BadRequestError: ... Every deployment for it is a strategy router marker (auto_router/...), which is not a callable model, and no pre-routing strategy selected a deployment for this request`. The proxy handles requests asynchronously, so it is not affected.
 - **None of them needs a licence for what this section uses.** The SDK `Router` has no limits. On the proxy some complexity-router options are metered, not locked: without the `auto_router` licence feature you get one router each that uses the `heuristic_v2`, `capability` or `llm_v2` classifier or custom tier definitions or classifier prompts, and one router with tuned heuristic scoring (`tier_boundaries`, `keyword_tier_rules`, weights, keyword lists). More than that needs the licence.
 
 ### 14a. Complexity router
@@ -3635,7 +3648,7 @@ Besides models (sections 12–14) and MCP tool servers (section 15), the proxy c
 
 ### 16a. Skills gateway
 
-A note on names: the current docs use "Skills Gateway" for the newer Skills Hub (`/skill-hub/...`, with review and version history), which 1.109.1 does not have. This subsection covers what 1.109.1 ships, the `/v1/skills` API, which the docs describe on their Skills page.
+A note on names: the current docs use "Skills Gateway" for the Skills Hub (`/skill-hub/...`), a catalog with publishing, admin review and version history that 1.110.0 added. This subsection covers the `/v1/skills` API, which the docs describe on their Skills page and which 1.110.2 still ships; the Skills Hub is not covered here.
 
 **Use case:** your team writes [agent skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview), folders with a `SKILL.md` of instructions plus optional files. You want to store them once and attach them to requests for any model, or publish them for tools to download.
 
@@ -3909,7 +3922,7 @@ What to notice:
 
 - **Without `custom_llm_provider=litellm_proxy`, `/v1/skills` goes to Anthropic.** With no Anthropic key, that is a 500: `ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN is required for Skills API`.
 - **A hosted skill becomes prompt text and a tool.** The proxy's `litellm_skills` hook adds `# Available Skills` and the `SKILL.md` text to the system prompt (or the `system` field on `/v1/messages`), adds one tool per skill, and removes `container` before the request leaves. It also adds a `litellm_code_execution` tool for every hosted skill, because `SKILL.md` itself counts as a file; running that code needs the `llm-sandbox` package and Docker, which this project doesn't install.
-- **Known problems in 1.109.1.** The hook always builds Anthropic-shaped tools (`name`, `description`, `input_schema`), even for an OpenAI-style model, which a real OpenAI endpoint may reject; I didn't test that live. A request that mixes hosted and Anthropic-native skills loses the native ones, because `container` is removed. An unknown hosted skill ID is skipped with only a log warning.
+- **Known problems in 1.110.2.** The hook always builds Anthropic-shaped tools (`name`, `description`, `input_schema`), even for an OpenAI-style model, which a real OpenAI endpoint may reject; I didn't test that live. A request that mixes hosted and Anthropic-native skills loses the native ones, because `container` is removed. An unknown hosted skill ID is skipped with only a log warning.
 - **Ownership, not allowlists.** Each skill belongs to its creator (user, else team, org or key). Others can't list it, and fetching it gives a 500 `Skill not found`, the same as a missing ID. Proxy admins see everything.
 - **The public index is unauthenticated and lists every user's skills.** `/.well-known/agent-skills/index.json` returns 404 until `public_skills_index: true` is set. Archives are repacked with `SKILL.md` at the root and fixed timestamps, so the `sha256:` digest is the same on every run.
 - **Search** (`?query=`) works only on hosted skills, and needs `skill_search_embedding_model`. It embeds each skill's title, description and instructions.
@@ -3941,7 +3954,7 @@ Checks:
 
 <details><summary>Hint</summary>
 
-`build_skill_archive` is in `litellm.proxy.discovery_endpoints.agent_skills_archive`. Filter the index by URLs ending in `/<id>/archive`, because it lists every user's skills. In 1.109.1 Bob's fetch is a 500, not a 404.
+`build_skill_archive` is in `litellm.proxy.discovery_endpoints.agent_skills_archive`. Filter the index by URLs ending in `/<id>/archive`, because it lists every user's skills. In 1.110.2 Bob's fetch is a 500, not a 404.
 </details>
 
 **Clean up.** Stop the proxy with Ctrl-C. The fake upstream on port 4011 is used again in 16b, so leave it running, or stop it with `kill %1` and start it again there.
@@ -3972,7 +3985,7 @@ What the proxy adds on top of A2A:
 | Completion bridge | With `litellm_params.custom_llm_provider`, the proxy calls `litellm.acompletion` instead of speaking A2A to the agent. That fronts agent platforms that don't speak A2A (such as `langgraph`, `langflow` or Bedrock AgentCore), or any plain model. | Agent entry |
 | Guardrails, logging | `litellm_params.guardrails` on the agent. Every call is logged with model `a2a_agent/<name>` and call type `asend_message`. | Agent entry |
 
-The SDK has the client half: `litellm.a2a_protocol` (`aget_agent_card`, `asend_message`, `asend_message_streaming`, built on the `a2a-sdk` package, which in 1.109.1 comes with the `extra_proxy` extra that this project installs), and a provider `a2a/` that lets `completion()` call an agent like a model. Nothing here is licensed.
+The SDK has the client half: `litellm.a2a_protocol` (`aget_agent_card`, `asend_message`, `asend_message_streaming`, built on the `a2a-sdk` package, which in 1.110.2 comes with the `extra_proxy` extra that this project installs), and a provider `a2a/` that lets `completion()` call an agent like a model. Nothing here is licensed.
 
 **The SDK against a fake agent.** [`agents/fake_agents.py`](examples/agents/fake_agents.py) serves two A2A agents on one port: `/triage` labels a ticket `billing`, `bug` or `other`, and `/billing` approves refunds. It records every request at `/_seen`. [`16b_a2a_sdk.py`](examples/agents/16b_a2a_sdk.py) starts it in a thread, so it needs no other process:
 
@@ -4235,7 +4248,7 @@ What to notice:
 - **Only the headers you name reach the agent.** In step 3 `x-ticket-id` (listed in `extra_headers`), `x-priority` (sent as `x-a2a-triage-x-priority`) and the static `x-team` arrived, but `x-other` did not. The client's `Authorization` header never reaches the agent. To authenticate the proxy to the agent, put the credential in `static_headers` or `litellm_params.api_key`.
 - **The completion bridge makes any model an A2A agent.** In step 5, the agent `writer` has `custom_llm_provider: openai`, so the proxy turned the A2A message into a chat completion against the card's `url`. `GET /v1/agents` shows its `api_key` as `REDACTED_BY_LITELM`.
 - **Spend lands on the key, and on the spend log row for the call.** `cost_per_query` is charged per `message/send`. In my run the spend log row's model was `a2a_agent/Ticket triage`: the name came from the card the agent itself serves, not the name in the proxy's config.
-- **Known problems in 1.109.1.**
+- **Known problems in 1.110.2.**
   - `object_permission.agents` matches agent IDs only. A key that lists `triage` by name is refused (exercise 16b.2).
   - `PATCH /v1/agents/<id>` with `enabled: false` returns 200, but the agent keeps answering. `enabled` is checked only for agents with a managed identity.
   - Agents from the config can't be changed through the API. A `PATCH` on one returns 404 `Agent with ID ... not found`.
@@ -4423,7 +4436,7 @@ server.shutdown()
 What to notice:
 
 - **The template's messages go first, then yours, and the file's model wins.** You asked for `gpt-3.5-turbo` and got `gpt-4o-mini`.
-- **The file's `temperature: 0.2` was not sent; the caller's 0.9 was.** Through the SDK, template parameters never reach the provider in 1.109.1. The proxy does apply them.
+- **The file's `temperature: 0.2` was not sent; the caller's 0.9 was.** Through the SDK, template parameters never reach the provider in 1.110.2. The proxy does apply them.
 - **Templates are Jinja2, not Handlebars,** so blocks are `{% if %}`, and variables are HTML-escaped: `Tom & Jerry's` became `Tom &amp; Jerry&#39;s`. Keep variables to plain text, or escape-proof your template.
 - **`prompt_version=2` loads `support.v2.prompt`.** If that file doesn't exist, it silently falls back to the base prompt.
 - **The input schema only checks types.** A wrong type fails before any request; a missing variable renders as an empty string.
@@ -4714,7 +4727,7 @@ trace=4bf92f35 parent=00f067aa Received Proxy Server Request
 
 What to notice:
 
-- **Prometheus needs no licence in 1.109.1,** and `/metrics` **requires a key by default** (`require_auth_for_metrics_endpoint: false` makes it public). It is a mounted app, so `/metrics` redirects to `/metrics/`; use `curl -L`. The rejected scrape is itself counted as a failed request.
+- **Prometheus needs no licence in 1.110.2,** and `/metrics` **requires a key by default** (`require_auth_for_metrics_endpoint: false` makes it public). It is a mounted app, so `/metrics` redirects to `/metrics/`; use `curl -L`. The rejected scrape is itself counted as a failed request.
 - **Metrics carry labels** such as `requested_model`, `model`, `api_key_alias`, `team` and `status_code`. `custom_prometheus_tags: ["support"]` adds a `tag_support` label, `"true"` or `"false"` per request, so you can split spend by tag.
 - **The proxy adds its own spans** (`auth`, `proxy_pre_call`, `router`) around `litellm_request`, all under the caller's trace.
 - **A missing package is fatal on the proxy but not in the SDK.** Without `opentelemetry-sdk`, the proxy refuses to start with `Could not build the 'otel' callback`; the SDK logs a "Non-Blocking Error" and carries on without traces.
@@ -4767,7 +4780,7 @@ The logger batches and flushes every 5 seconds, so poll for up to 10 seconds. `i
 | Release used here | Lens 0.1.0 (2026-11-19, the first release), [`BerriAI/lens`](https://github.com/BerriAI/lens), MIT licence |
 | Status | Early access. The API, the UI and their limits may change between releases |
 | Runs as | Its own service with ClickHouse for storage, from a release bundle (Docker Compose) or a Helm chart. It needs no LiteLLM proxy and no Postgres |
-| With LiteLLM | A proxy from v1.108.0 connects to it, opens it in the Admin UI sidebar, serves its API under the proxy's own keys, and sends it every request's cost. This tutorial's 1.109.1 has that code built in |
+| With LiteLLM | A proxy from v1.108.0 connects to it, opens it in the Admin UI sidebar, serves its API under the proxy's own keys, and sends it every request's cost. This tutorial's 1.110.2 has that code built in |
 | Docs | [Overview](https://docs.litellm.ai/docs/proxy/lens), [Set up](https://docs.litellm.ai/docs/proxy/lens/deployment), [Add Lens to LiteLLM](https://docs.litellm.ai/docs/proxy/lens/deployment/litellm), [API](https://docs.litellm.ai/docs/proxy/lens/api), [First trace](https://docs.litellm.ai/docs/proxy/lens/first-trace), [Investigations](https://docs.litellm.ai/docs/proxy/lens/investigations) |
 
 ### How it works
@@ -5249,7 +5262,7 @@ Checks:
 
 <details><summary>Hint</summary>
 
-`POST /team/member_add` with `{"team_id": "support", "member": {"role": "user", "user_id": "teammate"}}`, and `POST /team/permissions_update` with `{"team_id": "support", "team_member_permissions": [...]}`. Neither needs a licence in 1.109.1.
+`POST /team/member_add` with `{"team_id": "support", "member": {"role": "user", "user_id": "teammate"}}`, and `POST /team/permissions_update` with `{"team_id": "support", "team_member_permissions": [...]}`. Neither needs a licence in 1.110.2.
 </details>
 
 ### 19c. Investigations: let a model review the runs
@@ -5392,9 +5405,9 @@ An evidence item's `execution_id` is base64-encoded JSON: `["traces", "", trace_
 
 This section opens with what is free and what needs a licence, and then has three parts: the proxy's own access model (20a), connecting an identity provider and giving each person a spend cap (20b), and secret handling (20c). Section 21 then covers guardrails and the rest of a production deployment.
 
-**What is free and what needs a licence.** Many access-control features of LiteLLM 1.109.1 check for an Enterprise licence (`LITELLM_LICENSE`). I checked each feature below against the installed source and, where the table says so, against a running proxy. The licence column matters when you plan a deployment: several gated features do not fail at startup, they fail when the first request uses them.
+**What is free and what needs a licence.** Many access-control features of LiteLLM 1.110.2 check for an Enterprise licence (`LITELLM_LICENSE`). I checked each feature below against the installed source and, where the table says so, against a running proxy. The licence column matters when you plan a deployment: several gated features do not fail at startup, they fail when the first request uses them.
 
-| Feature | Licence in 1.109.1 | How it fails without one |
+| Feature | Licence in 1.110.2 | How it fails without one |
 | --- | --- | --- |
 | Master key, virtual keys, teams, users, roles, `key_type`, key `allowed_routes`, key expiry (`duration`) | Free | — |
 | `custom_auth` (your own auth function) | Free | — |
@@ -5415,7 +5428,7 @@ This section opens with what is free and what needs a licence, and then has thre
 
 ### Open source vs. Enterprise: when you need a licence
 
-*Checked in November 2026 against the [LiteLLM Enterprise page](https://docs.litellm.ai/docs/enterprise) and the installed 1.109.1 source. Licensing terms change, so check again before relying on this.*
+*Checked in November 2026 against the [LiteLLM Enterprise page](https://docs.litellm.ai/docs/enterprise) and the installed 1.110.2 source. Licensing terms change, so check again before relying on this.*
 
 LiteLLM is open core. Running the proxy in production, commercially too, is free under the MIT licence. You need a commercial licence only when you turn on features from the Enterprise tier.
 
@@ -5427,13 +5440,13 @@ LiteLLM is open core. Running the proxy in production, commercially too, is free
 LITELLM_LICENSE="eyJ..."
 ```
 
-The licensed features most likely to matter for an internal gateway, as the Enterprise page lists them. Where 1.109.1 behaves differently, the item says so:
+The licensed features most likely to matter for an internal gateway, as the Enterprise page lists them. Where 1.110.2 behaves differently, the item says so:
 
 - **Identity:** Admin UI SSO is free for up to 5 users and needs a licence beyond that. JWT auth with your identity provider's tokens and SCIM provisioning are licensed. So are organizations and the team-admin role. Teams, users and their roles (`proxy_admin`, `internal_user` and so on) are free, although the Enterprise page lists "role-based access control (organizations, teams, user roles)" as a whole.
-- **Security:** audit logs with retention, IP allowlists (`allowed_ips`; in 1.109.1 the proxy refuses to start with it and no licence), public and private route controls, and automated virtual-key rotation. For secret managers, the Enterprise page lists all of them, but 1.109.1 checks for a licence only for HashiCorp Vault, Google Secret Manager, CyberArk and AWS KMS-encrypted environment values. AWS Secrets Manager, Azure Key Vault and a custom secret manager have no licence check in its source.
+- **Security:** audit logs with retention, IP allowlists (`allowed_ips`; in 1.110.2 the proxy refuses to start with it and no licence), public and private route controls, and automated virtual-key rotation. For secret managers, the Enterprise page lists all of them, but 1.110.2 checks for a licence only for HashiCorp Vault, Google Secret Manager, CyberArk and AWS KMS-encrypted environment values. AWS Secrets Manager, Azure Key Vault and a custom secret manager have no licence check in its source.
 - **Cost governance:** tag-based budgets, per-model budgets on a virtual key (`model_max_budget`), temporary budget increases, soft-budget email alerts, and programmatic spend reports (`/global/spend/report`) by key, team, tag or model. Basic spend tracking and budgets are free.
 - **Logging:** per-team logging destinations, turning logging off per team, and log export to GCS or Azure Blob.
-- **Guardrails:** the open-source framework includes custom guardrails, the content filter used in section 21 and Presidio for PII masking. Per the Enterprise page, the built-in integrations `llmguard_moderations`, `llamaguard_moderations`, `hide_secrets`, `openai_moderations`, `google_text_moderation`, `lakera_prompt_injection` and `aporia_prompt_injection` need a licence. Guardrails set per key or per team are licensed too. In 1.109.1, the first five check for a licence at startup; the `lakera_prompt_injection` and `aporia_prompt_injection` callbacks have no check in the source (I didn't run them).
+- **Guardrails:** the open-source framework includes custom guardrails, the content filter used in section 21 and Presidio for PII masking. Per the Enterprise page, the built-in integrations `llmguard_moderations`, `llamaguard_moderations`, `hide_secrets`, `openai_moderations`, `google_text_moderation`, `lakera_prompt_injection` and `aporia_prompt_injection` need a licence. Guardrails set per key or per team are licensed too. In 1.110.2, the first five check for a licence at startup; the `lakera_prompt_injection` and `aporia_prompt_injection` callbacks have no check in the source (I didn't run them).
 - **Operations:** multi-region deployment, request and response size limits, custom Swagger and email branding, and support SLAs.
 
 To check that a key is active, open the proxy's root URL. With a valid licence, the API docs page says **Enterprise Edition** in its description.
@@ -5444,7 +5457,7 @@ To check that a key is active, open the proxy's root URL. With a valid licence, 
 - Validate your IdP's tokens in a `custom_auth` function. 20b below does this, including per-person spend caps.
 - Keep authentication in your own service, and have it issue or map LiteLLM virtual keys.
 
-**Read the licence files.** The repository's top-level `LICENSE` applies MIT to everything except the `enterprise/` directory, which has its own commercial licence. On PyPI that code ships as a separate package, `litellm-enterprise`, and `litellm[proxy]` installs it (version 0.1.82 with 1.109.1). Its licence is `LicenseRef-Proprietary`: the software "may only be used in production" under BerriAI's Enterprise terms. Copying that code, or removing the licence check to use its features without a key, falls outside the MIT grant. Read both licence files for the version you deploy, and have your legal team review them before you commit.
+**Read the licence files.** The repository's top-level `LICENSE` applies MIT to everything except the `enterprise/` directory, which has its own commercial licence. On PyPI that code ships as a separate package, `litellm-enterprise`, and `litellm[proxy]` installs it (version 0.1.83.post1 with 1.110.2). Its licence is `LicenseRef-Proprietary`: the software "may only be used in production" under BerriAI's Enterprise terms. Copying that code, or removing the licence check to use its features without a key, falls outside the MIT grant. Read both licence files for the version you deploy, and have your legal team review them before you commit.
 
 ### 20a. Who can do what: the proxy's access model
 
@@ -5554,7 +5567,7 @@ What this shows:
 - **Put the model list on the team, not on each key.** The key inherits it. Moving a model in or out of a team then changes every key in the team at once.
 - **An `internal_user` can serve themselves and nothing more.** They can create keys for their own `user_id` only, and can't create users. Use `proxy_admin_viewer` for anyone who needs to see everything but change nothing.
 - **Issue keys with an expiry.** `duration` makes a forgotten key stop working by itself. Combine it with rotation (exercise 20.4) for keys that must live longer.
-- **Rotation is free; `/key/regenerate` isn't.** Without a licence, rotate by issuing a new key with the same scope, switching the caller, then blocking and deleting the old key. Rotating the master key is free too, and how you do it depends on `LITELLM_SALT_KEY` (20c). With a salt key set, which is the recommended setup, the master key is only an auth credential: change `LITELLM_MASTER_KEY` and restart every proxy. Do not call `/key/regenerate` with `new_master_key` in that setup on 1.109.1: before v1.112.0 it re-encrypts the stored credentials under the new master key while the proxy keeps decrypting with the salt key, so every stored credential becomes unreadable (the docs' master-key rotation page carries this warning). Only when no salt key is set, so that the master key is also the encryption key, use `/key/regenerate` with `new_master_key`, after backing up the database; it re-encrypts stored credentials, and the old master key keeps working until you restart the proxy with the new one.
+- **Rotation is free; `/key/regenerate` isn't.** Without a licence, rotate by issuing a new key with the same scope, switching the caller, then blocking and deleting the old key. Rotating the master key is free too, and how you do it depends on `LITELLM_SALT_KEY` (20c). With a salt key set, which is the recommended setup, the master key is only an auth credential: change `LITELLM_MASTER_KEY` and restart every proxy. Do not call `/key/regenerate` with `new_master_key` in that setup on 1.110.2: before v1.112.0 it re-encrypts the stored credentials under the new master key while the proxy keeps decrypting with the salt key, so every stored credential becomes unreadable (the docs' master-key rotation page carries this warning). Only when no salt key is set, so that the master key is also the encryption key, use `/key/regenerate` with `new_master_key`, after backing up the database; it re-encrypts stored credentials, and the old master key keeps working until you restart the proxy with the new one.
 - **One Enterprise field fails late, not at creation.** `/key/generate` accepted `enforced_params` and returned 200; every call with that key then returned 500. The other licensed key fields (`tags`, `guardrails`, `model_max_budget`) are refused when the key is created. Test a new key with a real call before handing it out.
 - **The database never sees a virtual key.** `LiteLLM_VerificationToken.token` holds `sha256(key)` and `key_name` holds a masked form (`sk-...asnA`). A database dump doesn't leak usable keys, but it can't give a lost key back either: show the key once, at creation.
 - **The status codes tell callers what to do:** 401 means fix the credential, 403 means this key may not do this, 422 means out of budget, 429 means slow down.
@@ -5872,7 +5885,7 @@ A proxy in production holds these secrets. Each one has a different job, a diffe
 
 | Secret | What it protects | If it leaks | Rotation |
 | --- | --- | --- | --- |
-| `LITELLM_MASTER_KEY` | Full admin access | The attacker can mint keys and read spend and config | With a salt key set: change the value and restart every proxy; on 1.109.1 do **not** call `/key/regenerate` with `new_master_key`, which would make stored credentials unreadable (20a). Without a salt key: back up the database, `/key/regenerate` with `new_master_key`, then restart with the new value |
+| `LITELLM_MASTER_KEY` | Full admin access | The attacker can mint keys and read spend and config | With a salt key set: change the value and restart every proxy; on 1.110.2 do **not** call `/key/regenerate` with `new_master_key`, which would make stored credentials unreadable (20a). Without a salt key: back up the database, `/key/regenerate` with `new_master_key`, then restart with the new value |
 | `LITELLM_SALT_KEY` | Encrypts provider credentials that are stored in the database (models and credentials added through the API or UI) | Combined with a database dump, every stored provider key | **Never change it** after the first credential is stored (shown below) |
 | `DATABASE_URL` password | Keys, users, teams, spend logs, encrypted credentials | Hashed keys and spend data; prompts too, if you store them | Rotate in Postgres, then roll the proxies |
 | Provider keys (`OPENAI_API_KEY` and so on) | Your provider accounts and bills | Direct provider use at your cost | At the provider, then in the secret store, then roll the proxies |
@@ -5881,7 +5894,7 @@ A proxy in production holds these secrets. Each one has a different job, a diffe
 
 **Where the values come from.** In a config file, `os.environ/NAME` reads `NAME` when the proxy starts. With `key_management_system` set, the same `os.environ/NAME` references go to a secret manager instead:
 
-| `key_management_system` | Store | Licence in 1.109.1 |
+| `key_management_system` | Store | Licence in 1.110.2 |
 | --- | --- | --- |
 | `aws_secret_manager` | AWS Secrets Manager | Free |
 | `azure_key_vault` | Azure Key Vault (`AZURE_KEY_VAULT_URI`, `DefaultAzureCredential`) | Free |
@@ -5889,7 +5902,7 @@ A proxy in production holds these secrets. Each one has a different job, a diffe
 | `hashicorp_vault`, `google_secret_manager`, `cyberark` | HashiCorp Vault, Google Secret Manager, CyberArk | Enterprise |
 | `aws_kms`, `google_kms` | AWS KMS, Google Cloud KMS | No licence check on these values in the source. The check is on KMS-encrypted environment values (`LITELLM_SECRET_AWS_KMS_*`); the docs' Enterprise page lists KMS |
 
-The docs label AWS Secrets Manager and Azure Key Vault as Enterprise features too. "Free" above means that 1.109.1 does not enforce a licence for them, not that the docs grant it.
+The docs label AWS Secrets Manager and Azure Key Vault as Enterprise features too. "Free" above means that 1.110.2 does not enforce a licence for them, not that the docs grant it.
 
 HashiCorp Vault is Enterprise-only as a built-in, but a 30-line `CustomSecretManager` reads it for free. [`examples/security/vault_secret_manager.py`](examples/security/vault_secret_manager.py) reads Vault's KV v2 API:
 
@@ -5963,10 +5976,10 @@ DB_CONTAINER=litellm-tutorial-db uv run python secrets_demo.py
   upstream received: Bearer sk-stale-env-value
   log: - LiteLLM:ERROR: main.py:484 - Defaulting to os.environ value for key=OPENAI_API_KEY. An exception occurred - [
 == 5. credentials saved through the API are encrypted with LITELLM_SALT_KEY
-  stored api_key: tgW_WQSePyEEbD4LScqHYl5ClescgE-AFG2dtBVqptHW...
+  stored api_key: lPG3nZZPRcR91FD1JcebYmuJztJSUzCQdDOvVIU-Nfn4...
   call with the original salt: Bearer sk-provider-secret-9999
-  call after the salt changed: 400 /chat/completions: Invalid model name passed in model=db-chat-1794896317. Call `
-  log: - LiteLLM Router:WARNING: router_python_core.py:12046 - Error upserting deployment db-chat-1794896317 (id=ccbe76d6-12d9-4f28-8218-23b8594368e8): litellm.BadReque
+  call after the salt changed: 400 /chat/completions: Invalid model name passed in model=db-chat-1795391095. Call `
+  log: - LiteLLM Router:WARNING: registry.py:1318 - Error upserting deployment db-chat-1795391095 (id=ee511332-4967-4921-be8f-70dea1250a19): litellm.BadRequestError: LL
 ```
 
 What each step means for production:
@@ -6224,7 +6237,7 @@ How to read this:
 - **Masking happens before the data leaves.** The provider received `[EMAIL_REDACTED]`, never the address. That is the point of `pre_call` masking: the provider, its logs and its retention policy never see the value.
 - **Blocked requests cost nothing.** The credential, injection and topic prompts are missing from the provider's list: a `pre_call` block refuses the request before the model is called. The 400 body names the guardrail (`provider_specific_fields.guardrail_name`) and the rule that matched, so clients and dashboards can tell a guardrail refusal from a malformed request.
 - **Output guardrails cover what the model invents or retrieves.** The `LEAK` prompt was clean, but the reply carried an email and an SSN, and `post_call` masked both. Streaming is covered too: the content filter holds back the first chunks (they arrived empty) until it can scan enough text, then sends the masked text.
-- **Clients can't turn a `default_on` guardrail off.** `"metadata": {"disable_global_guardrails": true}` in the request was ignored. Only an admin can exempt a key or team (`disable_global_guardrails` or `opted_out_global_guardrails` in its metadata), and per-key guardrail settings are Enterprise-only in 1.109.1.
+- **Clients can't turn a `default_on` guardrail off.** `"metadata": {"disable_global_guardrails": true}` in the request was ignored. Only an admin can exempt a key or team (`disable_global_guardrails` or `opted_out_global_guardrails` in its metadata), and per-key guardrail settings are Enterprise-only in 1.110.2.
 - **`x-litellm-applied-guardrails`** lists the guardrails that ran on a request. Log it, or assert it in a smoke test, to catch a config change that silently dropped one.
 - **Keyword categories are a first line, not a defence.** `prompt_injection_*` matches known phrasings ("ignore all previous instructions", "pretend + no restrictions"). Rewording gets through, and an innocent prompt that mentions a phrase gets blocked. Treat them as a cheap filter for the obvious cases. Put the real defence in what the model is *allowed to do*: tool permissions (section 15's per-key MCP grants), authorization outside the model (section 5), and model-based classifiers such as Bedrock Guardrails, Azure Prompt Shields or Lakera where the risk justifies the latency.
 - **Test prebuilt patterns against your own data.** Exercise 21.1 finds that the prebuilt `iban` pattern misses the printed form with spaces (`GB82 WEST 1234 ...`), and that `us_phone` leaves the opening bracket of `(415) 555-0134`. Add a `regex` pattern for every format you actually see.
@@ -6280,7 +6293,7 @@ PASS  metrics need a key               GET /metrics/ -> 401
 PASS  client api_base rejected (SSRF)  -> 401
 PASS  client base_url rejected         -> 401
 FAIL  CORS limited to known origins    allow-origin: *
-FAIL  version not advertised           x-litellm-version: 1.109.1
+FAIL  version not advertised           x-litellm-version: 1.110.2
 FAIL  upstream address not leaked      x-litellm-model-api-base: http://127.0.0.1:4012/v1
 
 5/13 checks passed
@@ -6351,7 +6364,7 @@ The proxy service in [`prod/docker-compose.yml`](examples/security/prod/docker-c
 
 ```yaml
   proxy:
-    image: ghcr.io/berriai/litellm-non_root:v1.109.1   # runs as uid 65534, not root
+    image: ghcr.io/berriai/litellm-non_root:v1.110.2   # runs as uid 65534, not root
     command: ["--config", "/app/config.yaml", "--port", "4000", "--num_workers", "2"]
     deploy:
       replicas: 2
@@ -6442,10 +6455,11 @@ cd prod && uv run python prod_checks.py
   3 MB body -> 413
 == 4. logs are JSON, without prompts or keys
   prompt text in logs: False   key in logs: False
-  sample: a7c-a83c-6d68836e5c9d - 429: Rate limit exceeded for REDACTED Limit type: requests. Current limit: 4, Remaining: 0. Limit resets a
+  lines that say REDACTED: 0
+  sample: {"message": "gc.freeze pinned 2164534 startup objects", "level": "WARNING", "timestamp": "2026-11-23T00:26:20.244743", "component"
 == 5. containers
   proxy uid: 65534   effective capabilities: 0000000000000000
-  backend-only container reaching the internet: urllib.error.URLError: <urlopen error [Errno -3] Temporary failure in
+  backend-only container reaching the internet: urllib.error.URLError: <urlopen error [Errno -3] Temporary failure in 
 == 6. the database goes away
   /health/readiness -> 503 {"status":"healthy","db":"disconnected"}
   a key no replica has cached -> 503
@@ -6456,11 +6470,12 @@ What I learned running it, in the order you'll meet it:
 - **The non-root image can't read a `600` file.** The first `docker compose up` failed: both replicas exited with `PermissionError: [Errno 13] Permission denied: '/app/config.yaml'`. My umask is `077`, so every new file is `600`, and uid 65534 in the container can't read a host file owned by me. The root image used in sections 12 and 13 hides this. Make mounted config `644` (no secrets are in it, because they come from the environment), or build an image with the config baked in.
 - **Python 3.13 rejects a CA certificate without key-usage extensions.** My first `gen_certs.sh` produced a CA that `openssl s_client` and curl accepted, but httpx refused with `CA cert does not include key usage extension`. Python 3.13 turns on strict X.509 checking. A real CA is fine; a home-made one needs `basicConstraints=critical,CA:TRUE` and `keyUsage=critical,keyCertSign,cRLSign`.
 - **One limit across replicas needs Redis, and Redis is quietly optional.** With `coordination_redis`, `rpm_limit: 4` allowed exactly 4 of 10 calls spread over both replicas. Without Redis, each replica counts alone: the same test allowed 8, so every limit and budget is multiplied by the number of replicas. Also, LiteLLM falls back to any `REDIS_HOST`/`REDIS_PORT` it finds in the environment, so removing the config block alone didn't turn sharing off. Use the explicit `coordination_redis` block, which fails at startup if Redis is unreachable, instead of relying on the fallback, which silently does nothing if it can't connect.
-- **A Redis outage fails open.** With Redis stopped, requests kept flowing, and each replica enforced its own counter again (8 of 10 allowed). A circuit breaker opens after 5 Redis failures and stays open for 60 seconds (`REDIS_CIRCUIT_BREAKER_RECOVERY_TIMEOUT`), so sharing doesn't resume the moment Redis is back. I hit this when a check right after a Redis drill allowed 8 calls; a minute later it was back to 4. Alert on `Redis circuit breaker is open` in the logs.
+- **A Redis outage fails open.** With Redis stopped, requests kept flowing, and each replica enforced its own counter again (8 of 10 allowed). A circuit breaker opens after 5 Redis failures and stays open for 60 seconds (`REDIS_CIRCUIT_BREAKER_RECOVERY_TIMEOUT`), so sharing doesn't resume the moment Redis is back. Right after Redis came back, a check still allowed 8 calls. On 1.109.1 it was back to 4 a minute later; on 1.110.2, whose Redis calls go through new Rust stores with one shared breaker, recovery was slower: 5 or 6 of 10 were allowed at 65 seconds, 5 at 130 seconds, and 4 again by 200 seconds, in two runs. Alert on `Redis circuit breaker OPENED` and `circuit breaker is open` in the logs.
 - **A database outage fails closed, except for cached keys.** With Postgres stopped, a key no replica had seen got 503 (`the authentication database is temporarily unreachable`). A key a replica had already cached kept working on that replica. `allow_requests_on_db_unavailable: true` would admit unknown keys too; keep it `false` unless availability matters more than access control.
 - **Read the readiness status code, not the body.** `/health/readiness` returned **503** with the body `{"status":"healthy","db":"disconnected"}`. Kubernetes and load balancers go by the code, which is right; a script that parses `status` would be fooled. Use `/health/liveliness` for liveness and `/health/readiness` for readiness. Don't use `/health` for either: it calls every model, which costs money and fails when a provider has a bad minute.
-- **`allowed_ips` only matches exact strings, and needs a licence.** Without one the proxy refuses to start (section 20's licence table). With one, it compares the client address against the list with `in`, so `10.0.0.0/8` matches nothing. List exact addresses, or filter by network at the edge or with security groups. Behind a load balancer, the client address is the load balancer's unless `use_x_forwarded_for` is on. In 1.109.1 the `allowed_ips` check then reads `X-Forwarded-For` from any caller, and `trusted_proxy_ranges` does not restrict it: that setting covers header-based identity and the Admin UI sign-in limit. So the header is only trustworthy when nothing but your edge can reach the proxy and the edge overwrites it, as the nginx config here does.
-- **JSON logs with `redact_user_api_key_info` say `REDACTED` where the key would be,** and `turn_off_message_logging` keeps prompts out of every logging callback. The prompt marker in step 4 appeared nowhere in the proxy logs.
+- **`allowed_ips` only matches exact strings, and needs a licence.** Without one the proxy refuses to start (section 20's licence table). With one, it compares the client address against the list with `in`, so `10.0.0.0/8` matches nothing. List exact addresses, or filter by network at the edge or with security groups. Behind a load balancer, the client address is the load balancer's unless `use_x_forwarded_for` is on. In 1.110.2 the `allowed_ips` check then reads `X-Forwarded-For` from any caller, and `trusted_proxy_ranges` does not restrict it: that setting covers header-based identity and the Admin UI sign-in limit. So the header is only trustworthy when nothing but your edge can reach the proxy and the edge overwrites it, as the nginx config here does.
+- **No prompt or key reached the logs.** `turn_off_message_logging` keeps prompts out of every logging callback: the prompt marker in step 4 appeared nowhere in the proxy logs, and neither did the key. In 1.109.1 the rate-limit warnings from step 2 named the key as `REDACTED` (`429: Rate limit exceeded for REDACTED`); 1.110.2 writes no warning for a rate-limited request, only the `429` in the access log, so no line in this run named a key at all.
+- **Count replicas over one connection.** nginx runs a worker per CPU, and each worker round-robins on its own, so separate connections can all land on the same replica. `prod_checks.py` sends its calls over one connection; with a new connection per call, step 2 showed `[10, 0]` as often as `[5, 5]`.
 
 **A production checklist.** Everything above, plus the items from sections 12–20 that matter in production:
 
@@ -6634,7 +6649,7 @@ And the questions to settle early for memory:
 
 ### 22b. Context management with LiteLLM
 
-LiteLLM sits on the read path, at the moment the request goes to the provider. Here is what it offers for each technique in 1.109.1:
+LiteLLM sits on the read path, at the moment the request goes to the provider. Here is what it offers for each technique in 1.110.2:
 
 | Technique | LiteLLM feature | Where | Notes |
 | --- | --- | --- | --- |
@@ -7309,7 +7324,7 @@ cleaned up 2 entries
 - **`previous_response_id` gives you session memory without storing history in your app.** For providers that don't store responses themselves, such as Anthropic and Bedrock, the proxy rebuilds the earlier turns from its spend logs and sends them with the new input, and it reuses the earlier `instructions`. The ID is an opaque 469-character string; store it as it is.
 - **It needs `store_prompts_in_spend_logs: true`.** Without it, the second call still returns 200, but the model gets only the new input: the history is silently lost. With it, every prompt and reply is stored in Postgres, so treat that database as holding user content (retention, access, section 20).
 - **`/v1/memory` stores entries, and your app does the rest.** The proxy has no hook that reads memories into prompts. In step 3 the app fetched entries by `key_prefix` and injected them itself. Listing also accepts an exact `key` or a `search` prefix, with `page` and `page_size`.
-- **Only proxy admins can use it by default.** In 1.109.1 `/v1/memory` is not on the routes an internal user's key may call, so a normal key gets 401. Give a key `allowed_routes` that include `/v1/memory` and `/v1/memory/{key}`, plus every other route it needs, because `allowed_routes` replaces the defaults.
+- **Only proxy admins can use it by default.** In 1.110.2 `/v1/memory` is not on the routes an internal user's key may call, so a normal key gets 401. Give a key `allowed_routes` that include `/v1/memory` and `/v1/memory/{key}`, plus every other route it needs, because `allowed_routes` replaces the defaults.
 - **Keys are unique across the whole proxy.** Bob saw nothing of Ana's and got 404 on her entry, but creating an entry under her key name gave 409 `already exists`, which also tells him the name is taken. Namespace every key, for example `user:<id>:<name>` or `team:<id>:<name>`.
 - **A team key shares what it writes.** An entry created with a key that belongs to a team gets both the user and the team ID, and every member of that team can read it. Only its owner (or a team admin, for team-only entries) can change it (exercise 22c.2). Write personal memories with a personal key.
 
@@ -7427,7 +7442,7 @@ Build this from the pieces of earlier exercises; it should need little new code.
 | Symptom | Cause | Fix |
 | --- | --- | --- |
 | `UnsupportedParamsError: ... does not support temperature=0` | The model rejects that parameter, and LiteLLM refuses rather than guessing | Drop the parameter for that model, or pass `drop_params=True` knowingly |
-| `litellm.max_budget` never triggers | In 1.109.1 its counter ignores chat completions | Your own guard (section 8) or proxy key budgets (section 13) |
+| `litellm.max_budget` never triggers | In 1.110.2 its counter ignores chat completions | Your own guard (section 8) or proxy key budgets (section 13) |
 | Budget exceeded by one call | Budgets are checked before a call; cost is known after | Set the limit with one call of headroom |
 | `/key/info` spend is 0 right after calls | Spend is batch-written every 10s | Wait, or trust the 422 the proxy returns |
 | `Router` crashes in `deepcopy` | The model list holds a non-copyable object | Keep `model_list` plain data |
@@ -7439,7 +7454,7 @@ Build this from the pieces of earlier exercises; it should need little new code.
 | Slow first import, network access at import | Price table fetched from GitHub | `LITELLM_LOCAL_MODEL_COST_MAP=True` |
 | A `CustomLogger` hook never runs, with no error | LiteLLM calls hooks with keyword arguments; a hook whose parameters aren't named `kwargs, response_obj, start_time, end_time` fails silently | Use exactly those parameter names |
 | `completion_cost(resp)` charges for a cache hit | It re-prices the response from its token counts | Use `resp._hidden_params["response_cost"]` or the logged `response_cost`, which are `0.0` on a hit |
-| `BadRequestError: ... Every deployment for it is a strategy router marker (auto_router/...)` | Smart routers only run on the async path in 1.109.1 | `await router.acompletion(...)`; the proxy is unaffected |
+| `BadRequestError: ... Every deployment for it is a strategy router marker (auto_router/...)` | Smart routers only run on the async path in 1.110.2 | `await router.acompletion(...)`; the proxy is unaffected |
 | A complexity-routed call ignores your `max_tokens` | `max_tokens_from_tier_model` defaults to true and sets the chosen model's maximum output | Set it to `"clamp"` or `false` |
 | `uv sync` fails after adding `semantic-router` | Every release LiteLLM accepts requires `openai<3`; this project pins `openai==3.50.0` | Run with `uv run --with semantic-router==0.1.16 --with openai==2.54.0` |
 | A quality router ignores a model that declares a tier | The model isn't in `available_models` | List every candidate there |
@@ -7447,23 +7462,23 @@ Build this from the pieces of earlier exercises; it should need little new code.
 | An Azure OpenAI deployment's `response_cost` is `None` | `azure/<name>` is your deployment name, which LiteLLM can't price | `base_model: azure/<model>` (SDK) or `model_info.base_model` (proxy) |
 | Azure answers `404 DeploymentNotFound` | The request used the model name, or the deployment is in another resource | Use the deployment name, with that resource's `api_base` |
 | Requests refused by Azure's content filter are answered by another model | Plain `fallbacks` also catch `ContentPolicyViolationError` when `content_policy_fallbacks` isn't set | `content_policy_fallbacks: [{"<alias>": []}]` to keep the refusal |
-| `except litellm.PermissionDeniedError` misses Vertex AI's 403 | In 1.109.1, Vertex's `PERMISSION_DENIED` becomes `BadRequestError` with `status_code` 403 | Check `status_code`, not only the class |
+| `except litellm.PermissionDeniedError` misses Vertex AI's 403 | In 1.110.2, Vertex's `PERMISSION_DENIED` becomes `BadRequestError` with `status_code` 403 | Check `status_code`, not only the class |
 | vLLM, Ollama or OpenAI-compatible traffic missing from spend and budgets | Self-hosted models have no price (`None`) or a price of `0.0` | `input_cost_per_token` and `output_cost_per_token` on the deployment |
 | A proxy in Docker can't reach Ollama at `localhost:11434` | `localhost` is the proxy's own container | A shared Docker network and the container name, or `host.docker.internal` |
 | An MCP server's tools are missing from the gateway | stdio servers are disabled by default | Set `LITELLM_ENABLE_MCP_STDIO=true` in the proxy's environment |
 | `mock_response` sent to the proxy is ignored | The proxy strips client mocks unless the key allows them | Put the mock in the deployment's `litellm_params` |
 | `/v1/skills` returns 500 about `ANTHROPIC_API_KEY` | Without `custom_llm_provider=litellm_proxy` it calls Anthropic | Add `?custom_llm_provider=litellm_proxy` for hosted skills |
 | A key gets 403 from an agent it lists in `object_permission.agents` | The check compares agent IDs; config agents have a 64-character hashed ID | List the `agent_id` from `GET /v1/agents`, not the name |
-| An agent keeps answering after `PATCH ... {"enabled": false}` | In 1.109.1 `enabled` is enforced only for agents with a managed identity | Delete the agent, or remove it from keys' `object_permission.agents` |
+| An agent keeps answering after `PATCH ... {"enabled": false}` | In 1.110.2 `enabled` is enforced only for agents with a managed identity | Delete the agent, or remove it from keys' `object_permission.agents` |
 | `PATCH /v1/agents/<id>` returns 404 for an agent you can list | Agents from the config file aren't in the database | Change the config and restart, or register the agent with `POST /v1/agents` |
 | `trim_messages(messages, model="bedrock/...")` returns the messages untrimmed | It looks the name up in `litellm.model_cost` exactly, and prefixed names aren't there | Pass `max_tokens=` yourself, from `get_model_info(model)["max_input_tokens"]` |
-| `AttributeError` or `ImportError` for `litellm.trim_messages` | In 1.109.1 it isn't exported at the top level | `from litellm.utils import trim_messages` |
+| `AttributeError` or `ImportError` for `litellm.trim_messages` | In 1.110.2 it isn't exported at the top level | `from litellm.utils import trim_messages` |
 | `clear_tool_uses` edits or Anthropic's memory tool have no effect on Bedrock | The Converse route drops them silently and keeps only `compact_20260112` | Use `bedrock/invoke/<model>`, which sends Anthropic's own request body |
 | `previous_response_id` returns 200 but the model forgot the earlier turns | The proxy rebuilds history from spend logs, which hold no prompts by default | Set `general_settings.store_prompts_in_spend_logs: true`, and treat the database as holding user content |
 | `/v1/memory` returns 401 for a user's key | Its routes are admin-only by default | Give the key `allowed_routes` with `/v1/memory` and `/v1/memory/{key}` and every other route it needs |
 | `/v1/memory` POST returns 409 for a key you have never used | Memory keys are unique across all users | Namespace them, e.g. `user:<id>:<name>` |
 | An agent doesn't get the client's header | Only `static_headers`, headers named in `extra_headers` and `x-a2a-<agent>-<name>` are forwarded | Name the header in `extra_headers`, or send it with the `x-a2a-<agent>-` prefix |
-| A `.prompt` file's `temperature` has no effect | The SDK drops template parameters in 1.109.1 | Pass parameters on the call, or use the proxy, which applies them |
+| A `.prompt` file's `temperature` has no effect | The SDK drops template parameters in 1.110.2 | Pass parameters on the call, or use the proxy, which applies them |
 | A prompt template is applied twice | A manager overriding both the sync and async hooks, used with `acompletion` | Override only `get_chat_completion_prompt`, or use the `dotprompt/` prefix |
 | Proxy won't start: `Could not build the 'otel' callback` | `opentelemetry-sdk` is not installed | Install it (this project does) |
 | `/metrics` returns 401, or nothing | It requires a key by default, and redirects to `/metrics/` | Send a key and use `curl -L`, or set `require_auth_for_metrics_endpoint: false` |
@@ -7473,7 +7488,6 @@ Build this from the pieces of earlier exercises; it should need little new code.
 | Bedrock 400 `The provided model identifier is invalid` | A wrong model ID, or an inference profile used outside its geography (an `eu.` profile signed for a US region) | Check the ID and `aws_region_name` |
 | Bedrock 400 `... with on-demand throughput isn't supported` | A base model ID for a model offered only through inference profiles | Use `us.`, `eu.`, `apac.` or `global.` in front of the ID |
 | Bedrock spend is missing for an application-inference-profile ARN | LiteLLM can't price an ARN; `response_cost` is `None` | Set `base_model` on the call or deployment |
-| Entra ID token appears in the request body of an `azure_ai/claude-...` call | In 1.109.1, the per-call `azure_ad_token=` argument is sent as `Authorization: Bearer` and also copied into the JSON body; a token from `AZURE_AD_TOKEN` is not | Supply the token through `AZURE_AD_TOKEN` (or the proxy's environment) rather than per call, and don't log request bodies |
 | A throttled Bedrock region keeps being tried | `allowed_fails` is set, so the older cooldown rule waits for more than that many failures | Remove `allowed_fails`; a 429 then cools the deployment down at once |
 | Proxy won't start: `the master key is a publicly known default` (exit code 3) | `LITELLM_MASTER_KEY=sk-1234`; empty and unset keys are refused too | `sk-$(openssl rand -hex 32)`; only for local tests, `LITELLM_DANGEROUSLY_PERMIT_WEAK_OR_UNSET_MASTER_KEY=true` |
 | A key was created fine, but every call with it returns 500 `... is an Enterprise feature` | The Enterprise-only key field `enforced_params` (`tags`, `guardrails` and `model_max_budget` are refused when the key is created) | Remove the field, or add a licence; test each new key with one call |
@@ -7557,7 +7571,7 @@ AWS_PROFILE=<p> uv run litellm --config examples/proxy/quickstart.yaml   # quick
 docker run -p 127.0.0.1:4000:4000 -v "$HOME/.aws:/root/.aws:ro" -e AWS_PROFILE -e AWS_REGION ...   # same, in Docker
 docker run -d -p 127.0.0.1:11434:11434 ollama/ollama:0.12.6; docker exec <name> ollama pull qwen2.5:0.5b   # local model
 docker run -p 127.0.0.1:4000:4000 -v "$PWD/config.yaml:/app/config.yaml:ro" -e LITELLM_MASTER_KEY \
-  ghcr.io/berriai/litellm:v1.109.1 --config /app/config.yaml --port 4000   # proxy from the official image
+  ghcr.io/berriai/litellm:v1.110.2 --config /app/config.yaml --port 4000   # proxy from the official image
 docker compose up -d --wait; docker compose down -v                 # proxy + Postgres (examples/proxy/docker-compose.yml)
 curl localhost:4000/key/generate -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
   -d '{"models":["chat"],"max_budget":10,"rpm_limit":60}'           # virtual key

@@ -21,9 +21,13 @@ def sh(container: str, cmd: str) -> str:
     return subprocess.run(["docker", "exec", container, "sh", "-c", cmd], capture_output=True, text=True).stdout.strip()
 
 
+# One connection keeps the calls on one nginx worker; each worker round-robins on its own.
+CLIENT = httpx.Client(verify=CA, timeout=30)
+
+
 def chat(key: str, content: str = "hi") -> httpx.Response:
-    return httpx.post(f"{BASE}/v1/chat/completions", verify=CA, timeout=30, headers={"Authorization": f"Bearer {key}"},
-                      json={"model": "chat", "messages": [{"role": "user", "content": content}]})
+    return CLIENT.post(f"{BASE}/v1/chat/completions", headers={"Authorization": f"Bearer {key}"},
+                       json={"model": "chat", "messages": [{"role": "user", "content": content}]})
 
 
 def chat_requests_per_replica() -> list[int]:
@@ -60,7 +64,10 @@ app = httpx.post(f"{BASE}/key/generate", verify=CA, headers=ADMIN, json={"models
 chat(app, MARKER)
 logs = compose("logs", "proxy")
 print(f"  prompt text in logs: {MARKER in logs}   key in logs: {app in logs or app[:-4] in logs}")
-print("  sample:", next(l for l in logs.splitlines() if "REDACTED" in l).split("| ", 1)[1][120:250])
+proxy_lines = [l.split("| ", 1)[1] for l in logs.splitlines() if "| {" in l and "uvicorn.access" not in l]
+print(f"  lines that say REDACTED: {sum('REDACTED' in l for l in proxy_lines)}")
+litellm_lines = [l for l in proxy_lines if '"component": "LiteLLM' in l]
+print("  sample:", next((l for l in proxy_lines if "REDACTED" in l), (litellm_lines or proxy_lines)[-1])[:130])
 
 print("== 5. containers")
 print(f"  proxy uid: {sh('litellm-prod-proxy-1', 'id -u')}   "

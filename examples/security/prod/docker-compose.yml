@@ -19,13 +19,13 @@ services:
     networks: [backend]
 
   upstream:                                   # stand-in for the LLM provider
-    image: ghcr.io/berriai/litellm-non_root:v1.109.1
+    image: ghcr.io/berriai/litellm-non_root:v1.110.2
     entrypoint: ["python", "/srv/echo_upstream.py", "4012", "0.0.0.0"]
     volumes: [../echo_upstream.py:/srv/echo_upstream.py:ro]
     networks: [backend]
 
   proxy:
-    image: ghcr.io/berriai/litellm-non_root:v1.109.1   # runs as uid 65534, not root
+    image: ghcr.io/berriai/litellm-non_root:v1.110.2   # runs as uid 65534, not root
     command: ["--config", "/app/config.yaml", "--port", "4000", "--num_workers", "2"]
     deploy:
       replicas: 2

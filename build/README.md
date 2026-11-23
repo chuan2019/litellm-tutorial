@@ -32,7 +32,7 @@ git tag -a "$(python3 build/check_versions.py --tag)" -m "LiteLLM tutorial relea
 git push origin --tags
 ```
 
-To start an edition for a new LiteLLM version: branch the current `main` as `litellm-<old version>`, push it, then on `main` change the pin and image tags, run `uv lock`, re-run every example and update the outputs and each "in <old version>" claim, add a row to the README's editions table, and release.
+[`compare/`](compare/) runs the examples under the old and the new edition side by side, so only output that really changed gets rewritten. To start an edition for a new LiteLLM version: branch the current `main` as `litellm-<old version>`, push it, then on `main` change the pin and image tags, run `uv lock`, re-run every example and update the outputs and each "in <old version>" claim, add a row to the README's editions table, and release.
 
 ## Publishing to the blog
 
