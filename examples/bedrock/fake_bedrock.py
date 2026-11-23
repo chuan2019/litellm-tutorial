@@ -7,12 +7,14 @@ from urllib.parse import parse_qs, unquote
 
 SEEN = []
 FAILING = {}  # region -> error word, set with GET /_fail?region=us-west-2&error=throttled
+SERVE = {}  # {"tier": ...}: the service tier Converse reports it served, set with GET /_serve?tier=default
 # A model id containing one of these words gets that AWS error instead of a reply.
 ERRORS = {
     "throttled": (429, "ThrottlingException", "Too many requests, please wait before trying again."),
     "denied": (403, "AccessDeniedException", "You don't have access to the model with the specified model ID."),
     "invalid": (400, "ValidationException", "The provided model identifier is invalid."),
     "unavailable": (503, "ServiceUnavailableException", "Bedrock is unable to process your request."),
+    "tier": (400, "ValidationException", "The provided service tier is not supported for this model."),
 }
 STS_REPLY = """<AssumeRoleResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/"><AssumeRoleResult>
 <Credentials><AccessKeyId>ASIAASSUMEDROLE0001</AccessKeyId><SecretAccessKey>assumed-secret</SecretAccessKey>
@@ -46,11 +48,15 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/_reset":
             SEEN.clear()
             FAILING.clear()
+            SERVE.clear()
             return self._send(200, {"ok": True})
         if self.path.startswith("/_fail?"):
             q = {k: v[0] for k, v in parse_qs(self.path.split("?", 1)[1]).items()}
             FAILING[q["region"]] = q.get("error", "throttled")
             return self._send(200, FAILING)
+        if self.path.startswith("/_serve?"):
+            SERVE.update({k: v[0] for k, v in parse_qs(self.path.split("?", 1)[1]).items()})
+            return self._send(200, SERVE)
         self._send(404, {"message": "not found"})
 
     def do_POST(self) -> None:
@@ -71,10 +77,14 @@ class Handler(BaseHTTPRequestHandler):
             if word in model or FAILING.get(record["auth"].get("region")) == word:
                 return self._send(code, {"message": msg}, headers={"x-amzn-errortype": f"{kind}:http://internal.amazon.com/"})
         if record["path"].endswith("/converse"):
-            return self._send(200, {
+            reply = {
                 "output": {"message": {"role": "assistant", "content": [{"text": f"converse reply from {model}"}]}},
                 "stopReason": "end_turn", "usage": {"inputTokens": 12, "outputTokens": 6, "totalTokens": 18},
-                "metrics": {"latencyMs": 42}})
+                "metrics": {"latencyMs": 42}}
+            asked = (record["body"].get("serviceTier") or {}).get("type")
+            if asked:  # like Bedrock, report the tier only when the request named one
+                reply["serviceTier"] = {"type": SERVE.get("tier", asked)}
+            return self._send(200, reply)
         if record["path"].endswith("/invoke"):
             return self._send(200, {
                 "id": "msg_fake", "type": "message", "role": "assistant", "model": model,

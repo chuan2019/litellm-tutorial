@@ -339,6 +339,15 @@ const Q = [
  x:"In the run, us-west-2 was attempted once and all six calls succeeded. With `allowed_fails: 1` set, the older rule waits for more than one failure within `cooldown_time`, so the throttled region keeps being tried."},
 
 // 1 Streaming and async
+{d:8,s:"§12 Bedrock",q:"In LiteLLM 1.110.2, which `service_tier` values reach a Bedrock Converse request? Select all that apply.",
+ o:["`priority`","`flex`","`auto`, sent as `default`","`reserved`"],a:[0,1,2],
+ x:"Converse forwards only `priority`, `flex`, `default` and `auto` (rewritten to `default`), in lower case. `reserved`, `standard` and any capitalised value are dropped without an error, and the call runs on Standard."},
+{d:5,s:"§12 Bedrock",q:"A Nova call passes `service_tier=\"Priority\"` (capital P). What happens in LiteLLM 1.110.2?",
+ o:["Nothing is sent, so Bedrock serves Standard, but LiteLLM bills the priority rate","Bedrock serves Priority","LiteLLM raises `UnsupportedParamsError`","Bedrock answers 400"],a:[0],
+ x:"The wire mapping only accepts lower case, but the cost lookup lower-cases the tier. Against real Bedrock the call ran on Standard and was billed $0.0000835 instead of $0.0000477."},
+{d:3,s:"§12 Bedrock",q:"`service_tier=\"priority\"` on `bedrock/us.anthropic.claude-haiku-5-5` against real Bedrock in us-west-2. What happened?",
+ o:["Bedrock refused it: 400 \"The provided service tier is not supported for this model\", raised as `BadRequestError`","It ran on Priority at the standard price","LiteLLM dropped the tier and ran on Standard","LiteLLM refused it before sending"],a:[0],
+ x:"LiteLLM doesn't check which tiers a model offers. Nova 2 Lite served priority and flex; Claude Haiku 5.5 accepted only `default`."},
 {d:1,s:"§2",q:"In a streaming response, where does each piece of new text arrive?",
  o:["`chunk.choices[0].delta.content`","`chunk.choices[0].message.content`","`chunk.text`","`chunk.delta.text`"],a:[0],
  x:"Every provider's stream (Anthropic SSE events, Gemini, Bedrock) arrives as OpenAI-style `delta` chunks."},

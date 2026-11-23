@@ -755,7 +755,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <li><strong>Sections 1–11, 14, 17, 18a and the SDK parts of 16 and 22:</strong> offline, on Python 3.13 in the uv environment. Their output was the same on both versions, apart from timings, IDs and random load-balancing splits.</li>
 <li><strong>Section 1's provider subsections (added in 1.110.2's edition):</strong> the Bedrock and Bedrock Mantle examples both offline and against real AWS (us-west-2 and us-east-1, through an SSO profile); the Ollama example against a real Ollama in Docker (<code>qwen2.5:0.5b</code> and <code>qwen3:0.6b</code> on CPU); the vLLM example against a fake vLLM server, because I had no GPU. The short table of other providers comes from requests captured offline, not from calls to those providers. They were run on 1.110.2 only.</li>
 <li><strong>Setup's proxy quick start and the notebooks:</strong> against real Bedrock, the quick start both with <code>uv</code> and with the <code>v1.110.2</code> image.</li>
-<li><strong>Section 12:</strong> the proxy with <code>uv</code> and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (<code>qwen2.5:0.5b</code> on CPU). The Bedrock Mantle proxy example ran against real AWS, since there is no fake Mantle. I had no Azure or Google Cloud account to run them live.</li>
+<li><strong>Section 12:</strong> the proxy with <code>uv</code> and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (<code>qwen2.5:0.5b</code> on CPU). The Bedrock Mantle proxy example ran against real AWS, since there is no fake Mantle, and the service-tier part both against the fake and against real Bedrock. I had no Azure or Google Cloud account to run them live.</li>
 <li><strong>Sections 13, 15, 16 and 18:</strong> against a local proxy, with Postgres where noted; section 13 also with Docker Compose.</li>
 <li><strong>Section 19:</strong> against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).</li>
 <li><strong>Sections 20–21:</strong> against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.</li>
@@ -1361,7 +1361,7 @@ uv<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </s
 uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>ex01_1_three_models.py<span class="w">            </span><span class="c1"># offline, free</span>
 <span class="nv">LIVE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>ex01_1_three_models.py<span class="w">     </span><span class="c1"># real Bedrock calls, usually under a cent</span>
 </code></pre></div>
-<p>When you have worked through the sections, test yourself with <a href="exercises/exam.html"><code>exercises/exam.html</code></a>. Open it in a browser; it needs no server and no network. It holds 281 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.</p>
+<p>When you have worked through the sections, test yourself with <a href="exercises/exam.html"><code>exercises/exam.html</code></a>. Open it in a browser; it needs no server and no network. It holds 284 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.</p>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#what-you-will-learn"><span>Previous</span>What you will learn</a><a class="next" href="#1-one-call-any-provider"><span>Next</span>1. One call, any provider</a></nav>
 </section>
 <section class="page" data-page="1-one-call-any-provider" data-title="1. One call, any provider">
@@ -1729,7 +1729,7 @@ gemini/gemini-2.5-flash        -&gt; &#x27;Bonjour à tous !&#x27;
 <tr>
 <td><code>service_tier</code></td>
 <td><code>serviceTier.type</code></td>
-<td></td>
+<td>Only <code>priority</code>, <code>flex</code>, <code>default</code> and <code>auto</code> (sent as <code>default</code>), in lower case; any other value is dropped without an error (section 12, &quot;Service tiers&quot;)</td>
 </tr>
 <tr>
 <td><code>stream=True</code></td>
@@ -2889,7 +2889,7 @@ call 6 refused: budget $0.001 reached (spent $0.001100)
 <ul>
 <li><code>token_counter</code> is an <strong>estimate</strong> for non-OpenAI models; the provider's own count, in <code>resp.usage</code>, is the real one. Use the estimate for pre-flight checks such as &quot;will this fit the context window?&quot;.</li>
 <li><code>get_model_info</code> returns context size, prices and capability flags (<code>supports_vision</code>, <code>supports_function_calling</code>, ...).</li>
-<li>Prices come from LiteLLM's price table: the current one downloaded at import by default, or the copy bundled with your LiteLLM version when <code>LITELLM_LOCAL_MODEL_COST_MAP=True</code>. Some models have a second, higher rate for long prompts (Haiku 5.5 costs five times as much per token above 100k prompt tokens), so <code>cost_per_token(prompt_tokens=1_000_000, ...)</code> does not give the base rate; read it from <code>get_model_info</code>. For a private or fine-tuned model, register prices with <code>litellm.register_model({...})</code>.</li>
+<li>Prices come from LiteLLM's price table: the current one downloaded at import by default, or the copy bundled with your LiteLLM version when <code>LITELLM_LOCAL_MODEL_COST_MAP=True</code>. Some models have a second, higher rate for long prompts (Haiku 5.5 costs five times as much per token above 100k prompt tokens), so <code>cost_per_token(prompt_tokens=1_000_000, ...)</code> does not give the base rate; read it from <code>get_model_info</code>. For a private or fine-tuned model, register prices with <code>litellm.register_model({...})</code>. Some models also have a price per service tier (<code>input_cost_per_token_priority</code>, <code>..._flex</code>); section 12 shows how a Bedrock call picks its tier and which tier it is billed at.</li>
 </ul>
 <p><strong>Gotcha: don't rely on <code>litellm.max_budget</code> in 1.110.2.</strong> The SDK has a global <code>litellm.max_budget</code> that should raise <code>BudgetExceededError</code>. I set it, made five calls costing $0.0011 in total, and <code>litellm._current_cost</code> stayed at <code>0.0</code>. The code that accumulates spend (<code>litellm_logging.py</code>) only counts results that are plain <code>dict</code>s, and a chat completion response is not a dict. Use your own guard like the one above, or the proxy's per-key budgets (section 13). Notice that the guard checks <em>before</em> each call, so spend can pass the limit by up to one call. Every budget system works this way.</p>
 <h3 id="exercises-8">Exercises</h3>
@@ -3432,6 +3432,87 @@ invalid model id                    0.4s ERR BadRequestError 400 litellm.BadRequ
 temperature on haiku                0.0s ERR UnsupportedParamsError 400 litellm.UnsupportedParamsError: us.anthropic.claude-haiku-5-5 does not support temperature=0.2. Only temperature=1 is supported. To drop unsupported p
 </code></pre></div>
 <p>Converse and Invoke returned the same answer, token counts and cost. The <code>global.</code> profile was 10% cheaper for the same tokens. The <code>temperature</code> refusal happens inside LiteLLM, before any request is sent (0.0 s). The tool call used 372 input tokens for a one-line question: the tool definition and the tool-use instructions Bedrock adds count as input.</p>
+<p><strong>Service tiers: priority, flex and default.</strong> Bedrock serves an on-demand call at one of several tiers: <strong>Standard</strong>, the default; <strong>Priority</strong>, served ahead of other traffic at a higher price; and <strong>Flex</strong>, cheaper and allowed to take longer. A fourth, <strong>Reserved</strong>, is capacity your account has bought in advance. Not every model offers every tier, so check the model's card in the Bedrock documentation. You choose the tier per call with OpenAI's <code>service_tier</code> parameter, and LiteLLM turns it into Converse's <code>serviceTier</code> object. <a href="examples/bedrock/bedrock_service_tier.py"><code>examples/bedrock/bedrock_service_tier.py</code></a> sends each value to the fake Bedrock. Like Bedrock, the fake reports the tier it served only when the request named one; it can also be told to serve another tier (<code>GET /_serve?tier=default</code>) or to refuse the tier (<code>GET /_fail?region=us-west-2&amp;error=tier</code>):</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">NOVA</span> <span class="o">=</span> <span class="s2">"bedrock/us.amazon.nova-2-lite-v1:0"</span>  <span class="c1"># priced per tier in LiteLLM's table</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NOVA</span><span class="p">,</span> <span class="n">serve</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fail</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""One call against the fake Bedrock: the tier sent, the tier reported back, and the cost LiteLLM recorded."""</span>
+    <span class="o">...</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">MSGS</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                               <span class="n">aws_bedrock_runtime_endpoint</span><span class="o">=</span><span class="n">FAKE</span><span class="p">,</span> <span class="n">num_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"reply tier=</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="s1">'service_tier'</span><span class="p">,</span><span class="w"> </span><span class="kc">None</span><span class="p">))</span><span class="si">:</span><span class="s2">9</span><span class="si">}</span><span class="s2"> cost $</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">_hidden_params</span><span class="p">[</span><span class="s1">'response_cost'</span><span class="p">]</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">"</span>
+    <span class="o">...</span>
+
+<span class="n">call</span><span class="p">(</span><span class="s1">'service_tier="priority"'</span><span class="p">,</span> <span class="n">service_tier</span><span class="o">=</span><span class="s2">"priority"</span><span class="p">)</span>
+<span class="n">call</span><span class="p">(</span><span class="s1">'service_tier="reserved"'</span><span class="p">,</span> <span class="n">service_tier</span><span class="o">=</span><span class="s2">"reserved"</span><span class="p">)</span>
+<span class="n">call</span><span class="p">(</span><span class="s2">"asked priority, served default"</span><span class="p">,</span> <span class="n">service_tier</span><span class="o">=</span><span class="s2">"priority"</span><span class="p">,</span> <span class="n">serve</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+<span class="n">call</span><span class="p">(</span><span class="s2">"Bedrock refuses the tier"</span><span class="p">,</span> <span class="n">service_tier</span><span class="o">=</span><span class="s2">"priority"</span><span class="p">,</span> <span class="n">fail</span><span class="o">=</span><span class="s2">"tier"</span><span class="p">)</span>
+<span class="n">call</span><span class="p">(</span><span class="s2">"Claude Haiku, Invoke"</span><span class="p">,</span> <span class="s2">"bedrock/invoke/us.anthropic.claude-haiku-5-5"</span><span class="p">,</span> <span class="n">service_tier</span><span class="o">=</span><span class="s2">"priority"</span><span class="p">)</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">litellm</span><span class="o">.</span><span class="n">Router</span><span class="p">(</span><span class="n">model_list</span><span class="o">=</span><span class="p">[{</span><span class="s2">"model_name"</span><span class="p">:</span> <span class="s2">"nova-batchy"</span><span class="p">,</span> <span class="s2">"litellm_params"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"model"</span><span class="p">:</span> <span class="n">NOVA</span><span class="p">,</span> <span class="s2">"aws_bedrock_runtime_endpoint"</span><span class="p">:</span> <span class="n">FAKE</span><span class="p">,</span> <span class="s2">"service_tier"</span><span class="p">:</span> <span class="s2">"flex"</span><span class="p">}}])</span>
+</code></pre></div>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples/bedrock
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>fake_bedrock.py<span class="w"> </span><span class="m">4015</span><span class="w"> </span><span class="p">&amp;</span>
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>bedrock_service_tier.py
+</code></pre></div>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>Nova 2 Lite (us.) per 1M tokens, in/out:
+    standard $0.3300/$2.7500
+    flex $0.1650/$1.3750
+    priority $0.5775/$4.8125
+== the values LiteLLM forwards
+no service_tier                    wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier=&quot;priority&quot;            wire serviceTier={&#x27;type&#x27;: &#x27;priority&#x27;}      reply tier=priority  cost $0.00003581
+service_tier=&quot;flex&quot;                wire serviceTier={&#x27;type&#x27;: &#x27;flex&#x27;}          reply tier=flex      cost $0.00001023
+service_tier=&quot;default&quot;             wire serviceTier={&#x27;type&#x27;: &#x27;default&#x27;}       reply tier=default   cost $0.00002046
+service_tier=&quot;auto&quot;                wire serviceTier={&#x27;type&#x27;: &#x27;default&#x27;}       reply tier=default   cost $0.00002046
+== the values LiteLLM drops without a word
+service_tier=&quot;reserved&quot;            wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier=&quot;standard&quot;            wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier=&quot;Priority&quot;            wire serviceTier=None                      reply tier=None      cost $0.00003581
+service_tier=&quot;ultrafast&quot;           wire serviceTier=None                      reply tier=None      cost $0.00002046
+== Bedrock decides
+asked priority, served default     wire serviceTier={&#x27;type&#x27;: &#x27;priority&#x27;}      reply tier=default   cost $0.00002046
+Bedrock refuses the tier           wire serviceTier={&#x27;type&#x27;: &#x27;priority&#x27;}      BadRequestError 400
+== other routes and models
+Claude Haiku, Converse             wire serviceTier={&#x27;type&#x27;: &#x27;priority&#x27;}      reply tier=priority  cost $0.00000462
+Claude Haiku, Invoke               nothing sent                               UnsupportedParamsError 400
+Claude Haiku, Invoke, drop_params  wire serviceTier=None                      reply tier=None      cost $0.00000462
+== a default tier per deployment (the proxy&#x27;s model_list works the same way)
+deployment default                 wire serviceTier={&#x27;type&#x27;: &#x27;flex&#x27;}          reply tier=flex      cost $0.00001023
+caller overrides it                wire serviceTier={&#x27;type&#x27;: &#x27;priority&#x27;}      reply tier=priority  cost $0.00003581
+</code></pre></div>
+<p>Every call used 12 input and 6 output tokens, so the costs compare directly. What the output shows:</p>
+<ul>
+<li><strong>Four values reach Bedrock, all in lower case.</strong> <code>priority</code>, <code>flex</code> and <code>default</code> are sent as <code>{&quot;type&quot;: &quot;&lt;tier&gt;&quot;}</code>. <code>auto</code> is rewritten to <code>default</code>, because Converse has no <code>auto</code>. Without <code>service_tier</code>, no field is sent and Bedrock serves Standard.</li>
+<li><strong>Any other value is dropped without an error.</strong> In 1.110.2, <code>AmazonConverseConfig._map_service_tier_param</code> forwards only those four exact strings. <code>reserved</code> never reaches Bedrock, so reserved capacity sits unused; <code>standard</code>, AWS's own name for the base tier, and <code>Priority</code> with a capital P are dropped as well, and the call runs on Standard. There is no warning and no 400, and <code>drop_params</code> changes nothing: Converse lists <code>service_tier</code> as supported, so LiteLLM accepts the value and then ignores it. LiteLLM's main branch has since changed this (PR #50516, merged on 14 November 2026: an unknown tier answers 400, <code>reserved</code> is forwarded, <code>standard</code> maps to <code>default</code>), but 1.110.2 doesn't include it.</li>
+<li><strong>The cost follows the tier Bedrock reports, otherwise the tier you asked for.</strong> Nova 2 Lite's priority rate is 1.75 times the standard rate, and flex is half of it: $0.00003581 and $0.00001023 against $0.00002046. When the Converse response carries <code>serviceTier</code>, LiteLLM copies it to <code>response.service_tier</code> and prices the call at that tier, so asking for priority and being served default was billed at the standard rate. When the response carries no tier, the request decides. That makes <code>Priority</code> with a capital P the worst case: it was dropped on the wire and ran on Standard, but the cost lookup lower-cases the tier and billed it at the priority rate.</li>
+<li><strong>LiteLLM doesn't check which tiers a model offers.</strong> It sends the tier, and a model that doesn't offer it answers <code>ValidationException</code>, which becomes <code>BadRequestError</code> (400). The Claude Haiku row shows the pricing side: the fake served priority, and LiteLLM billed the standard rate, because its price table has no tier prices for Claude on Bedrock. A tier with no price in the table is billed as Standard. Real Bedrock doesn't serve priority to Claude Haiku 5.5 at all (below).</li>
+<li><strong>The Invoke route doesn't take <code>service_tier</code>.</strong> For Claude on <code>bedrock/invoke/...</code>, LiteLLM refused it with <code>UnsupportedParamsError</code> (400) before sending anything; with <code>drop_params=True</code> it was dropped and the call ran on Standard. Use the Converse route when you need a tier.</li>
+<li><strong>A deployment can set a default tier.</strong> <code>service_tier: flex</code> in a deployment's <code>litellm_params</code> went out on every call to it, and a caller's own <code>service_tier</code> overrode it. I ran this through <code>Router</code>, which the proxy uses for its <code>model_list</code>. Behind the proxy that gives you, say, a <code>nova-flex</code> alias for batch jobs next to the standard one for interactive traffic, and clients that need a different tier pass <code>service_tier=</code> through the OpenAI SDK as usual.</li>
+</ul>
+<p>The same values against real Bedrock in us-west-2, through an SSO profile, with <a href="examples/bedrock/bedrock_service_tier_live.py"><code>bedrock_service_tier_live.py</code></a>. It uses section 1's <code>_wire.py</code> to show what was sent:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples/bedrock
+<span class="nv">LIVE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>bedrock_service_tier_live.py<span class="w">     </span><span class="c1"># AWS credentials as in Setup; no fake</span>
+</code></pre></div>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>amazon    None      sent=None                   reported=None       2.5s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=4.774e-05
+amazon    default   sent={&#x27;type&#x27;: &#x27;default&#x27;}    reported=default    0.6s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=4.774e-05
+amazon    priority  sent={&#x27;type&#x27;: &#x27;priority&#x27;}   reported=priority   0.5s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=8.3545e-05
+amazon    flex      sent={&#x27;type&#x27;: &#x27;flex&#x27;}       reported=flex       0.5s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=2.387e-05
+amazon    reserved  sent=None                   reported=None       0.6s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=4.774e-05
+amazon    Priority  sent=None                   reported=None       0.5s &#x27;The capital of France is **Paris**.&#x27; tokens=53/11 cost=8.3545e-05
+anthropic None      sent=None                   reported=None       1.0s &#x27;Paris&#x27; tokens=17/5 cost=4.62e-06
+anthropic default   sent={&#x27;type&#x27;: &#x27;default&#x27;}    reported=default    0.8s &#x27;Paris&#x27; tokens=17/5 cost=4.62e-06
+anthropic priority  sent={&#x27;type&#x27;: &#x27;priority&#x27;}   reported=None       0.1s BadRequestError: {&quot;message&quot;:&quot;The provided service tier is not supported for this
+anthropic flex      sent={&#x27;type&#x27;: &#x27;flex&#x27;}       reported=None       0.2s BadRequestError: {&quot;message&quot;:&quot;The provided service tier is not supported for this
+anthropic reserved  sent=None                   reported=None       1.1s &#x27;Paris&#x27; tokens=17/5 cost=4.62e-06
+anthropic Priority  sent=None                   reported=None       0.8s &#x27;Paris&#x27; tokens=17/5 cost=4.62e-06
+</code></pre></div>
+<ul>
+<li><strong>Bedrock reports a tier only when the request named one,</strong> as the fake assumes: no <code>service_tier</code>, and the dropped <code>reserved</code> and <code>Priority</code>, came back without one.</li>
+<li><strong>The billing gotcha is real.</strong> <code>Priority</code> with a capital P was not sent, so Nova ran on Standard, yet LiteLLM billed $0.0000835 for it, the priority rate, instead of the $0.0000477 the standard call cost.</li>
+<li><strong>Not every model has every tier.</strong> Nova 2 Lite served priority and flex. Claude Haiku 5.5 refused both with <code>The provided service tier is not supported for this model</code> (<code>BadRequestError</code>, 400) and accepted only <code>default</code>. Check the model's card in the Bedrock documentation before you rely on a tier, and send the tier in lower case.</li>
+</ul>
 <p><strong>Bedrock behind the proxy.</strong> In production, the proxy is where Bedrock's regions, accounts and quotas come together. <a href="examples/bedrock/bedrock_proxy.yaml"><code>examples/bedrock/bedrock_proxy.yaml</code></a>:</p>
 <div class="code"><span class="lang">yaml</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nt">model_list</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude</span><span class="w">                          </span><span class="c1"># one alias, two regions: load-balanced, and failover</span>
@@ -9642,6 +9723,16 @@ cleaned up 2 entries
 <td>The adaptive router never learns</td>
 <td>No <code>litellm_session_id</code> and fewer than four messages, or only provider errors, which it ignores</td>
 <td>Pass a session ID; it learns from conversation text only</td>
+</tr>
+<tr>
+<td>A Bedrock call ran on Standard although <code>service_tier</code> was set</td>
+<td>1.110.2 forwards only <code>priority</code>, <code>flex</code>, <code>default</code> and <code>auto</code>, in lower case, and drops anything else without an error</td>
+<td>Send one of those values in lower case; <code>reserved</code> can't be requested in 1.110.2</td>
+</tr>
+<tr>
+<td>A Bedrock call ran on Standard but was billed at the priority rate</td>
+<td><code>service_tier=&quot;Priority&quot;</code> is dropped on the wire, but the cost lookup lower-cases it</td>
+<td>Lower-case the tier before the call</td>
 </tr>
 <tr>
 <td>An Azure OpenAI deployment's <code>response_cost</code> is <code>None</code></td>

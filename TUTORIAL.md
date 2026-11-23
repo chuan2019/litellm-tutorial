@@ -180,7 +180,7 @@ This edition also adds to the tutorial itself. Section 1 now explains the provid
 - **Sections 1–11, 14, 17, 18a and the SDK parts of 16 and 22:** offline, on Python 3.13 in the uv environment. Their output was the same on both versions, apart from timings, IDs and random load-balancing splits.
 - **Section 1's provider subsections (added in 1.110.2's edition):** the Bedrock and Bedrock Mantle examples both offline and against real AWS (us-west-2 and us-east-1, through an SSO profile); the Ollama example against a real Ollama in Docker (`qwen2.5:0.5b` and `qwen3:0.6b` on CPU); the vLLM example against a fake vLLM server, because I had no GPU. The short table of other providers comes from requests captured offline, not from calls to those providers. They were run on 1.110.2 only.
 - **Setup's proxy quick start and the notebooks:** against real Bedrock, the quick start both with `uv` and with the `v1.110.2` image.
-- **Section 12:** the proxy with `uv` and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (`qwen2.5:0.5b` on CPU). The Bedrock Mantle proxy example ran against real AWS, since there is no fake Mantle. I had no Azure or Google Cloud account to run them live.
+- **Section 12:** the proxy with `uv` and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (`qwen2.5:0.5b` on CPU). The Bedrock Mantle proxy example ran against real AWS, since there is no fake Mantle, and the service-tier part both against the fake and against real Bedrock. I had no Azure or Google Cloud account to run them live.
 - **Sections 13, 15, 16 and 18:** against a local proxy, with Postgres where noted; section 13 also with Docker Compose.
 - **Section 19:** against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).
 - **Sections 20–21:** against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.
@@ -601,7 +601,7 @@ uv run python ex01_1_three_models.py            # offline, free
 LIVE=1 uv run python ex01_1_three_models.py     # real Bedrock calls, usually under a cent
 ```
 
-When you have worked through the sections, test yourself with [`exercises/exam.html`](exercises/exam.html). Open it in a browser; it needs no server and no network. It holds 281 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.
+When you have worked through the sections, test yourself with [`exercises/exam.html`](exercises/exam.html). Open it in a browser; it needs no server and no network. It holds 284 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.
 
 ---
 
@@ -889,7 +889,7 @@ A Bedrock API key goes in as `api_key=` or `AWS_BEARER_TOKEN_BEDROCK`. It is sen
 | `response_format` with a JSON schema | Claude: `outputConfig.textFormat`, Bedrock's native structured output. Nova: a forced tool named `json_tool_call` | Either way the JSON comes back in `message.content` |
 | `reasoning_effort` | Claude Haiku 5.5: `additionalModelRequestFields.thinking = {"type": "adaptive", "display": "summarized"}` plus `output_config.effort`. Nova: `additionalModelRequestFields.reasoningConfig.maxReasoningEffort` | |
 | `thinking={"type": "enabled", "budget_tokens": N}` | Claude Haiku 5.5: adaptive thinking with `effort: "low"` | The budget is not sent |
-| `service_tier` | `serviceTier.type` | |
+| `service_tier` | `serviceTier.type` | Only `priority`, `flex`, `default` and `auto` (sent as `default`), in lower case; any other value is dropped without an error (section 12, "Service tiers") |
 | `stream=True` | `POST /model/<id>/converse-stream` | |
 | `seed` | Nothing | `UnsupportedParamsError`, or dropped with `drop_params=True` |
 | `user` | Nothing | Dropped without a warning |
@@ -1979,7 +1979,7 @@ call 6 refused: budget $0.001 reached (spent $0.001100)
 
 - `token_counter` is an **estimate** for non-OpenAI models; the provider's own count, in `resp.usage`, is the real one. Use the estimate for pre-flight checks such as "will this fit the context window?".
 - `get_model_info` returns context size, prices and capability flags (`supports_vision`, `supports_function_calling`, ...).
-- Prices come from LiteLLM's price table: the current one downloaded at import by default, or the copy bundled with your LiteLLM version when `LITELLM_LOCAL_MODEL_COST_MAP=True`. Some models have a second, higher rate for long prompts (Haiku 5.5 costs five times as much per token above 100k prompt tokens), so `cost_per_token(prompt_tokens=1_000_000, ...)` does not give the base rate; read it from `get_model_info`. For a private or fine-tuned model, register prices with `litellm.register_model({...})`.
+- Prices come from LiteLLM's price table: the current one downloaded at import by default, or the copy bundled with your LiteLLM version when `LITELLM_LOCAL_MODEL_COST_MAP=True`. Some models have a second, higher rate for long prompts (Haiku 5.5 costs five times as much per token above 100k prompt tokens), so `cost_per_token(prompt_tokens=1_000_000, ...)` does not give the base rate; read it from `get_model_info`. For a private or fine-tuned model, register prices with `litellm.register_model({...})`. Some models also have a price per service tier (`input_cost_per_token_priority`, `..._flex`); section 12 shows how a Bedrock call picks its tier and which tier it is billed at.
 
 **Gotcha: don't rely on `litellm.max_budget` in 1.110.2.** The SDK has a global `litellm.max_budget` that should raise `BudgetExceededError`. I set it, made five calls costing $0.0011 in total, and `litellm._current_cost` stayed at `0.0`. The code that accumulates spend (`litellm_logging.py`) only counts results that are plain `dict`s, and a chat completion response is not a dict. Use your own guard like the one above, or the proxy's per-key budgets (section 13). Notice that the guard checks *before* each call, so spend can pass the limit by up to one call. Every budget system works this way.
 
@@ -2492,6 +2492,98 @@ temperature on haiku                0.0s ERR UnsupportedParamsError 400 litellm.
 ```
 
 Converse and Invoke returned the same answer, token counts and cost. The `global.` profile was 10% cheaper for the same tokens. The `temperature` refusal happens inside LiteLLM, before any request is sent (0.0 s). The tool call used 372 input tokens for a one-line question: the tool definition and the tool-use instructions Bedrock adds count as input.
+
+**Service tiers: priority, flex and default.** Bedrock serves an on-demand call at one of several tiers: **Standard**, the default; **Priority**, served ahead of other traffic at a higher price; and **Flex**, cheaper and allowed to take longer. A fourth, **Reserved**, is capacity your account has bought in advance. Not every model offers every tier, so check the model's card in the Bedrock documentation. You choose the tier per call with OpenAI's `service_tier` parameter, and LiteLLM turns it into Converse's `serviceTier` object. [`examples/bedrock/bedrock_service_tier.py`](examples/bedrock/bedrock_service_tier.py) sends each value to the fake Bedrock. Like Bedrock, the fake reports the tier it served only when the request named one; it can also be told to serve another tier (`GET /_serve?tier=default`) or to refuse the tier (`GET /_fail?region=us-west-2&error=tier`):
+
+```python
+NOVA = "bedrock/us.amazon.nova-2-lite-v1:0"  # priced per tier in LiteLLM's table
+
+def call(label: str, model: str = NOVA, serve: str | None = None, fail: str | None = None, **kwargs: object) -> None:
+    """One call against the fake Bedrock: the tier sent, the tier reported back, and the cost LiteLLM recorded."""
+    ...
+        r = litellm.completion(model=model, messages=MSGS, max_tokens=32,
+                               aws_bedrock_runtime_endpoint=FAKE, num_retries=0, **kwargs)
+        result = f"reply tier={str(getattr(r, 'service_tier', None)):9} cost ${r._hidden_params['response_cost']:.8f}"
+    ...
+
+call('service_tier="priority"', service_tier="priority")
+call('service_tier="reserved"', service_tier="reserved")
+call("asked priority, served default", service_tier="priority", serve="default")
+call("Bedrock refuses the tier", service_tier="priority", fail="tier")
+call("Claude Haiku, Invoke", "bedrock/invoke/us.anthropic.claude-haiku-5-5", service_tier="priority")
+
+router = litellm.Router(model_list=[{"model_name": "nova-batchy", "litellm_params": {
+    "model": NOVA, "aws_bedrock_runtime_endpoint": FAKE, "service_tier": "flex"}}])
+```
+
+```bash
+cd examples/bedrock
+uv run python fake_bedrock.py 4015 &
+uv run python bedrock_service_tier.py
+```
+
+```text
+Nova 2 Lite (us.) per 1M tokens, in/out:
+    standard $0.3300/$2.7500
+    flex $0.1650/$1.3750
+    priority $0.5775/$4.8125
+== the values LiteLLM forwards
+no service_tier                    wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier="priority"            wire serviceTier={'type': 'priority'}      reply tier=priority  cost $0.00003581
+service_tier="flex"                wire serviceTier={'type': 'flex'}          reply tier=flex      cost $0.00001023
+service_tier="default"             wire serviceTier={'type': 'default'}       reply tier=default   cost $0.00002046
+service_tier="auto"                wire serviceTier={'type': 'default'}       reply tier=default   cost $0.00002046
+== the values LiteLLM drops without a word
+service_tier="reserved"            wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier="standard"            wire serviceTier=None                      reply tier=None      cost $0.00002046
+service_tier="Priority"            wire serviceTier=None                      reply tier=None      cost $0.00003581
+service_tier="ultrafast"           wire serviceTier=None                      reply tier=None      cost $0.00002046
+== Bedrock decides
+asked priority, served default     wire serviceTier={'type': 'priority'}      reply tier=default   cost $0.00002046
+Bedrock refuses the tier           wire serviceTier={'type': 'priority'}      BadRequestError 400
+== other routes and models
+Claude Haiku, Converse             wire serviceTier={'type': 'priority'}      reply tier=priority  cost $0.00000462
+Claude Haiku, Invoke               nothing sent                               UnsupportedParamsError 400
+Claude Haiku, Invoke, drop_params  wire serviceTier=None                      reply tier=None      cost $0.00000462
+== a default tier per deployment (the proxy's model_list works the same way)
+deployment default                 wire serviceTier={'type': 'flex'}          reply tier=flex      cost $0.00001023
+caller overrides it                wire serviceTier={'type': 'priority'}      reply tier=priority  cost $0.00003581
+```
+
+Every call used 12 input and 6 output tokens, so the costs compare directly. What the output shows:
+
+- **Four values reach Bedrock, all in lower case.** `priority`, `flex` and `default` are sent as `{"type": "<tier>"}`. `auto` is rewritten to `default`, because Converse has no `auto`. Without `service_tier`, no field is sent and Bedrock serves Standard.
+- **Any other value is dropped without an error.** In 1.110.2, `AmazonConverseConfig._map_service_tier_param` forwards only those four exact strings. `reserved` never reaches Bedrock, so reserved capacity sits unused; `standard`, AWS's own name for the base tier, and `Priority` with a capital P are dropped as well, and the call runs on Standard. There is no warning and no 400, and `drop_params` changes nothing: Converse lists `service_tier` as supported, so LiteLLM accepts the value and then ignores it. LiteLLM's main branch has since changed this (PR #50516, merged on 14 November 2026: an unknown tier answers 400, `reserved` is forwarded, `standard` maps to `default`), but 1.110.2 doesn't include it.
+- **The cost follows the tier Bedrock reports, otherwise the tier you asked for.** Nova 2 Lite's priority rate is 1.75 times the standard rate, and flex is half of it: $0.00003581 and $0.00001023 against $0.00002046. When the Converse response carries `serviceTier`, LiteLLM copies it to `response.service_tier` and prices the call at that tier, so asking for priority and being served default was billed at the standard rate. When the response carries no tier, the request decides. That makes `Priority` with a capital P the worst case: it was dropped on the wire and ran on Standard, but the cost lookup lower-cases the tier and billed it at the priority rate.
+- **LiteLLM doesn't check which tiers a model offers.** It sends the tier, and a model that doesn't offer it answers `ValidationException`, which becomes `BadRequestError` (400). The Claude Haiku row shows the pricing side: the fake served priority, and LiteLLM billed the standard rate, because its price table has no tier prices for Claude on Bedrock. A tier with no price in the table is billed as Standard. Real Bedrock doesn't serve priority to Claude Haiku 5.5 at all (below).
+- **The Invoke route doesn't take `service_tier`.** For Claude on `bedrock/invoke/...`, LiteLLM refused it with `UnsupportedParamsError` (400) before sending anything; with `drop_params=True` it was dropped and the call ran on Standard. Use the Converse route when you need a tier.
+- **A deployment can set a default tier.** `service_tier: flex` in a deployment's `litellm_params` went out on every call to it, and a caller's own `service_tier` overrode it. I ran this through `Router`, which the proxy uses for its `model_list`. Behind the proxy that gives you, say, a `nova-flex` alias for batch jobs next to the standard one for interactive traffic, and clients that need a different tier pass `service_tier=` through the OpenAI SDK as usual.
+
+The same values against real Bedrock in us-west-2, through an SSO profile, with [`bedrock_service_tier_live.py`](examples/bedrock/bedrock_service_tier_live.py). It uses section 1's `_wire.py` to show what was sent:
+
+```bash
+cd examples/bedrock
+LIVE=1 uv run python bedrock_service_tier_live.py     # AWS credentials as in Setup; no fake
+```
+
+```text
+amazon    None      sent=None                   reported=None       2.5s 'The capital of France is **Paris**.' tokens=53/11 cost=4.774e-05
+amazon    default   sent={'type': 'default'}    reported=default    0.6s 'The capital of France is **Paris**.' tokens=53/11 cost=4.774e-05
+amazon    priority  sent={'type': 'priority'}   reported=priority   0.5s 'The capital of France is **Paris**.' tokens=53/11 cost=8.3545e-05
+amazon    flex      sent={'type': 'flex'}       reported=flex       0.5s 'The capital of France is **Paris**.' tokens=53/11 cost=2.387e-05
+amazon    reserved  sent=None                   reported=None       0.6s 'The capital of France is **Paris**.' tokens=53/11 cost=4.774e-05
+amazon    Priority  sent=None                   reported=None       0.5s 'The capital of France is **Paris**.' tokens=53/11 cost=8.3545e-05
+anthropic None      sent=None                   reported=None       1.0s 'Paris' tokens=17/5 cost=4.62e-06
+anthropic default   sent={'type': 'default'}    reported=default    0.8s 'Paris' tokens=17/5 cost=4.62e-06
+anthropic priority  sent={'type': 'priority'}   reported=None       0.1s BadRequestError: {"message":"The provided service tier is not supported for this
+anthropic flex      sent={'type': 'flex'}       reported=None       0.2s BadRequestError: {"message":"The provided service tier is not supported for this
+anthropic reserved  sent=None                   reported=None       1.1s 'Paris' tokens=17/5 cost=4.62e-06
+anthropic Priority  sent=None                   reported=None       0.8s 'Paris' tokens=17/5 cost=4.62e-06
+```
+
+- **Bedrock reports a tier only when the request named one,** as the fake assumes: no `service_tier`, and the dropped `reserved` and `Priority`, came back without one.
+- **The billing gotcha is real.** `Priority` with a capital P was not sent, so Nova ran on Standard, yet LiteLLM billed $0.0000835 for it, the priority rate, instead of the $0.0000477 the standard call cost.
+- **Not every model has every tier.** Nova 2 Lite served priority and flex. Claude Haiku 5.5 refused both with `The provided service tier is not supported for this model` (`BadRequestError`, 400) and accepted only `default`. Check the model's card in the Bedrock documentation before you rely on a tier, and send the tier in lower case.
 
 **Bedrock behind the proxy.** In production, the proxy is where Bedrock's regions, accounts and quotas come together. [`examples/bedrock/bedrock_proxy.yaml`](examples/bedrock/bedrock_proxy.yaml):
 
@@ -8168,6 +8260,8 @@ Build this from the pieces of earlier exercises; it should need little new code.
 | `uv sync` fails after adding `semantic-router` | Every release LiteLLM accepts requires `openai<3`; this project pins `openai==3.50.0` | Run with `uv run --with semantic-router==0.1.16 --with openai==2.54.0` |
 | A quality router ignores a model that declares a tier | The model isn't in `available_models` | List every candidate there |
 | The adaptive router never learns | No `litellm_session_id` and fewer than four messages, or only provider errors, which it ignores | Pass a session ID; it learns from conversation text only |
+| A Bedrock call ran on Standard although `service_tier` was set | 1.110.2 forwards only `priority`, `flex`, `default` and `auto`, in lower case, and drops anything else without an error | Send one of those values in lower case; `reserved` can't be requested in 1.110.2 |
+| A Bedrock call ran on Standard but was billed at the priority rate | `service_tier="Priority"` is dropped on the wire, but the cost lookup lower-cases it | Lower-case the tier before the call |
 | An Azure OpenAI deployment's `response_cost` is `None` | `azure/<name>` is your deployment name, which LiteLLM can't price | `base_model: azure/<model>` (SDK) or `model_info.base_model` (proxy) |
 | Azure answers `404 DeploymentNotFound` | The request used the model name, or the deployment is in another resource | Use the deployment name, with that resource's `api_base` |
 | Requests refused by Azure's content filter are answered by another model | Plain `fallbacks` also catch `ContentPolicyViolationError` when `content_policy_fallbacks` isn't set | `content_policy_fallbacks: [{"<alias>": []}]` to keep the refusal |

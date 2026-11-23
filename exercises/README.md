@@ -86,4 +86,4 @@ Sections 20 and 21 are about running the proxy safely, so most of their exercise
 
 ## Self-test
 
-Open [`exam.html`](exam.html) in a browser (`explorer.exe exam.html` from WSL, or double-click it). It works offline and holds 281 questions across 22 domains of LiteLLM. Practice mode shows the answer and explanation after each question, for the domains you choose. Exam mode draws 50 questions evenly from all domains, with 75 minutes and a 75% pass mark. Your exam scores are kept in that browser only.
+Open [`exam.html`](exam.html) in a browser (`explorer.exe exam.html` from WSL, or double-click it). It works offline and holds 284 questions across 22 domains of LiteLLM. Practice mode shows the answer and explanation after each question, for the domains you choose. Exam mode draws 50 questions evenly from all domains, with 75 minutes and a 75% pass mark. Your exam scores are kept in that browser only.
