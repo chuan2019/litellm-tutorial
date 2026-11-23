@@ -1,0 +1,25 @@
+model_list:
+  - model_name: assistant                       # one alias over bedrock-runtime and Mantle
+    litellm_params:
+      model: bedrock/us.anthropic.claude-haiku-5-5
+      aws_region_name: us-west-2
+  - model_name: assistant
+    litellm_params:
+      model: bedrock_mantle/openai.gpt-oss-120b
+      aws_region_name: us-west-2
+  - model_name: gpt-5-west                      # not served in us-west-2
+    litellm_params:
+      model: bedrock_mantle/openai.gpt-5.5
+      aws_region_name: us-west-2
+  - model_name: gpt-5-east
+    litellm_params:
+      model: bedrock_mantle/openai.gpt-5.5
+      aws_region_name: us-east-1
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 0
+  fallbacks: [{"gpt-5-west": ["gpt-5-east"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

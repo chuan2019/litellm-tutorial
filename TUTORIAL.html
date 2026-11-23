@@ -359,7 +359,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
     <button class="theme-btn" type="button" id="themeBtn">Theme</button></span></div>
   <div class="search"><input type="search" id="q" placeholder="Search all sections" aria-label="Search all sections" autocomplete="off">
     <ol id="hits" class="hits" hidden></ol></div>
-  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
+  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#provider-adapters-in-detail">Provider adapters in detail</a></li><li><a href="#aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</a></li><li><a href="#amazon-bedrock-mantle">Amazon Bedrock Mantle</a></li><li><a href="#ollama">Ollama</a></li><li><a href="#vllm">vLLM</a></li><li><a href="#other-major-providers">Other major providers</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
 </nav>
 <main>
 <article>
@@ -706,11 +706,11 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <tbody>
 <tr>
 <td>1–11</td>
-<td>The SDK: calls, streaming, async, structured output, tools, errors and fallbacks, the <code>Router</code>, cost, caching, callbacks, comparing models</td>
+<td>The SDK: calls and provider adapters (AWS Bedrock, Amazon Bedrock Mantle, Ollama and vLLM in detail, the other major providers in brief), streaming, async, structured output, tools, errors and fallbacks, the <code>Router</code>, cost, caching, callbacks, comparing models</td>
 </tr>
 <tr>
 <td>12–13</td>
-<td>The proxy, run with <code>uv</code> or from the official Docker image; reaching models through AWS Bedrock, Microsoft Azure and Google Vertex AI, and directly through OpenAI, Anthropic, Ollama and vLLM; virtual keys, budgets and rate limits</td>
+<td>The proxy, run with <code>uv</code> or from the official Docker image; reaching models through AWS Bedrock and Bedrock Mantle, Microsoft Azure and Google Vertex AI, and directly through OpenAI, Anthropic, Ollama and vLLM; virtual keys, budgets and rate limits</td>
 </tr>
 <tr>
 <td>14</td>
@@ -749,16 +749,18 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <li><strong>Shared rate limits take longer to recover after a Redis outage:</strong> up to about three minutes instead of one (21b).</li>
 <li><strong>New, and not covered here:</strong> a fifth smart router, Switchyard (14), and the Skills Hub (16a).</li>
 </ul>
+<p>This edition also adds to the tutorial itself. Section 1 now explains the provider adapters from the SDK: AWS Bedrock, Amazon Bedrock Mantle, Ollama and vLLM in detail, and the other major providers in brief, with exercises 1.4–1.11. Section 12 adds Bedrock Mantle behind the proxy, with exercise 12.10.</p>
 <p><strong>How this was verified.</strong> The outputs in this tutorial are pasted from real runs. The tutorial was first written and run on LiteLLM 1.109.1; for 1.110.2 every script was run again under both versions side by side, and only what changed was rewritten (the scripts are in <a href="build/compare/"><code>build/compare/</code></a>):</p>
 <ul>
 <li><strong>Sections 1–11, 14, 17, 18a and the SDK parts of 16 and 22:</strong> offline, on Python 3.13 in the uv environment. Their output was the same on both versions, apart from timings, IDs and random load-balancing splits.</li>
+<li><strong>Section 1's provider subsections (added in 1.110.2's edition):</strong> the Bedrock and Bedrock Mantle examples both offline and against real AWS (us-west-2 and us-east-1, through an SSO profile); the Ollama example against a real Ollama in Docker (<code>qwen2.5:0.5b</code> and <code>qwen3:0.6b</code> on CPU); the vLLM example against a fake vLLM server, because I had no GPU. The short table of other providers comes from requests captured offline, not from calls to those providers. They were run on 1.110.2 only.</li>
 <li><strong>Setup's proxy quick start and the notebooks:</strong> against real Bedrock, the quick start both with <code>uv</code> and with the <code>v1.110.2</code> image.</li>
-<li><strong>Section 12:</strong> the proxy with <code>uv</code> and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (<code>qwen2.5:0.5b</code> on CPU). I had no Azure or Google Cloud account to run them live.</li>
+<li><strong>Section 12:</strong> the proxy with <code>uv</code> and from the official image; the AWS Bedrock, Azure, Google Vertex AI and direct-provider subsections against local fakes of those services, and against a real Ollama in Docker (<code>qwen2.5:0.5b</code> on CPU). The Bedrock Mantle proxy example ran against real AWS, since there is no fake Mantle. I had no Azure or Google Cloud account to run them live.</li>
 <li><strong>Sections 13, 15, 16 and 18:</strong> against a local proxy, with Postgres where noted; section 13 also with Docker Compose.</li>
 <li><strong>Section 19:</strong> against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).</li>
 <li><strong>Sections 20–21:</strong> against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.</li>
 <li><strong>Section 22:</strong> the SDK scripts offline with mocks and local fakes of the Anthropic API and Bedrock, and the proxy script against a local proxy with Postgres.</li>
-<li><strong>Exercises:</strong> the reference solutions in <a href="solutions/"><code>solutions/</code></a> pass on 1.110.2. The other exercises were written and solved on 1.109.1; for 1.110.2 their text was checked against the changes listed above, not solved again.</li>
+<li><strong>Exercises:</strong> the reference solutions in <a href="solutions/"><code>solutions/</code></a> pass on 1.110.2, including those for exercises 1.4–1.11 and 12.10, which are new in this edition. The other exercises were written and solved on 1.109.1; for 1.110.2 their text was checked against the changes listed above, not solved again.</li>
 </ul>
 <p>Where a claim comes from the source or the docs and was not run, the text says so.</p>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#what-litellm-is"><span>Previous</span>What LiteLLM is</a><a class="next" href="#setup"><span>Next</span>Setup</a></nav>
@@ -1253,7 +1255,7 @@ uv<span class="w"> </span>run<span class="w"> </span>litellm<span class="w"> </s
 <tr>
 <td>Covered in</td>
 <td>Sections 1 and 12, &quot;Directly to a model provider&quot;</td>
-<td>Setup's quick start, section 12's Bedrock subsection, and the notebooks; Azure and Google Vertex AI have their own subsections in section 12</td>
+<td>Setup's quick start, section 1's &quot;AWS Bedrock from the SDK&quot; and &quot;Amazon Bedrock Mantle&quot;, section 12's Bedrock subsection, and the notebooks; Azure and Google Vertex AI have their own subsections in section 12</td>
 </tr>
 </tbody>
 </table></div>
@@ -1323,7 +1325,7 @@ uv<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </s
 </tr>
 <tr>
 <td><a href="notebooks/01_basics.ipynb"><code>01_basics.ipynb</code></a></td>
-<td>1–3: one call, streaming, async batches</td>
+<td>1–3: one call, streaming, async batches. Section 1's provider subsections are scripts only (<code>examples/01c</code>–<code>01f</code>)</td>
 </tr>
 <tr>
 <td><a href="notebooks/02_structured_output_and_tools.ipynb"><code>02_structured_output_and_tools.ipynb</code></a></td>
@@ -1359,7 +1361,7 @@ uv<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </s
 uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>ex01_1_three_models.py<span class="w">            </span><span class="c1"># offline, free</span>
 <span class="nv">LIVE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>ex01_1_three_models.py<span class="w">     </span><span class="c1"># real Bedrock calls, usually under a cent</span>
 </code></pre></div>
-<p>When you have worked through the sections, test yourself with <a href="exercises/exam.html"><code>exercises/exam.html</code></a>. Open it in a browser; it needs no server and no network. It holds 257 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.</p>
+<p>When you have worked through the sections, test yourself with <a href="exercises/exam.html"><code>exercises/exam.html</code></a>. Open it in a browser; it needs no server and no network. It holds 281 certification-style questions across 22 domains of LiteLLM, including AWS Bedrock, Azure, Google Vertex AI and local models (section 12), the smart routers, MCP gateway, skills and agent (A2A) gateways, prompt management and observability integrations of sections 14–18, Lens (section 19), access control, identity providers and secrets (section 20), guardrails and production hardening (section 21), context and memory management (section 22), and topics this tutorial only mentions (embeddings, pass-through routes). Practice mode explains each answer as you go. Exam mode draws 50 questions, gives you 75 minutes and needs 75% to pass, then breaks your score down by domain.</p>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#what-you-will-learn"><span>Previous</span>What you will learn</a><a class="next" href="#1-one-call-any-provider"><span>Next</span>1. One call, any provider</a></nav>
 </section>
 <section class="page" data-page="1-one-call-any-provider" data-title="1. One call, any provider">
@@ -1619,6 +1621,716 @@ gemini/gemini-2.5-flash        -&gt; &#x27;Bonjour à tous !&#x27;
 <li><strong>Keep keys out of source code.</strong> The literal keys here are fake and only show where the value ends up. In real code, read each key from a secrets manager or an env var with a different name, and pass it in: <code>api_key=os.environ[&quot;TEAM_A_OPENAI_KEY&quot;]</code>.</li>
 <li>The Router (section 7) and the proxy config (section 12) take the same <code>api_key</code> and <code>api_base</code> per deployment, so you set them once there instead of on every call.</li>
 </ul>
+<h3 id="provider-adapters-in-detail">Provider adapters in detail</h3>
+<p><strong>Use case:</strong> you call a provider from your own Python code and need to know what it accepts, what it actually receives, and what you get back.</p>
+<p><code>completion()</code> takes the same arguments for every provider, but four things still change from one provider to the next, and your code sees all four:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>What changes</th>
+<th>Why it matters</th>
+<th>How to see it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The model string and the credential</td>
+<td>They pick the adapter, the URL and what LiteLLM looks for in the environment</td>
+<td><code>litellm.get_llm_provider()</code> and <code>litellm.validate_environment()</code> (exercise 1.2)</td>
+</tr>
+<tr>
+<td>Which OpenAI parameters a model accepts</td>
+<td>One it doesn't accept raises <code>UnsupportedParamsError</code> before anything is sent, unless you set <code>drop_params</code></td>
+<td><code>litellm.get_supported_openai_params(model=..., custom_llm_provider=...)</code></td>
+</tr>
+<tr>
+<td>Where an accepted parameter lands</td>
+<td>The same <code>response_format</code> becomes a native JSON-schema setting for one model and a forced tool call for another, with a different token bill</td>
+<td>The request body</td>
+</tr>
+<tr>
+<td>What comes back</td>
+<td>Reasoning text, reasoning tokens and cost are only as good as what the provider reports and what LiteLLM's price table knows</td>
+<td><code>message.reasoning_content</code>, <code>usage</code>, <code>response._hidden_params[&quot;response_cost&quot;]</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The next four subsections take four adapters in detail. AWS Bedrock and Amazon Bedrock Mantle are cloud platforms; Ollama and vLLM run models you host yourself. The fifth covers the other major providers more briefly. Section 12 covers the same providers from the proxy's side. It has the wire-level details: Bedrock's model ID forms, request signing and assumed roles, and the identities for Azure and Vertex AI.</p>
+<p><strong>Seeing the request without sending it.</strong> The four examples share a small helper, <a href="examples/_wire.py"><code>examples/_wire.py</code></a>. It registers a callback (section 10) whose <code>log_pre_api_call</code> hook receives the URL, headers and body LiteLLM is about to send. <code>send()</code> makes a call and returns the response, or the exception, together with that request:</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="k">class</span><span class="w"> </span><span class="nc">WireTap</span><span class="p">(</span><span class="n">CustomLogger</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Keep the URL, headers and body of the last request LiteLLM was about to send."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_pre_api_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"additional_args"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">extra</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"complete_input_dict"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"url"</span><span class="p">:</span> <span class="n">extra</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"api_base"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                     <span class="s2">"headers"</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">extra</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"headers"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+                     <span class="s2">"body"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">body</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">))</span> <span class="k">else</span> <span class="nb">dict</span><span class="p">(</span><span class="n">body</span><span class="p">)}</span>
+</code></pre></div>
+<p>Offline, <code>_wire.py</code> also points <code>HTTPS_PROXY</code> at a closed local port. The request is built and signed for real, then fails to connect, so nothing leaves your machine; the output says <code>not sent (offline)</code>. With <code>LIVE=1</code>, the requests go out and you see the real replies next to what was sent. <code>auth()</code> prints how a request authenticates (<code>SigV4 &lt;region&gt;/&lt;service&gt;</code>, <code>Bearer</code>, <code>x-api-key</code>), never the credential itself.</p>
+<p>Import <code>_wire</code> before <code>litellm</code>: it sets <code>LITELLM_LOCAL_MODEL_COST_MAP</code> (Setup), and LiteLLM reads that variable when it is imported. My first version imported it second. LiteLLM then downloaded the current price table from GitHub, and Claude Haiku 4.5 on Mantle was priced 10% higher than in the table bundled with 1.110.2.</p>
+<h3 id="aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</h3>
+<p>Section 12's Bedrock subsection explains the model string (<code>bedrock/[route/]&lt;model id&gt;</code>), the model ID forms (base IDs, <code>us.</code>, <code>eu.</code> and <code>global.</code> inference profiles, ARNs), the Converse and Invoke routes, and the AWS identity LiteLLM signs with. This part covers what you write in Python.</p>
+<p><strong>Credentials in code.</strong> With no <code>aws_*</code> arguments, LiteLLM uses boto3's default chain: environment variables, <code>AWS_PROFILE</code>, then the workload's role. Each row of section 12's identity table can also be passed per call, so one process can use several identities and regions:</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/us.anthropic.claude-haiku-5-5"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">msgs</span><span class="p">)</span>              <span class="c1"># default chain</span>
+<span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/eu.anthropic.claude-haiku-5-5"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">msgs</span><span class="p">,</span>
+           <span class="n">aws_region_name</span><span class="o">=</span><span class="s2">"eu-west-1"</span><span class="p">)</span>                                               <span class="c1"># another region</span>
+<span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/us.anthropic.claude-haiku-5-5"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">msgs</span><span class="p">,</span>
+           <span class="n">aws_role_name</span><span class="o">=</span><span class="s2">"arn:aws:iam::&lt;account&gt;:role/team-b"</span><span class="p">,</span> <span class="n">aws_session_name</span><span class="o">=</span><span class="s2">"team-b"</span><span class="p">)</span>  <span class="c1"># another account</span>
+<span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/us.anthropic.claude-haiku-5-5"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">msgs</span><span class="p">,</span>
+           <span class="n">aws_profile_name</span><span class="o">=</span><span class="s2">"&lt;profile&gt;"</span><span class="p">)</span>                                              <span class="c1"># a named profile</span>
+</code></pre></div>
+<p>A Bedrock API key goes in as <code>api_key=</code> or <code>AWS_BEARER_TOKEN_BEDROCK</code>. It is sent as a bearer token instead of a signature.</p>
+<p><strong>OpenAI parameters become Converse fields.</strong> LiteLLM sends most chat models to Bedrock's Converse API. This is where each parameter ends up, from the example below and its live run:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You pass</th>
+<th>In the Converse request</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A <code>system</code> message</td>
+<td>Top-level <code>system</code>, a list of text blocks</td>
+<td>Other messages become content blocks</td>
+</tr>
+<tr>
+<td><code>max_tokens</code> or <code>max_completion_tokens</code></td>
+<td><code>inferenceConfig.maxTokens</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stop</code>, <code>temperature</code>, <code>top_p</code></td>
+<td><code>inferenceConfig.stopSequences</code>, <code>.temperature</code>, <code>.topP</code></td>
+<td>Claude Haiku 5.5 accepts only <code>temperature=1</code> and no <code>top_p</code>: <code>UnsupportedParamsError</code></td>
+</tr>
+<tr>
+<td><code>tools</code>, <code>tool_choice</code></td>
+<td><code>toolConfig.tools[].toolSpec</code>, <code>toolConfig.toolChoice</code></td>
+<td><code>&quot;required&quot;</code> becomes <code>{&quot;any&quot;: {}}</code></td>
+</tr>
+<tr>
+<td><code>response_format</code> with a JSON schema</td>
+<td>Claude: <code>outputConfig.textFormat</code>, Bedrock's native structured output. Nova: a forced tool named <code>json_tool_call</code></td>
+<td>Either way the JSON comes back in <code>message.content</code></td>
+</tr>
+<tr>
+<td><code>reasoning_effort</code></td>
+<td>Claude Haiku 5.5: <code>additionalModelRequestFields.thinking = {&quot;type&quot;: &quot;adaptive&quot;, &quot;display&quot;: &quot;summarized&quot;}</code> plus <code>output_config.effort</code>. Nova: <code>additionalModelRequestFields.reasoningConfig.maxReasoningEffort</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>thinking={&quot;type&quot;: &quot;enabled&quot;, &quot;budget_tokens&quot;: N}</code></td>
+<td>Claude Haiku 5.5: adaptive thinking with <code>effort: &quot;low&quot;</code></td>
+<td>The budget is not sent</td>
+</tr>
+<tr>
+<td><code>service_tier</code></td>
+<td><code>serviceTier.type</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stream=True</code></td>
+<td><code>POST /model/&lt;id&gt;/converse-stream</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td>Nothing</td>
+<td><code>UnsupportedParamsError</code>, or dropped with <code>drop_params=True</code></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>Nothing</td>
+<td>Dropped without a warning</td>
+</tr>
+<tr>
+<td><code>requestMetadata</code>, <code>performanceConfig</code>, <code>guardrailConfig</code></td>
+<td>Top-level fields of the same name</td>
+<td>Bedrock's own parameters, passed through; Bedrock decides whether the model supports them. <code>guardrailConfig</code> is in section 12</td>
+</tr>
+<tr>
+<td>Any other keyword</td>
+<td><code>additionalModelRequestFields</code></td>
+<td>Nova's <code>top_k</code> becomes <code>additionalModelRequestFields.inferenceConfig.topK</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><a href="examples/01c_bedrock.py"><code>examples/01c_bedrock.py</code></a> makes one call per row and prints the outcome, the Bedrock path and the body fields other than the messages:</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">CLAUDE</span> <span class="o">=</span> <span class="s2">"bedrock/us.anthropic.claude-haiku-5-5"</span>
+<span class="n">NOVA</span> <span class="o">=</span> <span class="s2">"bedrock/us.amazon.nova-2-lite-v1:0"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Make one call; print the outcome, the Bedrock path and the body fields other than the messages."""</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">req</span> <span class="o">=</span> <span class="n">send</span><span class="p">(</span><span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"messages"</span><span class="p">,</span> <span class="n">MSGS</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">36</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">outcome</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">req</span><span class="p">:</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">req</span><span class="p">[</span><span class="s2">"body"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SAME</span><span class="p">}</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    POST </span><span class="si">{</span><span class="n">req</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'amazonaws.com'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">    </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">body</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resp</span>
+
+
+<span class="n">show</span><span class="p">(</span><span class="s2">"response_format: Claude"</span><span class="p">,</span> <span class="n">CLAUDE</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">response_format</span><span class="o">=</span><span class="n">CITY</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"response_format: Nova"</span><span class="p">,</span> <span class="n">NOVA</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">response_format</span><span class="o">=</span><span class="n">CITY</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"reasoning_effort='low': Nova"</span><span class="p">,</span> <span class="n">NOVA</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">reasoning_effort</span><span class="o">=</span><span class="s2">"low"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"seed, drop_params=True"</span><span class="p">,</span> <span class="n">CLAUDE</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">drop_params</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"top_k=5: Nova"</span><span class="p">,</span> <span class="n">NOVA</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">...</span>
+</code></pre></div>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01c_bedrock.py<span class="w">                    </span><span class="c1"># offline: requests are built, not sent</span>
+<span class="nv">LIVE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01c_bedrock.py<span class="w">             </span><span class="c1"># live: needs AWS credentials, as in Setup's quick start</span>
+</code></pre></div>
+<p>This is the live run, in us-west-2 through an SSO profile. Offline, every request was identical and the outcome column read <code>not sent (offline)</code>, except for the three refusals, which happen before sending:</p>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>== the same OpenAI parameters, two model families
+max_completion_tokens, stop: Claude  &#x27;Paris.&#x27; tokens=20/6 cost=5.5e-06
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;stopSequences&quot;: [&quot;END&quot;], &quot;maxTokens&quot;: 100}}
+... and temperature: Nova            &#x27;The capital of France is **Paris**. \n\ tokens=53/57 cost=0.00017423999999999999
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;temperature&quot;: 0.2, &quot;stopSequences&quot;: [&quot;END&quot;], &quot;maxTokens&quot;: 100}}
+temperature: Claude Haiku 5.5        UnsupportedParamsError: us.anthropic.claude-haiku-5-5 does not support temperature=0.2. Only temperature
+top_p: Claude Haiku 5.5              UnsupportedParamsError: us.anthropic.claude-haiku-5-5 does not support top_p=0.9. To drop unsupported pa
+response_format: Claude              &#x27;{&quot;city&quot;: &quot;Paris&quot;}&#x27; tokens=204/12 cost=2.9040000000000003e-05
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 200}, &quot;outputConfig&quot;: {&quot;textFormat&quot;: {&quot;type&quot;: &quot;json_schema&quot;, &quot;structure&quot;: {&quot;jsonSchema&quot;: {&quot;schema&quot;: &quot;{\&quot;type\&quot;: \&quot;object\&quot;, \&quot;properties\&quot;: {\&quot;city\&quot;: {\&quot;type\&quot;: \&quot;string\&quot;}}, \&quot;required\&quot;: [\&quot;city\&quot;], \&quot;additionalProperties\&quot;: false}&quot;, &quot;name&quot;: &quot;city&quot;}}}}}
+response_format: Nova                &#x27;{&quot;city&quot;: &quot;Paris&quot;}&#x27; tokens=912/26 cost=0.00037246
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 200}, &quot;toolConfig&quot;: {&quot;tools&quot;: [{&quot;toolSpec&quot;: {&quot;inputSchema&quot;: {&quot;json&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}}, &quot;required&quot;: [&quot;city&quot;]}}, &quot;name&quot;: &quot;json_tool_call&quot;, &quot;description&quot;: &quot;json_tool_call&quot;}}], &quot;toolChoice&quot;: {&quot;tool&quot;: {&quot;name&quot;: &quot;json_tool_call&quot;}}}}
+tools, tool_choice=&#x27;required&#x27;        &#x27;tool call get_weather&#x27; tokens=494/40 cost=7.634e-05
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 200}, &quot;toolConfig&quot;: {&quot;tools&quot;: [{&quot;toolSpec&quot;: {&quot;inputSchema&quot;: {&quot;json&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}}, &quot;required&quot;: [&quot;city&quot;]}}, &quot;name&quot;: &quot;get_weather&quot;, &quot;description&quot;: &quot;Weather for a city&quot;}}], &quot;toolChoice&quot;: {&quot;any&quot;: {}}}}
+reasoning_effort=&#x27;low&#x27;: Nova         &#x27;### Capital of France\n\nThe **capital  tokens=103/534 cost=0.00150249
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 2000}, &quot;additionalModelRequestFields&quot;: {&quot;reasoningConfig&quot;: {&quot;type&quot;: &quot;enabled&quot;, &quot;maxReasoningEffort&quot;: &quot;low&quot;}}}
+reasoning_effort=&#x27;low&#x27;: Claude       &#x27;The capital of France is **Paris**.&#x27; tokens=20/14 cost=9.9e-06
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 2000}, &quot;additionalModelRequestFields&quot;: {&quot;thinking&quot;: {&quot;type&quot;: &quot;adaptive&quot;, &quot;display&quot;: &quot;summarized&quot;}, &quot;output_config&quot;: {&quot;effort&quot;: &quot;low&quot;}}}
+thinking budget_tokens=1024: Claude  &#x27;Paris.&#x27; tokens=20/6 cost=5.5e-06
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 2000}, &quot;additionalModelRequestFields&quot;: {&quot;thinking&quot;: {&quot;type&quot;: &quot;adaptive&quot;}, &quot;output_config&quot;: {&quot;effort&quot;: &quot;low&quot;}}}
+seed                                 UnsupportedParamsError: bedrock does not support parameters: [&#x27;seed&#x27;], for model=us.anthropic.claude-hai
+seed, drop_params=True               &#x27;Paris.&#x27; tokens=20/6 cost=5.5e-06
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}}
+user                                 &#x27;The capital of France is **Paris**. \n\ tokens=53/59 cost=0.00017973999999999998
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}}
+== Bedrock&#x27;s own parameters
+service_tier=&#x27;flex&#x27;                  &#x27;The capital of France is **Paris**. \n\ tokens=53/56 cost=8.5745e-05
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;serviceTier&quot;: {&quot;type&quot;: &quot;flex&quot;}}
+requestMetadata                      &#x27;The capital of France is **Paris**. \n\ tokens=53/57 cost=0.00017423999999999999
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;requestMetadata&quot;: {&quot;team&quot;: &quot;search&quot;}}
+performanceConfig                    BadRequestError: {&quot;message&quot;:&quot;Latency performance configuration is not supported for amazon.nova-2
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;performanceConfig&quot;: {&quot;latency&quot;: &quot;optimized&quot;}}
+top_k=5: Nova                        &#x27;The capital of France is **Paris**. \n\ tokens=53/57 cost=0.00017423999999999999
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;additionalModelRequestFields&quot;: {&quot;inferenceConfig&quot;: {&quot;topK&quot;: 5}}}
+any other keyword                    BadRequestError: {&quot;message&quot;:&quot;The model returned the following errors: Malformed input request: #:
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;additionalModelRequestFields&quot;: {&quot;some_new_field&quot;: {&quot;on&quot;: true}}}
+additionalModelRequestFields=        BadRequestError: {&quot;message&quot;:&quot;The model returned the following errors: Malformed input request: #:
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 100}, &quot;additionalModelRequestFields&quot;: {&quot;additionalModelRequestFields&quot;: {&quot;inferenceConfig&quot;: {&quot;topK&quot;: 5}}}}
+== what comes back
+reasoning_effort=&#x27;medium&#x27;: anthropic &#x27;1001 is not prime; it equals 7 × 11 × 1 tokens=24/24 cost=1.584e-05
+    POST /model/us.anthropic.claude-haiku-5-5/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 4000}, &quot;additionalModelRequestFields&quot;: {&quot;thinking&quot;: {&quot;type&quot;: &quot;adaptive&quot;, &quot;display&quot;: &quot;summarized&quot;}, &quot;output_config&quot;: {&quot;effort&quot;: &quot;medium&quot;}}}
+    reasoning_content=None  reasoning_tokens=0 of 24
+reasoning_effort=&#x27;medium&#x27;: amazon    &#x27;No, 1001 is not prime because it factor tokens=92/587 cost=0.00164461
+    POST /model/us.amazon.nova-2-lite-v1%3A0/converse
+    {&quot;inferenceConfig&quot;: {&quot;maxTokens&quot;: 4000}, &quot;additionalModelRequestFields&quot;: {&quot;reasoningConfig&quot;: {&quot;type&quot;: &quot;enabled&quot;, &quot;maxReasoningEffort&quot;: &quot;medium&quot;}}}
+    reasoning_content=&#x27;[REDACTED].&#x27;  reasoning_tokens=6 of 587
+stream=True posts to converse-stream
+  3 chunks -&gt; &#x27;Paris.&#x27;, usage 20/6
+</code></pre></div>
+<p>What to notice:</p>
+<ul>
+<li><strong>The same parameter can cost very different amounts.</strong> One <code>response_format</code> became Bedrock's native structured output for Claude (204 input tokens) and a forced tool call for Nova (912 input tokens). The tool definition and the instructions Bedrock adds for it count as input. Both replies came back as the same JSON string in <code>message.content</code>.</li>
+<li><strong>Refusals happen inside LiteLLM, before anything is sent.</strong> <code>temperature=0.2</code> and <code>top_p</code> on Claude Haiku 5.5, and <code>seed</code>, raised <code>UnsupportedParamsError</code> offline too. <code>drop_params=True</code> (per call, or <code>litellm.drop_params = True</code>) removes the parameter instead. <code>user</code> was dropped without a warning even without <code>drop_params</code> (the <code>user</code> line has no such field in its body), so don't rely on it reaching Bedrock.</li>
+<li><strong>Unknown keywords are sent to the model, unchecked.</strong> LiteLLM puts any keyword it doesn't recognise into <code>additionalModelRequestFields</code>, so a misspelt parameter reaches Bedrock, and Nova rejected it with <code>Malformed input request</code>. Pass Bedrock's own top-level fields by name (<code>requestMetadata</code>, <code>serviceTier</code> through <code>service_tier</code>, <code>guardrailConfig</code>), and model-specific fields as plain keywords. Don't pass <code>additionalModelRequestFields=</code> itself: LiteLLM wrapped it in a second <code>additionalModelRequestFields</code>, and Bedrock rejected the request. <code>performanceConfig={&quot;latency&quot;: &quot;optimized&quot;}</code> was passed through too, and Bedrock answered that latency optimisation is not supported for Nova 2 Lite: passing a field through doesn't mean the model accepts it.</li>
+<li><strong><code>reasoning_effort</code> turns on adaptive thinking for Claude Haiku 5.5: the model decides whether to think.</strong> For the 1001 question, it thought in one of my six runs (18 reasoning tokens; <code>reasoning_content</code> was &quot;1001 factors as 7×11×13, so it's not prime.&quot;) and answered straight away in the other five. A <code>thinking</code> budget is not sent at all for this model. If your code needs reasoning text, check that <code>reasoning_content</code> is not <code>None</code>.</li>
+<li><strong>Nova returns its reasoning as <code>[REDACTED].</code></strong> Bedrock gave no breakdown of Nova's output tokens. LiteLLM then estimates <code>reasoning_tokens</code> by counting the reasoning text, which here was the 6 tokens of <code>[REDACTED].</code>, while the 587 completion tokens included all the hidden reasoning. Use <code>completion_tokens</code> for Nova's cost; <code>reasoning_tokens</code> is wrong for it.</li>
+<li><strong>Bedrock's options change the price.</strong> <code>service_tier=&quot;flex&quot;</code> was priced at half the standard per-token rate in LiteLLM's 1.110.2 table: $0.0000857 for 53 tokens in and 56 out, against $0.000174 for 53 in and 57 out at the standard tier.</li>
+<li><strong>Streaming uses its own endpoint, <code>converse-stream</code>.</strong> LiteLLM decodes AWS's event stream into OpenAI-style chunks. With <code>stream_options={&quot;include_usage&quot;: True}</code>, the last chunk carries the usage (section 2).</li>
+</ul>
+<h3 id="amazon-bedrock-mantle">Amazon Bedrock Mantle</h3>
+<p>Mantle is a second inference endpoint in Amazon Bedrock, at <code>https://bedrock-mantle.&lt;region&gt;.api.aws</code>. Bedrock's usual endpoint, bedrock-runtime, speaks Bedrock's own Converse and Invoke APIs. Mantle speaks OpenAI's Chat Completions and Responses APIs, plus Anthropic's Messages API for Claude. It uses the same AWS identities, and it bills to the same AWS account. Two things set it apart:</p>
+<ul>
+<li><strong>Tools written for OpenAI's API can call it,</strong> with a Bedrock API key as the bearer token and Mantle's URL as the base URL. I had no Bedrock API key, so I only saw Mantle reject a made-up one.</li>
+<li><strong>Its model catalogue differs from bedrock-runtime's, and from region to region.</strong> In my account, the full lists showed 49 models in us-west-2: OpenAI's gpt-oss and several GPT-5 and GPT-6 models, Qwen, Gemma, Mistral, DeepSeek, Kimi, MiniMax, GLM, Grok, Nemotron, and one Claude model, Claude Haiku 4.5. us-east-1 offered 61, including Claude Opus 5.5, Claude Sonnet 5 and GPT-5.5. Claude Haiku 5.5, this tutorial's default Bedrock model, was in neither. Ask the region for its list (<code>GET /v1/models</code>, in the example below) instead of assuming a model is there.</li>
+</ul>
+<p>LiteLLM 1.110.2 has a provider for it, <code>bedrock_mantle/&lt;model id&gt;</code>. Compared with <code>bedrock/</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><code>bedrock/</code></th>
+<th><code>bedrock_mantle/</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Endpoint</td>
+<td><code>bedrock-runtime.&lt;region&gt;.amazonaws.com</code></td>
+<td><code>bedrock-mantle.&lt;region&gt;.api.aws</code></td>
+</tr>
+<tr>
+<td>Request format</td>
+<td>Converse, or Invoke</td>
+<td>OpenAI Chat Completions or Responses; Anthropic Messages for Claude</td>
+</tr>
+<tr>
+<td>Model IDs</td>
+<td>Base IDs, inference profiles (<code>us.</code>, <code>global.</code>), ARNs</td>
+<td>Plain IDs such as <code>openai.gpt-oss-120b</code>, with no profiles. A region can go in front: <code>bedrock_mantle/us-east-2/openai.gpt-oss-120b</code></td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>SigV4 for service <code>bedrock</code>, or a Bedrock API key</td>
+<td>The same. A key, when LiteLLM finds one, always wins over SigV4</td>
+</tr>
+<tr>
+<td>Where the key comes from</td>
+<td><code>api_key=</code>, <code>AWS_BEARER_TOKEN_BEDROCK</code></td>
+<td><code>api_key=</code>, <code>BEDROCK_MANTLE_API_KEY</code>, <code>AWS_BEARER_TOKEN_BEDROCK</code></td>
+</tr>
+<tr>
+<td>Region, first one set</td>
+<td><code>aws_region_name</code>, the region in an ARN model ID, <code>AWS_REGION_NAME</code>, <code>AWS_REGION</code>, the boto3 session's region (the profile's, or <code>AWS_DEFAULT_REGION</code>), then <code>us-west-2</code></td>
+<td><code>aws_region_name</code>, the region in the model string, <code>BEDROCK_MANTLE_REGION</code>, <code>AWS_REGION_NAME</code>, <code>AWS_REGION</code>, then <code>us-east-1</code>. It never reads the profile's region</td>
+</tr>
+<tr>
+<td>Endpoint override</td>
+<td><code>aws_bedrock_runtime_endpoint</code></td>
+<td><code>api_base</code> or <code>BEDROCK_MANTLE_API_BASE</code>, including the <code>/v1</code> or <code>/openai/v1</code></td>
+</tr>
+<tr>
+<td>IAM actions</td>
+<td><code>bedrock:InvokeModel</code>, <code>bedrock:InvokeModelWithResponseStream</code></td>
+<td>LiteLLM's web-identity session policy for Mantle allows <code>bedrock-mantle:CreateInference</code> and <code>bedrock-mantle:CountTokens</code> (from the source; I ran with an administrator role)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Which path a call takes.</strong> The adapter picks the path from the model ID and LiteLLM's price table:</p>
+<ul>
+<li>A Claude model goes to <code>/anthropic/v1/messages</code>, with Anthropic's Messages body.</li>
+<li>A model whose table entry carries <code>use_openai_responses_path</code> (the GPT-5 and GPT-6 models, Gemma 4 and Grok in 1.110.2) goes to <code>/openai/v1/...</code>. Every other model goes to <code>/v1/...</code>.</li>
+<li>For a model whose table entry has <code>mode: &quot;responses&quot;</code> (the GPT-5 and GPT-6 models in 1.110.2), LiteLLM uses the Responses API: <code>completion()</code> sends it to <code>/responses</code> and converts the reply back into a chat completion.</li>
+</ul>
+<p><code>bedrock/mantle/&lt;claude id&gt;</code> is a second way to reach Mantle's Messages API, through the <code>bedrock/</code> provider.</p>
+<p><a href="examples/01d_bedrock_mantle.py"><code>examples/01d_bedrock_mantle.py</code></a> first lists the models of two regions, then makes the calls:</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="k">def</span><span class="w"> </span><span class="nf">mantle_models</span><span class="p">(</span><span class="n">region</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""List the model IDs Mantle serves in a region: GET /v1/models, signed like any Mantle request."""</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"https://bedrock-mantle.</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">.api.aws/v1/models"</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">AWSRequest</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"GET"</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">SigV4Auth</span><span class="p">(</span><span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span><span class="o">.</span><span class="n">get_credentials</span><span class="p">()</span><span class="o">.</span><span class="n">get_frozen_credentials</span><span class="p">(),</span> <span class="s2">"bedrock"</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span><span class="o">.</span><span class="n">add_auth</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">httpx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">))</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"data"</span><span class="p">])</span>
+
+
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">(</span><span class="n">GPT_OSS</span><span class="p">,</span> <span class="n">GEMMA</span><span class="p">,</span> <span class="n">GPT5</span><span class="p">,</span> <span class="n">CLAUDE</span><span class="p">):</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"region in the model string"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">"bedrock_mantle/us-east-2/openai.gpt-oss-120b"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"aws_region_name='eu-west-1'"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">GPT_OSS</span><span class="p">,</span> <span class="n">aws_region_name</span><span class="o">=</span><span class="s2">"eu-west-1"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"api_key= (a made-up Bedrock API key)"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">GPT_OSS</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">"made-up-bedrock-api-key"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"api_base without the /v1"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">GPT_OSS</span><span class="p">,</span> <span class="n">api_base</span><span class="o">=</span><span class="s2">"https://bedrock-mantle.us-west-2.api.aws"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"responses(): gpt-oss"</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="n">litellm</span><span class="o">.</span><span class="n">responses</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">GPT_OSS</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">"Capital of France?"</span><span class="p">,</span> <span class="n">max_output_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"responses(): Claude"</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="n">litellm</span><span class="o">.</span><span class="n">responses</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">CLAUDE</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">"Capital of France?"</span><span class="p">,</span> <span class="n">max_output_tokens</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"bedrock/mantle/anthropic.claude-haiku-4-5"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/mantle/anthropic.claude-haiku-4-5"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">"bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0"</span><span class="p">)</span>
+</code></pre></div>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01d_bedrock_mantle.py<span class="w">              </span><span class="c1"># offline: skips the model lists</span>
+<span class="nv">LIVE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01d_bedrock_mantle.py<span class="w">       </span><span class="c1"># live: AWS credentials, as for Bedrock</span>
+</code></pre></div>
+<p>The live run, through the same SSO profile; the offline run built the same requests:</p>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>us-west-2: 49 models; Claude: [&#x27;anthropic.claude-haiku-4-5&#x27;]; gpt-5.5: False
+us-east-1: 61 models; Claude: [&#x27;anthropic.claude-fable-5&#x27;, &#x27;anthropic.claude-haiku-4-5&#x27;, &#x27;anthropic.claude-opus-4-7&#x27;, &#x27;anthropic.claude-opus-4-8&#x27;, &#x27;anthropic.claude-opus-5&#x27;, &#x27;anthropic.claude-opus-5-5&#x27;, &#x27;anthropic.claude-sonnet-5&#x27;]; gpt-5.5: True
+== one provider, three request formats
+bedrock_mantle/openai.gpt-oss-120b                   &#x27;Paris.&#x27; tokens=78/30 cost=2.97e-05
+    POST https://bedrock-mantle.us-west-2.api.aws/v1/chat/completions  SigV4 us-west-2/bedrock
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+bedrock_mantle/google.gemma-4-31b                    &#x27;Paris&#x27; tokens=41/2 cost=6.54e-06
+    POST https://bedrock-mantle.us-west-2.api.aws/openai/v1/chat/completions  SigV4 us-west-2/bedrock
+    body: model=&#x27;google.gemma-4-31b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+bedrock_mantle/openai.gpt-5.4                        &#x27;Paris.&#x27; tokens=17/6 cost=0.00014575
+    POST https://bedrock-mantle.us-west-2.api.aws/openai/v1/responses  SigV4 us-west-2/bedrock
+    body: model=&#x27;openai.gpt-5.4&#x27;, fields=[&#x27;input&#x27;, &#x27;max_output_tokens&#x27;]
+bedrock_mantle/anthropic.claude-haiku-4-5            &#x27;Paris&#x27; tokens=14/4 cost=3.4e-05
+    POST https://bedrock-mantle.us-west-2.api.aws/anthropic/v1/messages  SigV4 us-west-2/bedrock
+    body: model=&#x27;anthropic.claude-haiku-4-5&#x27;, fields=[&#x27;anthropic_version&#x27;, &#x27;max_tokens&#x27;, &#x27;messages&#x27;, &#x27;system&#x27;]
+== region and credentials
+region in the model string                           &#x27;Paris.&#x27; tokens=78/25 cost=2.67e-05
+    POST https://bedrock-mantle.us-east-2.api.aws/v1/chat/completions  SigV4 us-east-2/bedrock
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+aws_region_name=&#x27;eu-west-1&#x27;                          &#x27;Paris.&#x27; tokens=78/25 cost=2.67e-05
+    POST https://bedrock-mantle.eu-west-1.api.aws/v1/chat/completions  SigV4 eu-west-1/bedrock
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+api_key= (a made-up Bedrock API key)                 AuthenticationError: {&quot;error&quot;:{&quot;code&quot;:&quot;invalid_api_key&quot;,&quot;message&quot;:&quot;Invalid bearer token&quot;,&quot;param&quot;:null
+    POST https://bedrock-mantle.us-west-2.api.aws/v1/chat/completions  Bearer
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+api_base without the /v1                             NotFoundError: 
+    POST https://bedrock-mantle.us-west-2.api.aws/chat/completions  SigV4 us-west-2/bedrock
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+== the Responses API
+responses(): gpt-oss                                 &#x27;The capital of France is **Paris**.&#x27; tokens=71/49
+    POST https://bedrock-mantle.us-west-2.api.aws/v1/responses  SigV4 us-west-2/bedrock
+    body: model=&#x27;openai.gpt-oss-120b&#x27;, fields=[&#x27;input&#x27;, &#x27;max_output_tokens&#x27;]
+responses(): Claude                                  &#x27;Paris is the capital of France.&#x27; tokens=11/10
+    POST https://bedrock-mantle.us-west-2.api.aws/anthropic/v1/messages  SigV4 us-west-2/bedrock
+    body: model=&#x27;anthropic.claude-haiku-4-5&#x27;, fields=[&#x27;anthropic_version&#x27;, &#x27;max_tokens&#x27;, &#x27;messages&#x27;]
+== the same Claude model, three ways
+bedrock/mantle/anthropic.claude-haiku-4-5            &#x27;Paris&#x27; tokens=14/4 cost=0.0
+    POST https://bedrock-mantle.us-west-2.api.aws/anthropic/v1/messages  SigV4 us-west-2/bedrock
+    body: model=&#x27;anthropic.claude-haiku-4-5&#x27;, fields=[&#x27;anthropic_version&#x27;, &#x27;max_tokens&#x27;, &#x27;messages&#x27;, &#x27;system&#x27;]
+bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0  &#x27;Paris&#x27; tokens=14/4 cost=3.74e-05
+    POST https://bedrock-runtime.us-west-2.amazonaws.com/model/us.anthropic.claude-haiku-4-5-20251001-v1%3A0/converse  SigV4 us-west-2/bedrock
+    body: model=None, fields=[&#x27;inferenceConfig&#x27;, &#x27;messages&#x27;, &#x27;system&#x27;]
+price bedrock_mantle/anthropic.claude-haiku-4-5            $1.00 / $5.00 per million tokens in/out
+price anthropic.claude-haiku-4-5-20251001-v1:0             $1.00 / $5.00 per million tokens in/out
+price us.anthropic.claude-haiku-4-5-20251001-v1:0          $1.10 / $5.50 per million tokens in/out
+</code></pre></div>
+<p>What to notice:</p>
+<ul>
+<li><strong>One provider, three request formats, one result shape.</strong> gpt-oss went to <code>/v1/chat/completions</code>, Gemma 4 to <code>/openai/v1/chat/completions</code>, GPT-5.4 to <code>/openai/v1/responses</code> and Claude to <code>/anthropic/v1/messages</code>. All four came back as the same OpenAI-shaped response, priced from LiteLLM's table.</li>
+<li><strong>The model ID must exist in the region you call.</strong> My first version used <code>openai.gpt-5.5</code> and <code>anthropic.claude-haiku-5-5</code> in us-west-2, and Mantle answered <code>NotFoundError: The model '...' does not exist</code> for both. In a separate check, GPT-5.5 worked in us-east-1 and us-east-2. LiteLLM's price table lists models that a given region doesn't serve, so it can't tell you either.</li>
+<li><strong>The region moves the host and the signature together.</strong> A region in the model string, or <code>aws_region_name</code>, changed both the URL and the SigV4 scope. LiteLLM's table prices eu-west-1 per token the same as us-west-2. Set the region explicitly: with only <code>AWS_PROFILE</code> set, <code>bedrock/</code> takes the profile's region but Mantle ignores it and falls back to <code>us-east-1</code> (from the source).</li>
+<li><strong>A key always wins over SigV4.</strong> With a made-up <code>api_key=</code>, LiteLLM sent <code>Authorization: Bearer</code> and Mantle answered <code>Invalid bearer token</code>, although valid SSO credentials were available. The same happens with a stale <code>BEDROCK_MANTLE_API_KEY</code> or <code>AWS_BEARER_TOKEN_BEDROCK</code> in the environment, including one you exported for <code>bedrock/</code>.</li>
+<li><strong>An <code>api_base</code> replaces the whole base, so include <code>/v1</code> or <code>/openai/v1</code>.</strong> Without it, the request went to <code>/chat/completions</code> and Mantle answered with an empty 404.</li>
+<li><strong><code>responses()</code> is native where Mantle supports it.</strong> For gpt-oss it went to <code>/v1/responses</code> unchanged; for Claude, LiteLLM translated it into a Messages request. gpt-oss's 71 to 78 prompt tokens for a one-line question come from its own chat format; Claude counted 11 to 14.</li>
+<li><strong>Price the route you use.</strong> <code>bedrock_mantle/anthropic.claude-haiku-4-5</code> cost $0.000034 for 14 tokens in and 4 out. The <code>us.</code> profile on bedrock-runtime cost 10% more. The same call through <code>bedrock/mantle/</code> cost <code>0.0</code>, because LiteLLM's 1.110.2 table has no price under that name. A cost of <code>0.0</code> looks like a free call, not a missing price, so budgets and spend reports would never see it. Use <code>bedrock_mantle/</code>, or register a price (section 8).</li>
+</ul>
+<h3 id="ollama">Ollama</h3>
+<p><a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a> runs open-weight models on your own machine and serves them over HTTP. Section 12 starts one in Docker, compares its two routes, and runs tools and streaming through it. In short:</p>
+<ul>
+<li><strong>Two prefixes, two Ollama APIs.</strong> <code>ollama_chat/&lt;model&gt;</code> posts to <code>/api/chat</code> and keeps the roles, tools and images. <code>ollama/&lt;model&gt;</code> posts to <code>/api/generate</code>, which takes a single prompt, so LiteLLM flattens the conversation into text. Use <code>ollama_chat/</code>.</li>
+<li><strong>The server.</strong> <code>api_base=</code>, then <code>OLLAMA_API_BASE</code>, then <code>http://localhost:11434</code>.</li>
+<li><strong>No key.</strong> If you put Ollama behind an authenticating reverse proxy, <code>api_key=</code> is sent as <code>Authorization: Bearer &lt;key&gt;</code>.</li>
+<li><strong>No price.</strong> LiteLLM has no prices for Ollama models: <code>response_cost</code> was <code>0.0</code> for every call below. Behind the proxy, the <code>x-litellm-response-cost</code> header is left out instead (section 12).</li>
+</ul>
+<p><strong>OpenAI parameters become Ollama options.</strong> Ollama takes its sampling settings in an <code>options</code> object, and structured output in a top-level <code>format</code>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You pass</th>
+<th>In the Ollama request</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_tokens</code> or <code>max_completion_tokens</code></td>
+<td><code>options.num_predict</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>temperature</code>, <code>top_p</code>, <code>seed</code>, <code>stop</code></td>
+<td><code>options.temperature</code>, <code>.top_p</code>, <code>.seed</code>, <code>.stop</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>frequency_penalty</code></td>
+<td><code>options.repeat_penalty</code>, the same number</td>
+<td>Not the same scale (see below)</td>
+</tr>
+<tr>
+<td><code>response_format</code> with a JSON schema</td>
+<td><code>format: &lt;the schema&gt;</code></td>
+<td>Ollama constrains the output to the schema</td>
+</tr>
+<tr>
+<td><code>response_format={&quot;type&quot;: &quot;json_object&quot;}</code></td>
+<td><code>format: &quot;json&quot;</code></td>
+<td>Valid JSON, any shape</td>
+</tr>
+<tr>
+<td><code>tools</code>, <code>tool_choice</code></td>
+<td><code>tools</code></td>
+<td><code>ollama_chat/</code> only (section 12)</td>
+</tr>
+<tr>
+<td><code>reasoning_effort</code></td>
+<td><code>&quot;low&quot;</code>, <code>&quot;medium&quot;</code>, <code>&quot;high&quot;</code>: <code>think: true</code>. <code>&quot;none&quot;</code>, <code>&quot;minimal&quot;</code> and other levels: <code>think: false</code></td>
+<td>The level itself is not sent, except to gpt-oss models (from the source)</td>
+</tr>
+<tr>
+<td><code>num_ctx</code>, <code>repeat_penalty</code>, <code>num_gpu</code> and Ollama's other model options</td>
+<td><code>options.&lt;name&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>keep_alive</code></td>
+<td>Top-level <code>keep_alive</code></td>
+<td>How long Ollama keeps the model loaded after the call</td>
+</tr>
+</tbody>
+</table></div>
+<p><a href="examples/01e_ollama.py"><code>examples/01e_ollama.py</code></a> runs against section 12's Ollama container. Besides <code>qwen2.5:0.5b</code>, it uses <code>qwen3:0.6b</code>, a small model that can think:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>docker<span class="w"> </span>start<span class="w"> </span>litellm-tutorial-ollama<span class="w">                                  </span><span class="c1"># or the docker run line in section 12</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>litellm-tutorial-ollama<span class="w"> </span>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3:0.6b<span class="w">            </span><span class="c1"># about 520 MB</span>
+<span class="nb">cd</span><span class="w"> </span>examples
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01e_ollama.py
+</code></pre></div>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">SMALL</span><span class="p">,</span> <span class="n">THINKER</span> <span class="o">=</span> <span class="s2">"ollama_chat/qwen2.5:0.5b"</span><span class="p">,</span> <span class="s2">"ollama_chat/qwen3:0.6b"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">SMALL</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Make one call; print the reply, the Ollama path and every body field except the messages."""</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">req</span> <span class="o">=</span> <span class="n">send</span><span class="p">(</span><span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"messages"</span><span class="p">,</span> <span class="n">MSGS</span><span class="p">),</span>
+                     <span class="n">api_base</span><span class="o">=</span><span class="n">OLLAMA</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="o">...</span>
+
+
+<span class="n">show</span><span class="p">(</span><span class="s2">"frequency_penalty=0.5"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">frequency_penalty</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"response_format json_schema"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">response_format</span><span class="o">=</span><span class="n">CITY</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"num_ctx, keep_alive (Ollama's)"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">num_ctx</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">keep_alive</span><span class="o">=</span><span class="s2">"10m"</span><span class="p">)</span>
+<span class="n">thought</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="s2">"reasoning_effort: qwen3"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">THINKER</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">reasoning_effort</span><span class="o">=</span><span class="s2">"low"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">])</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"keep_alive=0 (unload after)"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">keep_alive</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"next call: cold"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"next call: warm"</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<p>Ollama runs on plain HTTP on your machine, so it is called even offline. On CPU, with the prompt &quot;Capital of France? Answer in JSON.&quot;:</p>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>== OpenAI parameters become Ollama options
+max_tokens                      1.1s &#x27;```json\n{\n  &quot;capital&quot;: &quot;Paris&quot;\n}\n`` tokens=24/14 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 20}}
+temperature, seed, stop         0.5s &#x27;```json\n{\n  &quot;capital&quot;: &quot;Paris&quot;\n&#x27; tokens=24/12 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;temperature&quot;: 0, &quot;stop&quot;: [&quot;}&quot;], &quot;num_predict&quot;: 20, &quot;seed&quot;: 7}}
+frequency_penalty=0.5           0.4s &#x27;``` JSON\n```&#x27; tokens=24/5 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 20, &quot;repeat_penalty&quot;: 0.5}}
+response_format json_schema     0.5s &#x27;{\n  &quot;city&quot;: &quot;Paris&quot;\n}&#x27; tokens=24/10 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 40}, &quot;format&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}}, &quot;required&quot;: [&quot;city&quot;]}}
+response_format json_object     0.4s &#x27;{\n  &quot;capital&quot;: &quot;Paris&quot;\n}&#x27; tokens=24/10 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 40}, &quot;format&quot;: &quot;json&quot;}
+num_ctx, keep_alive (Ollama&#x27;s)  2.1s &#x27;```json\n{\n  &quot;capital&quot;: &quot;Paris&quot;\n}\n`` tokens=24/14 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 20, &quot;num_ctx&quot;: 8192}, &quot;keep_alive&quot;: &quot;10m&quot;}
+ollama/ (the generate API)      2.2s &#x27;```json\n{\n  &quot;capital&quot;: &quot;Paris&quot;\n}\n`` tokens=46/14 cost=0.0
+    POST /api/generate  {&quot;prompt&quot;: &quot;### System:\nBe brief.\n\n### User:\nCapital of France? Answer in JSON.\n\n&quot;, &quot;options&quot;: {&quot;num_predict&quot;: 20}, &quot;images&quot;: []}
+== reasoning
+reasoning_effort: qwen2.5       0.2s BadRequestError: {&quot;error&quot;:&quot;\&quot;qwen2.5:0.5b\&quot; does not support thinking&quot;}
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 200}, &quot;think&quot;: true}
+reasoning_effort: qwen3         7.6s &#x27;51&#x27; tokens=25/214 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 400}, &quot;think&quot;: true}
+    reasoning_content: &quot;Okay, let&#x27;s see. The user is asking what is 17 multiplied by 3, and they want t
+== loading the model
+keep_alive=0 (unload after)     0.5s &#x27;```json\n{\n &#x27; tokens=24/5 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 5}, &quot;keep_alive&quot;: 0}
+next call: cold                 1.6s &#x27;```json\n{\n &#x27; tokens=24/5 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 5}}
+next call: warm                 0.3s &#x27;```json\n{\n &#x27; tokens=24/5 cost=0.0
+    POST /api/chat  {&quot;options&quot;: {&quot;num_predict&quot;: 5}}
+</code></pre></div>
+<p>What to notice:</p>
+<ul>
+<li><strong>Only a schema in <code>format</code> guarantees the shape.</strong> Asked for JSON in the prompt alone, the model wrapped it in a Markdown code fence and named the key <code>capital</code>. With the schema, Ollama returned bare JSON with the key <code>city</code>. <code>json_object</code> gave valid JSON, but with a key the model chose.</li>
+<li><strong><code>frequency_penalty</code> is passed on as <code>repeat_penalty</code> with the same number, but the scales differ.</strong> OpenAI's <code>frequency_penalty</code> runs from -2 to 2, and 0 means no penalty. Ollama's <code>repeat_penalty</code> is a multiplier, where 1 means no penalty and a value below 1 makes repetition more likely. With 0.5, this run's reply was the fragment <code>``` JSON\n```</code>. Pass <code>repeat_penalty=1.1</code> (or so) by name instead.</li>
+<li><strong><code>ollama/</code> costs more input tokens for the same conversation.</strong> The generate API got a flattened prompt with <code>### System:</code> and <code>### User:</code> headings: 46 prompt tokens against 24 through <code>/api/chat</code>.</li>
+<li><strong>Thinking is on or off, and the model must support it.</strong> <code>reasoning_effort=&quot;low&quot;</code> became <code>think: true</code> (so do <code>&quot;medium&quot;</code> and <code>&quot;high&quot;</code>; other levels give <code>false</code>). <code>qwen2.5:0.5b</code> doesn't think, and Ollama's 400 became <code>BadRequestError</code>. <code>qwen3:0.6b</code> returned its reasoning in <code>reasoning_content</code>, and its 214 completion tokens include the thinking. That is why a two-character answer took 7.6 s on CPU. Leave enough <code>max_tokens</code> for the thinking, or the answer is cut short.</li>
+<li><strong>The first call after a model is unloaded pays for loading it.</strong> With <code>keep_alive=0</code>, Ollama unloaded the model after the call, and the next call took 1.6 s instead of 0.3 s. For a model of several gigabytes, loading takes much longer than for this 400 MB one, so give the first call a long <code>timeout</code>, or keep the model loaded with <code>keep_alive</code>.</li>
+<li><strong>Set <code>num_ctx</code> for long prompts.</strong> It sets the size of the context window Ollama allocates for the model. LiteLLM doesn't set it, so without it Ollama uses its own default, which is usually smaller than the model's maximum.</li>
+</ul>
+<h3 id="vllm">vLLM</h3>
+<p><a href="https://docs.vllm.ai/" target="_blank" rel="noopener">vLLM</a> serves models on GPUs. <code>vllm serve &lt;model&gt;</code> starts an OpenAI-compatible server, by default on port 8000, with the API under <code>/v1</code>. LiteLLM offers three prefixes for it:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>What it does</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hosted_vllm/&lt;model&gt;</code></td>
+<td>OpenAI Chat Completions to a running vLLM server, with vLLM-specific clean-ups (below)</td>
+<td>You run a vLLM server. The usual choice</td>
+</tr>
+<tr>
+<td><code>openai/&lt;model&gt;</code> + <code>api_base</code></td>
+<td>The generic OpenAI-compatible adapter, which knows nothing about vLLM</td>
+<td>A server that only claims OpenAI compatibility</td>
+</tr>
+<tr>
+<td><code>vllm/&lt;model&gt;</code></td>
+<td>Loads the model into your own process with the <code>vllm</code> Python package</td>
+<td>You want no server; needs <code>vllm</code> installed and a GPU. Not covered here</td>
+</tr>
+</tbody>
+</table></div>
+<p>For <code>hosted_vllm/</code>, the server is <code>api_base=</code> or <code>HOSTED_VLLM_API_BASE</code>, including the <code>/v1</code>. The key is <code>api_key=</code> or <code>HOSTED_VLLM_API_KEY</code>; with neither, LiteLLM sends the placeholder <code>fake-api-key</code>. A vLLM server started without <code>--api-key</code> ignores it. vLLM's tool calling and reasoning output depend on how the server was started. According to vLLM's documentation, tool calling needs <code>--enable-auto-tool-choice</code> and a <code>--tool-call-parser</code>, and reasoning needs a <code>--reasoning-parser</code>. I had no GPU, so I didn't run a real vLLM.</p>
+<p><a href="examples/01f_vllm.py"><code>examples/01f_vllm.py</code></a> runs against <a href="examples/_fake_vllm.py"><code>examples/_fake_vllm.py</code></a>, a fake vLLM server on a background thread. Like vLLM with a reasoning parser, it returns a <code>reasoning</code> field unless thinking is turned off in the chat template. It answers 400 with vLLM's error text when a prompt is longer than its <code>max_model_len</code>:</p>
+<div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">VLLM</span> <span class="o">=</span> <span class="n">start</span><span class="p">()</span>                                             <span class="c1"># the fake, on a free port: http://127.0.0.1:&lt;port&gt;/v1</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"Qwen/Qwen3-8B"</span>
+
+<span class="n">show</span><span class="p">(</span><span class="s2">"hosted_vllm/, no api_key"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"openai/, no api_key"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"openai"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"top_k, min_p, repetition_penalty"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">,</span> <span class="s2">"min_p"</span><span class="p">,</span> <span class="s2">"repetition_penalty"</span><span class="p">),</span>
+     <span class="n">top_k</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"thinking budget -&gt; reasoning_effort"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">(</span><span class="s2">"reasoning_effort"</span><span class="p">,),</span>
+     <span class="n">thinking</span><span class="o">=</span><span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"enabled"</span><span class="p">,</span> <span class="s2">"budget_tokens"</span><span class="p">:</span> <span class="mi">1024</span><span class="p">})</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"chat_template_kwargs: no thinking"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">(</span><span class="s2">"chat_template_kwargs"</span><span class="p">,),</span>
+     <span class="n">extra_body</span><span class="o">=</span><span class="p">{</span><span class="s2">"chat_template_kwargs"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"enable_thinking"</span><span class="p">:</span> <span class="kc">False</span><span class="p">}})</span>
+<span class="o">...</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"price per call"</span><span class="p">,</span> <span class="n">input_cost_per_token</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">,</span> <span class="n">output_cost_per_token</span><span class="o">=</span><span class="mf">0.4e-6</span><span class="p">)</span>
+<span class="n">litellm</span><span class="o">.</span><span class="n">register_model</span><span class="p">({</span><span class="sa">f</span><span class="s2">"hosted_vllm/</span><span class="si">{</span><span class="n">MODEL</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"litellm_provider"</span><span class="p">:</span> <span class="s2">"hosted_vllm"</span><span class="p">,</span> <span class="s2">"mode"</span><span class="p">:</span> <span class="s2">"chat"</span><span class="p">,</span> <span class="s2">"max_input_tokens"</span><span class="p">:</span> <span class="mi">32768</span><span class="p">,</span>
+    <span class="s2">"input_cost_per_token"</span><span class="p">:</span> <span class="mf">0.1e-6</span><span class="p">,</span> <span class="s2">"output_cost_per_token"</span><span class="p">:</span> <span class="mf">0.4e-6</span><span class="p">}})</span>
+<span class="n">show</span><span class="p">(</span><span class="s2">"price from register_model()"</span><span class="p">)</span>
+</code></pre></div>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>01f_vllm.py
+</code></pre></div>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>== the key and the base URL
+hosted_vllm/, no api_key           &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+openai/, no api_key                InternalServerError: Missing credentials. Please pass an `api_key`, `workload_identity`, `admin_api_k
+hosted_vllm/, api_key=&#x27;vllm-token&#x27; &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer vllm-token&#x27;  {}
+base from HOSTED_VLLM_API_BASE     &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+== vLLM&#x27;s own parameters
+top_k, min_p, repetition_penalty   &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {&quot;top_k&quot;: 20, &quot;min_p&quot;: 0.05, &quot;repetition_penalty&quot;: 1.1}
+thinking budget -&gt; reasoning_effort &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {&quot;reasoning_effort&quot;: &quot;low&quot;}
+default: the model thinks          &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+    reasoning_content=&#x27;The user wants the capital of France. That is Paris.&#x27;
+chat_template_kwargs: no thinking  &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {&quot;chat_template_kwargs&quot;: {&quot;enable_thinking&quot;: false}}
+    reasoning_content=None
+== what hosted_vllm/ changes, and openai/ doesn&#x27;t
+hosted_vllm/ strict tool           strict=None additionalProperties=None
+openai/ strict tool                strict=True additionalProperties=False
+hosted_vllm/ Claude turn in history content=&#x27;Paris.&#x27; thinking_blocks=False
+openai/ Claude turn in history     content=[{&#x27;type&#x27;: &#x27;text&#x27;, &#x27;text&#x27;: &#x27;Paris.&#x27;}] thinking_blocks=True
+== errors and cost
+prompt longer than max_model_len   ContextWindowExceededError: {&quot;object&quot;: &quot;error&quot;, &quot;type&quot;: &quot;BadRequestError&quot;, &quot;code&quot;: 400, &quot;message&quot;: &quot;This mod
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+... through openai/                ContextWindowExceededError: This model&#x27;s maximum context length is 32768 tokens. However, you requested 4000
+    Authorization: None  {}
+no price for a self-hosted model   &#x27;Paris.&#x27; tokens=21/14 cost=None
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+price per call                     &#x27;Paris.&#x27; tokens=21/14 cost=7.699999999999999e-06
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+price from register_model()        &#x27;Paris.&#x27; tokens=21/14 cost=7.699999999999999e-06
+    Authorization: &#x27;Bearer fake-api-key&#x27;  {}
+</code></pre></div>
+<p>When <code>register_model()</code> runs, LiteLLM also logs a warning (to stderr, left out above): cache-token prices default to 0 for a model it doesn't know. Input and output prices are unaffected.</p>
+<p>What to notice:</p>
+<ul>
+<li><strong><code>hosted_vllm/</code> works without a key; <code>openai/</code> doesn't.</strong> <code>hosted_vllm/</code> sent <code>Bearer fake-api-key</code>. <code>openai/</code> refused to send anything without a key, so with it you pass a dummy <code>api_key=</code> yourself. If your vLLM server has <code>--api-key</code>, pass the real one either way.</li>
+<li><strong>vLLM's extra sampling parameters go through as top-level fields.</strong> LiteLLM doesn't check <code>top_k</code>, <code>min_p</code> or <code>repetition_penalty</code> against a list; it sends them, and vLLM accepts them. Parameters that belong inside the request's extensions, such as <code>chat_template_kwargs</code>, go in <code>extra_body=</code>.</li>
+<li><strong>Reasoning comes back in <code>reasoning_content</code>.</strong> The fake returned vLLM's <code>reasoning</code> field, and LiteLLM moved it to <code>message.reasoning_content</code>. In a separate run where the fake returned the older field name, <code>reasoning_content</code>, the result was the same, through both <code>hosted_vllm/</code> and <code>openai/</code>. <code>enable_thinking: False</code> in the chat template (for Qwen3) turned thinking off. A <code>thinking</code> budget became <code>reasoning_effort=&quot;low&quot;</code> for 1,024 tokens; a 100-token budget became <code>&quot;minimal&quot;</code> in another run.</li>
+<li><strong><code>hosted_vllm/</code> makes requests vLLM accepts.</strong> It removed <code>strict</code> and <code>additionalProperties</code> from tool schemas. In a history that came from Claude, it flattened the assistant turn's content blocks to a string and dropped its <code>thinking_blocks</code>. <code>openai/</code> sent both unchanged. This matters when one conversation moves between providers, for example after a fallback (section 6).</li>
+<li><strong>Context-window errors are recognised.</strong> vLLM's 400 &quot;maximum context length&quot; error became <code>ContextWindowExceededError</code>, through both prefixes. Section 7's <code>context_window_fallbacks</code> can then move the call to a model with a larger window.</li>
+<li><strong>A self-hosted model has no price until you give it one.</strong> <code>response_cost</code> was <code>None</code>, so budgets and spend reports skip these calls. Pass <code>input_cost_per_token</code> and <code>output_cost_per_token</code> per call, or register them once with <code>litellm.register_model()</code> (section 8), for example from your GPU cost per hour divided by the tokens per hour you measure. In the proxy, the same two fields go in the deployment's <code>model_info</code> (section 12).</li>
+</ul>
+<h3 id="other-major-providers">Other major providers</h3>
+<p>These providers follow the same pattern as the four above: a prefix, a credential, an endpoint, and a mapping of OpenAI parameters. The table shows what LiteLLM 1.110.2 sent for each, captured offline with <code>_wire.py</code> and made-up keys. Section 12 runs Azure, Vertex AI, OpenAI and Anthropic against local fakes:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Model string</th>
+<th>Credential (env var)</th>
+<th>Endpoint LiteLLM calls</th>
+<th>What changes in the request</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI</td>
+<td><code>openai/&lt;model&gt;</code></td>
+<td><code>OPENAI_API_KEY</code>; base URL from <code>api_base</code>, <code>OPENAI_BASE_URL</code> or <code>OPENAI_API_BASE</code></td>
+<td><code>https://api.openai.com/v1/chat/completions</code></td>
+<td>Sent through the <code>openai</code> SDK. For reasoning models, <code>max_tokens</code> becomes <code>max_completion_tokens</code> (section 1's table), and o-series models refuse <code>temperature</code> other than 1</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td><code>anthropic/&lt;model&gt;</code></td>
+<td><code>ANTHROPIC_API_KEY</code>, sent as <code>x-api-key</code> with <code>anthropic-version</code></td>
+<td><code>https://api.anthropic.com/v1/messages</code></td>
+<td>The system prompt moves to <code>system</code>; <code>max_tokens</code> is always sent. For Claude Haiku 5.5, <code>reasoning_effort</code> becomes adaptive <code>thinking</code> plus <code>output_config.effort</code>, as on Bedrock</td>
+</tr>
+<tr>
+<td>Azure OpenAI</td>
+<td><code>azure/&lt;deployment name&gt;</code></td>
+<td><code>AZURE_API_KEY</code>, <code>AZURE_API_BASE</code>, <code>AZURE_API_VERSION</code>; or Microsoft Entra ID</td>
+<td><code>https://&lt;resource&gt;.openai.azure.com/openai/deployments/&lt;deployment&gt;/chat/completions?api-version=...</code>, or <code>/openai/v1/...</code> with <code>api_version=&quot;v1&quot;</code></td>
+<td>The name after <code>azure/</code> is your deployment, not the model. To get a cost, pass <code>base_model</code> (section 12)</td>
+</tr>
+<tr>
+<td>Microsoft Foundry</td>
+<td><code>azure_ai/&lt;model&gt;</code></td>
+<td><code>AZURE_AI_API_KEY</code> (sent as <code>api-key</code>, and also as <code>x-api-key</code> for Claude) and <code>AZURE_AI_API_BASE</code></td>
+<td>Claude: <code>https://&lt;resource&gt;.services.ai.azure.com/anthropic/v1/messages</code>. Other models: <code>.../models/chat/completions</code></td>
+<td><code>claude</code> in the model name selects Anthropic's Messages format</td>
+</tr>
+<tr>
+<td>Google AI Studio (Gemini API)</td>
+<td><code>gemini/&lt;model&gt;</code></td>
+<td><code>GEMINI_API_KEY</code> or <code>GOOGLE_API_KEY</code>, sent as <code>x-goog-api-key</code></td>
+<td><code>https://generativelanguage.googleapis.com/v1beta/models/&lt;model&gt;:generateContent</code></td>
+<td>The system prompt becomes <code>system_instruction</code>, <code>max_tokens</code> becomes <code>generationConfig.max_output_tokens</code>, and <code>reasoning_effort=&quot;low&quot;</code> becomes <code>thinkingConfig.thinkingBudget: 1024</code> with <code>includeThoughts</code></td>
+</tr>
+<tr>
+<td>Google Vertex AI</td>
+<td><code>vertex_ai/&lt;model&gt;</code></td>
+<td>Application Default Credentials, plus <code>VERTEXAI_PROJECT</code> and <code>VERTEXAI_LOCATION</code></td>
+<td><code>https://&lt;location&gt;-aiplatform.googleapis.com/v1/projects/&lt;project&gt;/locations/&lt;location&gt;/publishers/&lt;publisher&gt;/models/&lt;model&gt;:...</code></td>
+<td>Gemini takes the same body as AI Studio; Claude takes Anthropic's body (Setup's &quot;How LiteLLM reaches a provider&quot;)</td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td><code>mistral/&lt;model&gt;</code></td>
+<td><code>MISTRAL_API_KEY</code></td>
+<td><code>https://api.mistral.ai/v1/chat/completions</code></td>
+<td>OpenAI format, <code>Authorization: Bearer</code></td>
+</tr>
+<tr>
+<td>Groq</td>
+<td><code>groq/&lt;model&gt;</code></td>
+<td><code>GROQ_API_KEY</code></td>
+<td><code>https://api.groq.com/openai/v1/chat/completions</code></td>
+<td>OpenAI format</td>
+</tr>
+<tr>
+<td>xAI</td>
+<td><code>xai/&lt;model&gt;</code></td>
+<td><code>XAI_API_KEY</code></td>
+<td><code>https://api.x.ai/v1/chat/completions</code></td>
+<td>OpenAI format</td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td><code>deepseek/&lt;model&gt;</code></td>
+<td><code>DEEPSEEK_API_KEY</code></td>
+<td><code>https://api.deepseek.com/beta/chat/completions</code></td>
+<td>OpenAI format, on DeepSeek's <code>beta</code> path</td>
+</tr>
+<tr>
+<td>OpenRouter</td>
+<td><code>openrouter/&lt;vendor&gt;/&lt;model&gt;</code></td>
+<td><code>OPENROUTER_API_KEY</code></td>
+<td><code>https://openrouter.ai/api/v1/chat/completions</code></td>
+<td>Adds <code>usage: {&quot;include&quot;: true}</code>, so OpenRouter reports usage and cost</td>
+</tr>
+</tbody>
+</table></div>
+<p>The same pattern holds for many more: <code>together_ai/</code> (<code>TOGETHERAI_API_KEY</code>), <code>fireworks_ai/</code> (<code>FIREWORKS_AI_API_KEY</code>), <code>cohere/</code> (<code>COHERE_API_KEY</code>), <code>nvidia_nim/</code> (<code>NVIDIA_NIM_API_KEY</code>), <code>perplexity/</code> (<code>PERPLEXITYAI_API_KEY</code>), <code>cerebras/</code> (<code>CEREBRAS_API_KEY</code>) and <code>huggingface/</code> (<code>HUGGINGFACE_API_KEY</code>), among others. <code>litellm.validate_environment(&quot;&lt;model string&gt;&quot;)</code> names the variables a provider needs. It found none for <code>azure_ai/</code>, <code>databricks/</code> and <code>watsonx/</code>, which also accept other ways to authenticate, so read their documentation instead.</p>
+<p>Before you rely on a parameter with a provider you haven't used, check three things:</p>
+<ul>
+<li><strong>Does LiteLLM accept it for this model?</strong> <code>litellm.get_supported_openai_params(model=..., custom_llm_provider=...)</code> lists them. A parameter outside the list raises <code>UnsupportedParamsError</code>, or is dropped with <code>drop_params</code>.</li>
+<li><strong>What does it become?</strong> Capture the request with a callback, as <code>_wire.py</code> does (exercise 1.10). Two providers can give the same parameter different meanings, as <code>frequency_penalty</code> showed with Ollama.</li>
+<li><strong>Is the model priced?</strong> <code>litellm.model_cost.get(&quot;&lt;provider&gt;/&lt;model&gt;&quot;)</code>, or <code>litellm.get_model_info(...)</code>. A missing price means a <code>response_cost</code> of <code>None</code> or <code>0.0</code>, which budgets don't count.</li>
+</ul>
 <h3 id="exercises">Exercises</h3>
 <p><strong>1.1 ★ <code>ex01_1_three_models.py</code>: one request, three model families</strong></p>
 <p>Send one conversation to <code>_env.FAST</code>, <code>_env.SMART</code> and <code>_env.ALT</code>: a system message (&quot;Answer in one sentence.&quot;) and a user question. For each model, print the reply, the token counts and the cost, then print which model was cheapest.</p>
@@ -1652,6 +2364,99 @@ gemini/gemini-2.5-flash        -&gt; &#x27;Bonjour à tous !&#x27;
 </ul>
 <details><summary>Hint</summary>
 <p>You can append <code>resp.choices[0].message</code> itself, or <code>{&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: ...}</code>. Offline, a mocked non-streaming reply always reports 10 prompt tokens, which is why the last check is live only.</p>
+</details>
+<p><strong>1.4 ★ <code>ex01_4_param_map.py</code>: where your parameters land on Bedrock</strong></p>
+<p>Capture the Converse requests LiteLLM builds for <code>_env.FAST</code> and <code>_env.ALT</code> without sending them. For each model, call <code>completion()</code> with five parameter sets: <code>max_completion_tokens</code> with <code>stop</code>; a JSON-schema <code>response_format</code>; <code>tools</code> with <code>tool_choice=&quot;required&quot;</code>; <code>reasoning_effort=&quot;low&quot;</code>; and <code>seed</code>. Print the top-level body fields each call adds beyond <code>messages</code>, <code>system</code> and <code>inferenceConfig</code>.</p>
+<p>Checks:</p>
+<ul>
+<li>For <code>_env.FAST</code>, <code>response_format</code> adds <code>outputConfig</code>. For <code>_env.ALT</code>, it adds a <code>toolConfig</code> whose only tool is named <code>json_tool_call</code>.</li>
+<li><code>tool_choice=&quot;required&quot;</code> gives <code>toolConfig.toolChoice == {&quot;any&quot;: {}}</code> for both models.</li>
+<li><code>seed</code> raises <code>UnsupportedParamsError</code>, and no request is captured for it.</li>
+<li>Offline, nothing leaves your machine.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>Write your own <code>CustomLogger</code> with a <code>log_pre_api_call</code> hook, like <code>examples/_wire.py</code>. For Bedrock, <code>complete_input_dict</code> arrives as a JSON string. Offline, the request still has to be signed, so set made-up static keys (only when <code>_env.LIVE</code> is false) and point <code>HTTPS_PROXY</code> at a closed port such as <code>http://127.0.0.1:9</code>. If your <code>exercises/.env.local</code> sets <code>LIVE=1</code>, run with <code>LIVE=0 uv run python ...</code> to stay offline: a variable set in the shell wins over the file.</p>
+</details>
+<p><strong>1.5 ★★ <code>ex01_5_structured_bedrock.py</code>: one schema, two model families</strong></p>
+<p>Define a Pydantic model <code>Ticket</code> with <code>customer</code>, <code>order_id</code> and <code>issue</code>. Pass the class itself as <code>response_format</code> to <code>_env.FAST</code> and to <code>_env.ALT</code>, with a short support email to extract from. Parse each reply with <code>Ticket.model_validate_json()</code>. Print the parsed ticket, the prompt tokens and the cost for each model.</p>
+<p>Checks:</p>
+<ul>
+<li>Both replies parse into a <code>Ticket</code>, and <code>order_id</code> is the one in your email.</li>
+<li>Live: <code>_env.ALT</code> used more prompt tokens than <code>_env.FAST</code> for the same email. In my run it was 989 against 349, and the Nova call cost seven times as much.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>Offline, give <code>_env.mock()</code> a JSON string that matches the schema. The difference in prompt tokens comes from how the schema is sent (section 1's Bedrock table): a forced tool call costs input tokens that native structured output doesn't.</p>
+</details>
+<p><strong>1.6 ★★ <code>ex01_6_mantle_catalogue.py</code>: what Mantle serves where</strong></p>
+<p>List Bedrock Mantle's models in us-west-2 and us-east-1, and print how many each region has and which ones only one of them offers. Then call <code>bedrock_mantle/openai.gpt-oss-120b</code> in each region, with both <code>litellm.completion()</code> and <code>litellm.responses()</code>, and print the replies and the cost.</p>
+<p>Checks:</p>
+<ul>
+<li>Both lists load, with a signed <code>GET https://bedrock-mantle.&lt;region&gt;.api.aws/v1/models</code>.</li>
+<li><code>openai.gpt-oss-120b</code> is in both lists, and all four calls answer.</li>
+<li>Print whether <code>anthropic.claude-haiku-5-5</code> is offered. It was offered in neither region when I ran this; the list changes over time.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>Sign the request with botocore's <code>SigV4Auth</code> for service <code>bedrock</code>, as <code>mantle_models()</code> in <code>examples/01d_bedrock_mantle.py</code> does. This exercise needs <code>LIVE=1</code>. gpt-oss spends part of its output on reasoning, so give it at least 300 tokens, or the reply can come back empty.</p>
+</details>
+<p><strong>1.7 ★★ <code>ex01_7_price_the_route.py</code>: price the route you use</strong></p>
+<p>Call Claude Haiku 4.5 through three routes: <code>bedrock_mantle/anthropic.claude-haiku-4-5</code>, <code>bedrock/mantle/anthropic.claude-haiku-4-5</code> and <code>bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0</code>, all in us-west-2. Print each reply, its tokens and <code>response_cost</code>. Then give the route without a price the Mantle provider's price with <code>litellm.register_model()</code>, and run the three calls again.</p>
+<p>Checks:</p>
+<ul>
+<li>Before the fix, the <code>bedrock/mantle/</code> route costs <code>0.0</code> and the other two cost more than 0.</li>
+<li>After the fix, it costs the same as <code>bedrock_mantle/</code> for the same tokens.</li>
+<li>Live: the <code>us.</code> profile on bedrock-runtime costs more than the Mantle provider for the same tokens.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>Register the model under the exact string you call (<code>bedrock/mantle/anthropic.claude-haiku-4-5</code>), copy the price fields from <code>litellm.model_cost[&quot;bedrock_mantle/anthropic.claude-haiku-4-5&quot;]</code>, and set <code>litellm_provider</code> to <code>&quot;bedrock&quot;</code>. Offline, <code>_env.mock()</code> reports 10 tokens in and 20 out, which is enough to compare the prices.</p>
+</details>
+<p><strong>1.8 ★★ <code>ex01_8_ollama_extract.py</code>: a small local model and a schema</strong></p>
+<p>With <code>ollama_chat/qwen2.5:0.5b</code>, extract <code>customer</code>, <code>order_id</code> and <code>issue</code> from five one-line support emails. Run the five calls twice: once asking for JSON in the system prompt only, and once also passing a JSON-schema <code>response_format</code> built from a Pydantic model. Count how many replies validate against the model in each run, and print the median latency.</p>
+<p>Checks:</p>
+<ul>
+<li>With the schema, all five replies validate.</li>
+<li>Print the count without the schema too. In my run, none of the five validated: the model wrapped the JSON in a code fence or chose its own keys.</li>
+</ul>
+<details><summary>Hint</summary>
+<p><code>Ticket.model_json_schema()</code> gives the schema; wrap it as <code>{&quot;type&quot;: &quot;json_schema&quot;, &quot;json_schema&quot;: {&quot;name&quot;: &quot;ticket&quot;, &quot;schema&quot;: ...}}</code>. Ollama runs over plain HTTP on your machine, so this exercise runs the same whether <code>LIVE</code> is set or not.</p>
+</details>
+<p><strong>1.9 ★★ <code>ex01_9_vllm_chargeback.py</code>: charge for a self-hosted model</strong></p>
+<p>Your vLLM server runs on a GPU that costs $2.50 an hour and serves 1,500 tokens a second. Turn that into a price per token, register it for <code>hosted_vllm/Qwen/Qwen3-8B</code> with <code>litellm.register_model()</code>, and make ten calls against the fake vLLM from <code>examples/_fake_vllm.py</code>. Pass <code>top_k=20</code>, and turn off Qwen3's thinking through <code>chat_template_kwargs</code>. Print the price per token and the total cost.</p>
+<p>Checks:</p>
+<ul>
+<li>Every call has a <code>response_cost</code> that is not <code>None</code>.</li>
+<li>The captured body carries <code>top_k: 20</code> and <code>chat_template_kwargs: {&quot;enable_thinking&quot;: false}</code>.</li>
+<li><code>reasoning_content</code> is <code>None</code>, because thinking was off.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>$2.50 / (1,500 × 3,600) is about $0.00000046 per token. <code>chat_template_kwargs</code> goes inside <code>extra_body=</code>. Import <code>start</code> from <code>examples/_fake_vllm.py</code> by adding the <code>examples</code> folder to <code>sys.path</code>.</p>
+</details>
+<p><strong>1.10 ★ <code>ex01_10_provider_matrix.py</code>: ten providers, nothing sent</strong></p>
+<p>For <code>openai/gpt-4o-mini</code>, <code>anthropic/claude-haiku-5-5</code>, <code>gemini/gemini-2.5-flash</code>, <code>mistral/mistral-large-latest</code>, <code>groq/llama-3.3-70b-versatile</code>, <code>azure_ai/claude-haiku-5-5</code>, <code>azure_ai/mistral-large-3</code>, <code>bedrock/us.anthropic.claude-haiku-5-5</code>, <code>bedrock_mantle/openai.gpt-oss-120b</code> and <code>hosted_vllm/Qwen/Qwen3-8B</code>, print:</p>
+<ul>
+<li>the provider from <code>litellm.get_llm_provider()</code>;</li>
+<li>the variables <code>litellm.validate_environment()</code> reports missing;</li>
+<li>the URL LiteLLM would call, and which authentication header it sets.</li>
+</ul>
+<p>Set made-up keys after calling <code>validate_environment</code>, and stop every request before it leaves your machine.</p>
+<p>Checks:</p>
+<ul>
+<li>Gemini authenticates with <code>x-goog-api-key</code>, Anthropic with <code>x-api-key</code>, and Mistral with <code>Authorization</code>.</li>
+<li>The <code>azure_ai/</code> Claude URL ends in <code>/anthropic/v1/messages</code>; the other <code>azure_ai/</code> model goes to <code>/models/chat/completions</code>.</li>
+<li>Groq's URL contains <code>/openai/v1/</code>.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>OpenAI calls go through the <code>openai</code> SDK, which adds its own <code>Authorization</code> header after LiteLLM's hook runs: you see the base URL and no auth header there. <code>validate_environment</code> checks environment variables only, so it reports AWS keys missing for <code>bedrock/</code> even when an SSO profile works.</p>
+</details>
+<p><strong>1.11 ★★ <code>ex01_11_reasoning_matrix.py</code>: one <code>reasoning_effort</code>, seven translations</strong></p>
+<p>Capture what <code>reasoning_effort=&quot;low&quot;</code> becomes for <code>anthropic/claude-haiku-5-5</code>, <code>bedrock/us.anthropic.claude-haiku-5-5</code>, <code>bedrock/us.amazon.nova-2-lite-v1:0</code>, <code>gemini/gemini-2.5-flash</code>, <code>openai/gpt-5.5</code>, <code>hosted_vllm/Qwen/Qwen3-8B</code> (against the fake vLLM) and <code>ollama_chat/qwen3:0.6b</code> (against your Ollama). Print only the body fields that carry it.</p>
+<p>Checks:</p>
+<ul>
+<li>Anthropic: <code>output_config == {&quot;effort&quot;: &quot;low&quot;}</code> next to adaptive <code>thinking</code>. Bedrock's Claude: the same two fields, inside <code>additionalModelRequestFields</code>.</li>
+<li>Nova: <code>additionalModelRequestFields.reasoningConfig</code>. Gemini: <code>generationConfig.thinkingConfig.thinkingBudget</code>. OpenAI and vLLM: <code>reasoning_effort: &quot;low&quot;</code> unchanged. Ollama: <code>think: true</code>.</li>
+<li>Look at Gemini's budget next to your <code>max_tokens</code>. Which one wins?</li>
+</ul>
+<details><summary>Hint</summary>
+<p>Keep one list of the field names that can carry the setting (<code>thinking</code>, <code>output_config</code>, <code>additionalModelRequestFields</code>, <code>generationConfig</code>, <code>reasoning_effort</code>, <code>think</code>) and print whichever of them each body has. Only the Ollama call needs a running server.</p>
 </details>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#setup"><span>Previous</span>Setup</a><a class="next" href="#2-streaming"><span>Next</span>2. Streaming</a></nav>
 </section>
@@ -2748,6 +3553,69 @@ uv<span class="w"> </span>run<span class="w"> </span>litellm<span class="w"> </s
 <span class="p">}</span>
 </code></pre></div>
 <p>A cross-region profile can run the request in any region of its geography, so the foundation-model resource uses a <code>*</code> region. Enable model access for each model in the Bedrock console, in every region the profile can route to, or calls fail with <code>AccessDeniedException</code> (403).</p>
+<p><strong>Bedrock Mantle behind the proxy.</strong> Amazon Bedrock Mantle is Bedrock's second inference endpoint, <code>bedrock-mantle.&lt;region&gt;.api.aws</code>, which speaks OpenAI's Chat Completions and Responses APIs (and Anthropic's Messages API for Claude). Its model catalogue differs from bedrock-runtime's and between regions. Section 1 covers the <code>bedrock_mantle/</code> provider, the request formats and the gotchas. In the proxy, a Mantle deployment is one more <code>model_list</code> entry. It takes the same AWS identity as the Bedrock deployments above, so nothing in the &quot;Giving the proxy an AWS identity&quot; table changes. <a href="examples/bedrock/mantle_proxy.yaml"><code>examples/bedrock/mantle_proxy.yaml</code></a>:</p>
+<div class="code"><span class="lang">yaml</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nt">model_list</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open-weights</span><span class="w">                    </span><span class="c1"># gpt-oss on Mantle, load-balanced over two regions</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock_mantle/openai.gpt-oss-120b</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open-weights</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock_mantle/openai.gpt-oss-120b</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-5</span><span class="w">                           </span><span class="c1"># LiteLLM calls it through the Responses API; only some regions serve it</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock_mantle/openai.gpt-5.5</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude</span><span class="w">                          </span><span class="c1"># one alias, two Bedrock endpoints</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock_mantle/anthropic.claude-haiku-4-5</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">model_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-5-wrong-region</span><span class="w">              </span><span class="c1"># gpt-5.5 isn't served in us-west-2: fails, then falls back</span>
+<span class="w">    </span><span class="nt">litellm_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock_mantle/openai.gpt-5.5</span>
+<span class="w">      </span><span class="nt">aws_region_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-west-2</span>
+
+<span class="nt">router_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">routing_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple-shuffle</span>
+<span class="w">  </span><span class="nt">num_retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">fallbacks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">"gpt-5-wrong-region"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"open-weights"</span><span class="p p-Indicator">]}]</span>
+
+<span class="nt">general_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">master_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">os.environ/LITELLM_MASTER_KEY</span>
+</code></pre></div>
+<p><a href="examples/bedrock/mantle_proxy_client.py"><code>mantle_proxy_client.py</code></a> uses only the OpenAI SDK. It reads the deployment that answered from <code>x-litellm-model-name</code>, and calls the proxy's <code>/v1/responses</code> as well as <code>/v1/chat/completions</code>. There is no fake Mantle, so this runs against real AWS:</p>
+<div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">cd</span><span class="w"> </span>examples/bedrock
+<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_PROFILE</span><span class="o">=</span>&lt;profile&gt;<span class="w"> </span><span class="nv">AWS_REGION</span><span class="o">=</span>us-west-2<span class="w"> </span><span class="nv">LITELLM_MASTER_KEY</span><span class="o">=</span>sk-master-demo
+<span class="nb">unset</span><span class="w"> </span>AWS_ACCESS_KEY_ID<span class="w"> </span>AWS_SECRET_ACCESS_KEY<span class="w"> </span>BEDROCK_ENDPOINT
+uv<span class="w"> </span>run<span class="w"> </span>litellm<span class="w"> </span>--config<span class="w"> </span>mantle_proxy.yaml<span class="w"> </span>--port<span class="w"> </span><span class="m">4000</span>
+<span class="nv">LITELLM_KEY</span><span class="o">=</span>sk-master-demo<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>mantle_proxy_client.py<span class="w">      </span><span class="c1"># in another shell</span>
+</code></pre></div>
+<div class="code"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>1. chat open-weights  -&gt; &#x27;Paris&#x27;  deployment=bedrock_mantle/openai.gpt-oss-120b api_base=https://bedrock-mantle.us-west-2.api.aws/v1 cost=3.149999999999999e-05
+1. chat gpt-5         -&gt; &#x27;Paris&#x27;  deployment=bedrock_mantle/openai.gpt-5.5 api_base=https://bedrock-mantle.us-west-2.api.aws/openai/v1 cost=0.0006325
+1. chat claude        -&gt; &#x27;Paris&#x27;  deployment=bedrock_mantle/anthropic.claude-haiku-4-5 api_base=https://bedrock-mantle.us-west-2.api.aws/v1 cost=3.4e-05
+2. 8 calls to &#x27;claude&#x27;: 4 x bedrock_mantle/anthropic.claude-haiku-4-5 (cost 3.4e-05); 4 x bedrock/us.anthropic.claude-haiku-4-5-20251001-v1:0 (cost 3.74e-05)
+3. gpt-5-wrong-region -&gt; &#x27;Paris.&#x27; deployment=bedrock_mantle/openai.gpt-oss-120b api_base=https://bedrock-mantle.us-west-2.api.aws/v1 fallbacks=1
+4. responses open-weights  -&gt; &#x27;Paris&#x27; tokens=74/33
+4. responses claude        -&gt; &#x27;Paris&#x27; tokens=14/4
+5. stream open-weights -&gt; 1 chunks with text: &#x27;1 2 3 4 5&#x27;
+</code></pre></div>
+<ul>
+<li><strong>Clients don't see which endpoint is behind an alias.</strong> <code>claude</code> was answered by Mantle four times and by bedrock-runtime four times, and the client code was the same. The cost header shows the difference: the <code>us.</code> profile on bedrock-runtime is priced 10% higher.</li>
+<li><strong>A model LiteLLM calls through the Responses API works on <code>/v1/chat/completions</code>.</strong> <code>gpt-5</code> answered a plain chat completion. The proxy sent it to Mantle's Responses API and converted the reply, as the SDK does (section 1).</li>
+<li><strong>A model missing from a region is a fallback case.</strong> gpt-5.5 isn't served in us-west-2, so <code>gpt-5-wrong-region</code> failed with <code>NotFoundError</code> and the request was answered by <code>open-weights</code> (<code>x-litellm-attempted-fallbacks: 1</code>). Check each region's catalogue (section 1) before you add a deployment.</li>
+<li><strong>The proxy's <code>/v1/responses</code> reaches Mantle too.</strong> For gpt-oss it went to Mantle's own Responses API; for Claude, LiteLLM translated it into a Messages request.</li>
+<li><strong><code>x-litellm-model-api-base</code> names the wrong region for Mantle.</strong> It said us-west-2 for every Mantle deployment, including the gpt-5 deployment in us-east-1, which can only have been answered there. An SDK call with <code>aws_region_name=&quot;us-east-1&quot;</code> went to <code>https://bedrock-mantle.us-east-1.api.aws/v1/chat/completions</code> (captured with section 1's <code>_wire.py</code>), while LiteLLM reported <code>https://bedrock-mantle.us-west-2.api.aws/v1</code> as its <code>api_base</code>, built from <code>AWS_REGION</code>. It also says <code>.../v1</code> for Claude, whose request goes to <code>/anthropic/v1/messages</code>. Use <code>x-litellm-model-name</code> and <code>x-litellm-model-id</code> to tell deployments apart, not the API base.</li>
+<li><strong>Streaming arrived as a single chunk.</strong> gpt-oss on Mantle sent the whole five-number reply in one content chunk here. Don't rely on streaming for short replies to show text progressively.</li>
+<li><strong>Authentication works as for <code>bedrock/</code>.</strong> With no key configured, each Mantle request is signed with the proxy's AWS identity. A deployment can instead set <code>api_key: os.environ/BEDROCK_MANTLE_API_KEY</code> to use a Bedrock API key; I had no key to try it. Section 1 explains why a stale key in the proxy's environment breaks every Mantle deployment.</li>
+</ul>
 <p><strong>Amazon SageMaker endpoints</strong> (<code>sagemaker/&lt;endpoint-name&gt;</code>) use the same AWS credential chain and <code>aws_region_name</code> as Bedrock. I didn't run them.</p>
 <h3 id="through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</h3>
 <p>Azure offers models in two ways, and LiteLLM has a provider prefix for each:</p>
@@ -3413,6 +4281,17 @@ uv<span class="w"> </span>run<span class="w"> </span>litellm<span class="w"> </s
 </ul>
 <details><summary>Hint</summary>
 <p>Without the prices, an Ollama call costs <code>0.0</code> and budgets never see it. Set <code>num_retries: 0</code> so the closed port fails fast. No Docker? Use <code>hosted_vllm/</code> aimed at the fake upstream for <code>chat</code> and drop the Paris check. For a live <code>cloud</code>, remove its <code>api_base</code> and set a real <code>ANTHROPIC_API_KEY</code>, or use a <code>bedrock/</code> model.</p>
+</details>
+<p><strong>12.10 ★★ <code>ex12_10_mantle_mix.yaml</code> + <code>ex12_10_mantle_mix.py</code>: bedrock-runtime and Mantle behind one proxy</strong></p>
+<p>Write a proxy config with an alias <code>assistant</code> that has two deployments in us-west-2: <code>bedrock/us.anthropic.claude-haiku-5-5</code> on bedrock-runtime and <code>bedrock_mantle/openai.gpt-oss-120b</code> on Mantle. Add <code>gpt-5-west</code> on <code>bedrock_mantle/openai.gpt-5.5</code> in us-west-2 and <code>gpt-5-east</code> on the same model in us-east-1, with a fallback from west to east. With the OpenAI SDK, send ten chat requests to <code>assistant</code> and add up the cost per deployment. Then call <code>gpt-5-west</code>, and finally call <code>assistant</code> through <code>client.responses.create()</code>.</p>
+<p>Checks:</p>
+<ul>
+<li>Both <code>assistant</code> deployments answer at least once, told apart by <code>x-litellm-model-name</code>, and every reply mentions Paris.</li>
+<li><code>gpt-5-west</code> is answered by the model group <code>gpt-5-east</code>, with <code>x-litellm-attempted-fallbacks: 1</code>.</li>
+<li>The Responses API call through the proxy answers too, whichever deployment it lands on.</li>
+</ul>
+<details><summary>Hint</summary>
+<p>This needs real AWS credentials (an SSO profile in <code>AWS_PROFILE</code>), because there is no fake Mantle. Set <code>num_retries: 0</code>, so the missing model in us-west-2 goes straight to the fallback. Use <code>x-litellm-model-group</code> for the fallback check: both gpt-5.5 deployments have the same <code>x-litellm-model-name</code>.</p>
 </details>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#11-comparing-models-on-your-own-task"><span>Previous</span>11. Comparing models on your own task</a><a class="next" href="#13-virtual-keys-budgets-and-rate-limits"><span>Next</span>13. Virtual keys, budgets and rate limits</a></nav>
 </section>
@@ -8609,7 +9488,7 @@ cleaned up 2 entries
 </section>
 <section class="page" data-page="23-other-providers-and-endpoints-reference-not-run-here" data-title="23. Other providers and endpoints">
 <p class="crumb">Page 26 of 28</p><h2 id="23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints (reference; not run here)</h2>
-<p>These follow the same pattern as section 1. Section 12 covers the cloud platforms (AWS Bedrock, Microsoft Azure, Google Vertex AI), providers called directly, and local models with Ollama and vLLM, and runs them against a real Ollama and local fakes. The lines below are a quick reference; I didn't run them as written, because each needs that provider's credentials.</p>
+<p>These follow the same pattern as section 1, which covers AWS Bedrock, Bedrock Mantle, Ollama and vLLM in detail from the SDK, and the other major providers in brief. Section 12 covers the cloud platforms (AWS Bedrock, Microsoft Azure, Google Vertex AI), providers called directly, and local models with Ollama and vLLM, and runs them against a real Ollama and local fakes. The lines below are a quick reference; I didn't run them as written, because each needs that provider's credentials.</p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="c1"># Local models</span>
 <span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"ollama_chat/llama3.1"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">api_base</span><span class="o">=</span><span class="s2">"http://localhost:11434"</span><span class="p">)</span>   <span class="c1"># chat API; keeps roles and tools</span>
 <span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"hosted_vllm/meta-llama/Llama-3.1-8B-Instruct"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
