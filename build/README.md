@@ -16,7 +16,7 @@ Mermaid blocks are not rendered in the browser. Each is replaced by a hand-drawn
 
 ## Versions and editions
 
-`pyproject.toml` is the source of truth: `version` is the tutorial's version and the `litellm` pin is the LiteLLM version. The build runs `check_versions.py` first and stops if the byline, the "Which version this covers" paragraph, the README, `uv.lock`, a Docker image tag or a link to LiteLLM's source names another version. Run it on its own with `python3 build/check_versions.py`.
+`pyproject.toml` is the source of truth: `version` is the tutorial's version and the `litellm` pin is the LiteLLM version. The build runs `check_versions.py` first and stops if the byline, the "Which version this covers" paragraph, the README, `CHANGELOG.md`, `uv.lock`, a Docker image tag or a link to LiteLLM's source names another version. Run it on its own with `python3 build/check_versions.py`.
 
 Each LiteLLM version is an edition on its own branch (`litellm-<version>`); `main` is the newest. To work on two at once, give each its own worktree and `.venv`: `git worktree add ../litellm-tutorial-1.109.1 litellm-1.109.1`.
 
@@ -25,7 +25,7 @@ Each LiteLLM version is an edition on its own branch (`litellm-<version>`); `mai
 - **Generated files** (`TUTORIAL.html`, `uv.lock`) are not merged by hand. On a conflict take either side, then rebuild the page and run `uv lock`.
 - **A runnable change** is run again on every edition it lands on.
 
-To release an edition, bump `version` in `pyproject.toml` and the places the check names, run `uv lock` and the build, commit, then tag and push:
+To release an edition, bump `version` in `pyproject.toml` and the places the check names, add an entry for the new version at the top of `CHANGELOG.md`, run `uv lock` and the build, commit, then tag and push:
 
 ```bash
 git tag -a "$(python3 build/check_versions.py --tag)" -m "LiteLLM tutorial release"

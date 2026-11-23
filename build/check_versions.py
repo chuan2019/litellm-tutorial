@@ -34,6 +34,7 @@ def problems(tutorial, litellm):
     need("TUTORIAL.md", f"it is written for LiteLLM {litellm}.", "'Which version this covers'")
     need("TUTORIAL.md", f"`litellm[proxy,extra_proxy]=={litellm}`", "pin in Setup")
     need("README.md", f"**Version {tutorial}, written for LiteLLM {litellm}.**", "version line")
+    need("CHANGELOG.md", f"## [{tutorial}] for LiteLLM {litellm} (", "changelog entry")
     if not re.search(rf"^\| {re.escape(litellm)} \|", (ROOT / "README.md").read_text(), re.M):
         out.append(f"README.md: editions table has no row for LiteLLM {litellm}")
 
