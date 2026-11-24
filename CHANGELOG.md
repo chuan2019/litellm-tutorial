@@ -2,6 +2,19 @@
 
 Every release of the tutorial, newest first. A release is tagged `v<tutorial version>-litellm<LiteLLM version>` (see [Editions](README.md#editions)). Each LiteLLM version is an edition on its own branch, so an older edition can get a later tutorial version than a newer one; the heading of each entry names both versions.
 
+## [0.2.3] for LiteLLM 1.110.2 (2026-11-23)
+
+### Added
+
+- **Appendix, LiteLLM 1.110.2 against a gateway reference design.** A figure of the design and a table that maps each of its boxes onto LiteLLM 1.110.2:
+  - what LiteLLM provides, what is missing, and which section shows it;
+  - nine boxes that need your own code, and the boxes that need an Enterprise licence;
+  - rows that this tutorial doesn't run link the 1.110.2 source or LiteLLM's docs, and say so.
+
+### Changed
+
+- The outline and "How this was verified" mention the appendix.
+
 ## [0.2.2] for LiteLLM 1.110.2 (2026-11-23)
 
 ### Added
