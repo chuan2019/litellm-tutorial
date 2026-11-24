@@ -2,6 +2,18 @@
 
 Every release of the tutorial, newest first. A release is tagged `v<tutorial version>-litellm<LiteLLM version>` (see [Editions](README.md#editions)). Each LiteLLM version is an edition on its own branch, so an older edition can get a later tutorial version than a newer one; the heading of each entry names both versions.
 
+## [0.2.6] for LiteLLM 1.110.2 (2026-11-23)
+
+### Changed
+
+- **Appendix, the reference design figure.**
+  - Boxes LiteLLM 1.110.2 doesn't provide at all are now light blue instead of light red.
+  - Boxes with a licensed part are no longer filled; the licensed part is in bold red instead: IdP JWT, SCIM and SSO under identity and access, per-key guardrails, and the audit log under observability.
+
+### Fixed
+
+- **Appendix, the observability row.** The audit log's licence check is in `create_audit_log_for_update()`, not `is_audit_logging_enabled()`, which returns `store_audit_logs` when it is set. The row now also lists the three log destinations that need a licence: GCS buckets, GCS Pub/Sub and Azure Blob Storage.
+
 ## [0.2.5] for LiteLLM 1.110.2 (2026-11-23)
 
 ### Changed

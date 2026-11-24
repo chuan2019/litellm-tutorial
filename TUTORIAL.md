@@ -1,6 +1,6 @@
 # Tutorial: LiteLLM by Worked Example
 
-Nov 23, 2026 · Tutorial version 0.2.5 · written for LiteLLM 1.110.2
+Nov 23, 2026 · Tutorial version 0.2.6 · written for LiteLLM 1.110.2
 
 ## What LiteLLM is
 
@@ -162,7 +162,7 @@ Each section is one practical use case with a runnable script in [`examples/`](e
 | 23 | Other providers, for reference |
 | Appendix | LiteLLM 1.110.2 against a gateway reference design: what each box maps to, what is missing, and where this tutorial shows it |
 
-**Which version this covers.** This is version 0.2.5 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
+**Which version this covers.** This is version 0.2.6 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
 
 **What changed since the 1.109.1 edition.** Most behaviour in this tutorial is the same on 1.110.2. These are the differences that show up in it:
 
@@ -8479,7 +8479,7 @@ What this shows:
 - **The capabilities exist as separate registries, not as a hub.** MCP servers, skills, prompts and agents each have their own registry and access control, and the credential vault is there. What is missing is the layer that ties them together: one registry and one manifest per client.
 - **Agents are reachable, not built or hosted.** The A2A gateway and the `a2a/` models put agents behind the same keys and limits, but there is no agent builder, and the agent runtime is an SDK call in your own process.
 - **Nine boxes need your own code:** server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. "Instructions" can be approximated with prompt templates or skills.
-- **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails, tag budgets and logging to GCS or Azure Blob Storage are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
+- **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails, tag budgets and logging to GCS buckets, GCS Pub/Sub or Azure Blob Storage are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
 
 The four ❌ boxes, where LiteLLM 1.110.2 provides nothing:
 
