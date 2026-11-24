@@ -8477,6 +8477,25 @@ What this shows:
 - **Nine boxes need your own code:** server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. "Instructions" can be approximated with prompt templates or skills.
 - **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails and tag budgets are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
 
+The four ❌ boxes, where LiteLLM 1.110.2 provides nothing:
+
+- **Messaging bots**
+  - *What it is:* an assistant that people reach from Teams or Slack, in a channel, a thread or a direct message.
+  - *Important or optional:* optional. It matters only if people should use the assistant where they already chat. Chats, services and vendor apps reach the gateway without it.
+  - *Filling the gap:* build the bot with the platform's own SDK (Slack Bolt, or the Microsoft 365 Agents SDK for Teams) and have it call the gateway as an OpenAI client. Give the bot its own virtual key, so budgets, limits and guardrails apply to it. Pass the chat user's ID as `user`, so each person is an end user with their own spend and budget (section 13), and the thread ID as `litellm_session_id`, which groups the thread's calls in the logs. The bot keeps each thread's history itself.
+- **Conversation search**
+  - *What it is:* finding past conversations by what was said in them, across a user's history or, for an auditor, across everyone's.
+  - *Important or optional:* optional for the gateway itself. It matters for a chat product whose users return to old conversations, and for compliance or incident reviews that must find what was said.
+  - *Filling the gap:* index conversations where they are already stored, usually in the chat application. If the gateway is the only place that sees them, a `CustomLogger` (section 10) can write each request and response to a search index such as OpenSearch, with the user and team on every document. Filter every search by owner, give the index the same retention as the conversations, and treat it as holding user content and PII.
+- **Manifest**
+  - *What it is:* one call that returns, for one client, everything it may use: its models, MCP tools, agents, skills, prompts and limits.
+  - *Important or optional:* optional while clients are configured by hand. It becomes important when many clients configure themselves at startup, such as a company assistant platform that discovers its tools, because without it each client makes five calls and merges them.
+  - *Filling the gap:* a small service in front of the gateway that takes the client's key, calls `/v1/models`, `/v1/agents`, the MCP tool list, `/v1/skills` and `/key/info` with that key, and returns one merged document. Calling with the client's own key means the result already reflects its permissions. Cache it briefly, and keep the gateway as the place that enforces access: a manifest only tells a client what to expect.
+- **Agent builder**
+  - *What it is:* a way to define an agent (instructions, model, tools, knowledge) in the gateway, often in a UI, and get an endpoint for it without writing code.
+  - *Important or optional:* optional for teams that write agents in code. It matters if people who don't write code should build agents.
+  - *Filling the gap:* build agents in code, with a framework or with `litellm.agent()`, or in a managed service such as Amazon Bedrock Agents, then register each one with the A2A gateway (`POST /v1/agents`, section 16b). Registered agents get the same keys, access control and cost tracking as models, and can be called as `a2a/<agent>`.
+
 ## Gotchas found while writing this
 
 | Symptom | Cause | Fix |
