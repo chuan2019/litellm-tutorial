@@ -359,14 +359,14 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
     <button class="theme-btn" type="button" id="themeBtn">Theme</button></span></div>
   <div class="search"><input type="search" id="q" placeholder="Search all sections" aria-label="Search all sections" autocomplete="off">
     <ol id="hits" class="hits" hidden></ol></div>
-  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#running-the-proxy-on-an-ec2-instance">Running the proxy on an EC2 instance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#provider-adapters-in-detail">Provider adapters in detail</a></li><li><a href="#aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</a></li><li><a href="#amazon-bedrock-mantle">Amazon Bedrock Mantle</a></li><li><a href="#ollama">Ollama</a></li><li><a href="#vllm">vLLM</a></li><li><a href="#other-major-providers">Other major providers</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
+  <div id="tocList"><ul><li data-page="what-litellm-is"><a href="#what-litellm-is">What LiteLLM is</a><ul><li><a href="#the-problem-it-solves">The problem it solves</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#sdk-vs-proxy-what-actually-differs">SDK vs proxy: what actually differs</a></li><li><a href="#open-source-llm-gateways">Open-source LLM gateways</a></li><li><a href="#what-it-is-not">What it is not</a></li><li><a href="#where-to-use-it">Where to use it</a></li><li><a href="#where-to-think-twice">Where to think twice</a></li><li><a href="#open-source-vs-enterprise">Open source vs. Enterprise</a></li></ul></li><li data-page="what-you-will-learn"><a href="#what-you-will-learn">What you will learn</a></li><li data-page="setup"><a href="#setup">Setup</a><ul><li><a href="#quick-start-a-proxy-in-front-of-aws-bedrock">Quick start: a proxy in front of AWS Bedrock</a></li><li><a href="#running-the-proxy-on-an-ec2-instance">Running the proxy on an EC2 instance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#how-litellm-reaches-a-provider">How LiteLLM reaches a provider</a></li><li><a href="#offline-by-default">Offline by default</a></li><li><a href="#running-the-sdk-sections-as-notebooks">Running the SDK sections as notebooks</a></li><li><a href="#exercises-and-the-self-test">Exercises and the self-test</a></li></ul></li><li data-page="1-one-call-any-provider"><a href="#1-one-call-any-provider">1. One call, any provider</a><ul><li><a href="#the-completion-signature">The completion() signature</a></li><li><a href="#per-call-api-key-and-api-base">Per-call api_key= and api_base=</a></li><li><a href="#provider-adapters-in-detail">Provider adapters in detail</a></li><li><a href="#aws-bedrock-from-the-sdk">AWS Bedrock from the SDK</a></li><li><a href="#amazon-bedrock-mantle">Amazon Bedrock Mantle</a></li><li><a href="#ollama">Ollama</a></li><li><a href="#vllm">vLLM</a></li><li><a href="#other-major-providers">Other major providers</a></li><li><a href="#exercises">Exercises</a></li></ul></li><li data-page="2-streaming"><a href="#2-streaming">2. Streaming</a><ul><li><a href="#exercises-2">Exercises</a></li></ul></li><li data-page="3-async-and-concurrent-batches"><a href="#3-async-and-concurrent-batches">3. Async and concurrent batches</a><ul><li><a href="#exercises-3">Exercises</a></li></ul></li><li data-page="4-structured-output"><a href="#4-structured-output">4. Structured output</a><ul><li><a href="#exercises-4">Exercises</a></li></ul></li><li data-page="5-tool-calling"><a href="#5-tool-calling">5. Tool calling</a><ul><li><a href="#exercises-5">Exercises</a></li></ul></li><li data-page="6-errors-retries-and-fallbacks"><a href="#6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</a><ul><li><a href="#exercises-6">Exercises</a></li></ul></li><li data-page="7-router-load-balancing-and-failover"><a href="#7-router-load-balancing-and-failover">7. Router: load balancing and failover</a><ul><li><a href="#exercises-7">Exercises</a></li></ul></li><li data-page="8-counting-tokens-pricing-calls-and-capping-spend"><a href="#8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</a><ul><li><a href="#exercises-8">Exercises</a></li></ul></li><li data-page="9-caching"><a href="#9-caching">9. Caching</a><ul><li><a href="#exercises-9">Exercises</a></li></ul></li><li data-page="10-callbacks-logging-metrics-and-cost-attribution"><a href="#10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</a><ul><li><a href="#exercises-10">Exercises</a></li></ul></li><li data-page="11-comparing-models-on-your-own-task"><a href="#11-comparing-models-on-your-own-task">11. Comparing models on your own task</a><ul><li><a href="#exercises-11">Exercises</a></li></ul></li><li data-page="12-the-proxy-one-endpoint-for-every-app"><a href="#12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</a><ul><li><a href="#through-a-cloud-platform-aws-bedrock">Through a cloud platform: AWS Bedrock</a></li><li><a href="#through-a-cloud-platform-microsoft-azure">Through a cloud platform: Microsoft Azure</a></li><li><a href="#through-a-cloud-platform-google-cloud-vertex-ai">Through a cloud platform: Google Cloud Vertex AI</a></li><li><a href="#directly-to-a-model-provider-openai-anthropic-ollama-and-vllm">Directly to a model provider: OpenAI, Anthropic, Ollama and vLLM</a></li><li><a href="#exercises-12">Exercises</a></li></ul></li><li data-page="13-virtual-keys-budgets-and-rate-limits"><a href="#13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</a><ul><li><a href="#the-same-stack-with-docker-compose">The same stack with Docker Compose</a></li><li><a href="#exercises-13">Exercises</a></li></ul></li><li data-page="14-smart-routing-let-the-router-choose-the-model"><a href="#14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</a><ul><li><a href="#14a-complexity-router">14a. Complexity router</a></li><li><a href="#14b-semantic-router">14b. Semantic router</a></li><li><a href="#14c-quality-router">14c. Quality router</a></li><li><a href="#14d-adaptive-router">14d. Adaptive router</a></li></ul></li><li data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server"><a href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</a><ul><li><a href="#exercises-18">Exercises</a></li></ul></li><li data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><a href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</a><ul><li><a href="#16a-skills-gateway">16a. Skills gateway</a></li><li><a href="#16b-agent-gateway-a2a">16b. Agent gateway (A2A)</a></li></ul></li><li data-page="17-prompt-management-templates-outside-the-code"><a href="#17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</a><ul><li><a href="#exercises-21">Exercises</a></li></ul></li><li data-page="18-observability-traces-metrics-and-logging-platforms"><a href="#18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</a><ul><li><a href="#exercises-22">Exercises</a></li></ul></li><li data-page="19-lens-reviewing-agent-runs"><a href="#19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</a><ul><li><a href="#how-it-works-2">How it works</a></li><li><a href="#19a-trace-an-agent-into-lens">19a. Trace an agent into Lens</a></li><li><a href="#19b-connect-lens-to-the-proxy">19b. Connect Lens to the proxy</a></li><li><a href="#19c-investigations-let-a-model-review-the-runs">19c. Investigations: let a model review the runs</a></li></ul></li><li data-page="20-access-control-and-secret-handling"><a href="#20-access-control-and-secret-handling">20. Access control and secret handling</a><ul><li><a href="#open-source-vs-enterprise-when-you-need-a-licence">Open source vs. Enterprise: when you need a licence</a></li><li><a href="#20a-who-can-do-what-the-proxy-s-access-model">20a. Who can do what: the proxy&#x27;s access model</a></li><li><a href="#20b-connecting-your-identity-provider">20b. Connecting your identity provider</a></li><li><a href="#20c-secret-handling">20c. Secret handling</a></li><li><a href="#exercises-26">Exercises</a></li></ul></li><li data-page="21-guardrails-and-hardening-the-proxy-for-production"><a href="#21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</a><ul><li><a href="#21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</a></li><li><a href="#21b-hardening-the-deployment">21b. Hardening the deployment</a></li><li><a href="#exercises-27">Exercises</a></li></ul></li><li data-page="22-context-and-memory-management"><a href="#22-context-and-memory-management">22. Context and memory management</a><ul><li><a href="#22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</a></li><li><a href="#22b-context-management-with-litellm">22b. Context management with LiteLLM</a></li><li><a href="#22c-memory-management-with-litellm">22c. Memory management with LiteLLM</a></li></ul></li><li data-page="23-other-providers-and-endpoints-reference-not-run-here"><a href="#23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints</a><ul><li><a href="#exercises-30">Exercises</a></li></ul></li><li data-page="appendix-litellm-1-110-2-against-a-gateway-reference-design"><a href="#appendix-litellm-1-110-2-against-a-gateway-reference-design">Appendix: LiteLLM 1.110.2 against a gateway reference design</a></li><li data-page="gotchas-found-while-writing-this"><a href="#gotchas-found-while-writing-this">Gotchas found while writing this</a></li><li data-page="cheat-sheet"><a href="#cheat-sheet">Cheat sheet</a></li></ul></div>
 </nav>
 <main>
 <article>
 <section class="page" data-page="what-litellm-is" data-title="What LiteLLM is">
 <h1>Tutorial: LiteLLM by Worked Example</h1>
 <p class="byline">Nov 23, 2026 · Tutorial version 0.2.2 · written for LiteLLM 1.110.2</p>
-<p class="crumb">Page 1 of 28</p><h2 id="what-litellm-is">What LiteLLM is</h2>
+<p class="crumb">Page 1 of 29</p><h2 id="what-litellm-is">What LiteLLM is</h2>
 <h3 id="the-problem-it-solves">The problem it solves</h3>
 <p>Every LLM provider has its own API. Anthropic, OpenAI, Google, AWS Bedrock and Azure differ in request fields, message and tool-call formats, streaming events, error types, authentication and pricing. Code written against one provider's SDK is tied to that provider. An app that uses three providers carries three integrations, and the cross-cutting work (retries, failover to another provider, spend tracking, rate limits, logging) has to be built once per provider.</p>
 <h3 id="what-it-does">What it does</h3>
@@ -694,7 +694,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <nav class="pager" aria-label="Section navigation"><span></span><a class="next" href="#what-you-will-learn"><span>Next</span>What you will learn</a></nav>
 </section>
 <section class="page" data-page="what-you-will-learn" data-title="What you will learn">
-<p class="crumb">Page 2 of 28</p><h2 id="what-you-will-learn">What you will learn</h2>
+<p class="crumb">Page 2 of 29</p><h2 id="what-you-will-learn">What you will learn</h2>
 <p>Each section is one practical use case with a runnable script in <a href="examples/"><code>examples/</code></a>:</p>
 <div class="table-wrap"><table>
 <thead>
@@ -736,6 +736,10 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <td>23</td>
 <td>Other providers, for reference</td>
 </tr>
+<tr>
+<td>Appendix</td>
+<td>LiteLLM 1.110.2 against a gateway reference design: what each box maps to, what is missing, and where this tutorial shows it</td>
+</tr>
 </tbody>
 </table></div>
 <p><strong>Which version this covers.</strong> This is version 0.2.2 of the tutorial (the <code>version</code> in <a href="pyproject.toml"><code>pyproject.toml</code></a>), and it is written for LiteLLM 1.110.2. The same file pins <code>litellm[proxy,extra_proxy]==1.110.2</code>, and the Docker commands use the matching image tag, <code>ghcr.io/berriai/litellm:v1.110.2</code>. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says &quot;in 1.110.2&quot;. When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.</p>
@@ -760,13 +764,14 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <li><strong>Section 19:</strong> against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).</li>
 <li><strong>Sections 20–21:</strong> against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.</li>
 <li><strong>Section 22:</strong> the SDK scripts offline with mocks and local fakes of the Anthropic API and Bedrock, and the proxy script against a local proxy with Postgres.</li>
+<li><strong>The appendix:</strong> not run. It compares a gateway reference design with the sections above, the 1.110.2 source and LiteLLM's documentation, and each row says which.</li>
 <li><strong>Exercises:</strong> the reference solutions in <a href="solutions/"><code>solutions/</code></a> pass on 1.110.2, including those for exercises 1.4–1.11 and 12.10, which are new in this edition. The other exercises were written and solved on 1.109.1; for 1.110.2 their text was checked against the changes listed above, not solved again.</li>
 </ul>
 <p>Where a claim comes from the source or the docs and was not run, the text says so.</p>
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#what-litellm-is"><span>Previous</span>What LiteLLM is</a><a class="next" href="#setup"><span>Next</span>Setup</a></nav>
 </section>
 <section class="page" data-page="setup" data-title="Setup">
-<p class="crumb">Page 3 of 28</p><h2 id="setup">Setup</h2>
+<p class="crumb">Page 3 of 29</p><h2 id="setup">Setup</h2>
 <p>Dependencies are managed with <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a>. <a href="pyproject.toml"><code>pyproject.toml</code></a> pins <code>litellm[proxy,extra_proxy]==1.110.2</code>, <code>openai</code>, <code>pydantic</code> and the OpenTelemetry SDK and OTLP exporter (section 18), and installs them from PyPI:</p>
 <div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>uv<span class="w"> </span>sync<span class="w">                                  </span><span class="c1"># creates .venv with the pinned versions</span>
 <span class="nb">cd</span><span class="w"> </span>examples
@@ -1526,7 +1531,7 @@ uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </sp
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#what-you-will-learn"><span>Previous</span>What you will learn</a><a class="next" href="#1-one-call-any-provider"><span>Next</span>1. One call, any provider</a></nav>
 </section>
 <section class="page" data-page="1-one-call-any-provider" data-title="1. One call, any provider">
-<p class="crumb">Page 4 of 28</p><h2 id="1-one-call-any-provider">1. One call, any provider</h2>
+<p class="crumb">Page 4 of 29</p><h2 id="1-one-call-any-provider">1. One call, any provider</h2>
 <p><strong>Use case:</strong> write the code once and switch providers by changing a string.</p>
 <h3 id="the-completion-signature">The <code>completion()</code> signature</h3>
 <p>Every SDK section calls <code>litellm.completion()</code> (or <code>acompletion()</code>, which takes the same arguments). This is its signature in LiteLLM 1.110.2, from <code>inspect.signature(litellm.completion)</code>, grouped and with long type hints shortened:</p>
@@ -2622,7 +2627,7 @@ price from register_model()        &#x27;Paris.&#x27; tokens=21/14 cost=7.699999
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#setup"><span>Previous</span>Setup</a><a class="next" href="#2-streaming"><span>Next</span>2. Streaming</a></nav>
 </section>
 <section class="page" data-page="2-streaming" data-title="2. Streaming">
-<p class="crumb">Page 5 of 28</p><h2 id="2-streaming">2. Streaming</h2>
+<p class="crumb">Page 5 of 29</p><h2 id="2-streaming">2. Streaming</h2>
 <p><strong>Use case:</strong> show text to a user as it is generated, and still get the full text and usage at the end.</p>
 <p><a href="examples/02_streaming.py"><code>02_streaming.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">stream</span> <span class="o">=</span> <span class="n">litellm</span><span class="o">.</span><span class="n">completion</span><span class="p">(</span>
@@ -2675,7 +2680,7 @@ usage: 15 in / 18 out
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#1-one-call-any-provider"><span>Previous</span>1. One call, any provider</a><a class="next" href="#3-async-and-concurrent-batches"><span>Next</span>3. Async and concurrent batches</a></nav>
 </section>
 <section class="page" data-page="3-async-and-concurrent-batches" data-title="3. Async and concurrent batches">
-<p class="crumb">Page 6 of 28</p><h2 id="3-async-and-concurrent-batches">3. Async and concurrent batches</h2>
+<p class="crumb">Page 6 of 29</p><h2 id="3-async-and-concurrent-batches">3. Async and concurrent batches</h2>
 <p><strong>Use case:</strong> classify thousands of items quickly without blowing through the provider's rate limit.</p>
 <p><a href="examples/03_async_batch.py"><code>03_async_batch.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">MAX_CONCURRENCY</span> <span class="o">=</span> <span class="mi">3</span>
@@ -2733,7 +2738,7 @@ neutral   Decent value for the price.
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#2-streaming"><span>Previous</span>2. Streaming</a><a class="next" href="#4-structured-output"><span>Next</span>4. Structured output</a></nav>
 </section>
 <section class="page" data-page="4-structured-output" data-title="4. Structured output">
-<p class="crumb">Page 7 of 28</p><h2 id="4-structured-output">4. Structured output</h2>
+<p class="crumb">Page 7 of 29</p><h2 id="4-structured-output">4. Structured output</h2>
 <p><strong>Use case:</strong> extract fields from text into a typed object you can trust.</p>
 <p><a href="examples/04_structured_output.py"><code>04_structured_output.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="k">class</span><span class="w"> </span><span class="nc">Invoice</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -2784,7 +2789,7 @@ bad output is caught: 3 errors, e.g. (&#x27;total&#x27;,)
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#3-async-and-concurrent-batches"><span>Previous</span>3. Async and concurrent batches</a><a class="next" href="#5-tool-calling"><span>Next</span>5. Tool calling</a></nav>
 </section>
 <section class="page" data-page="5-tool-calling" data-title="5. Tool calling">
-<p class="crumb">Page 8 of 28</p><h2 id="5-tool-calling">5. Tool calling</h2>
+<p class="crumb">Page 8 of 29</p><h2 id="5-tool-calling">5. Tool calling</h2>
 <p><strong>Use case:</strong> let the model call your functions (an agent loop) with one code path for every provider.</p>
 <p><a href="examples/05_tool_calling.py"><code>05_tool_calling.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">TOOLS</span> <span class="o">=</span> <span class="p">[{</span>
@@ -2851,7 +2856,7 @@ final answer: Tokyo is warmer: 21°C versus 14°C in Paris, both cloudy.
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#4-structured-output"><span>Previous</span>4. Structured output</a><a class="next" href="#6-errors-retries-and-fallbacks"><span>Next</span>6. Errors, retries and fallbacks</a></nav>
 </section>
 <section class="page" data-page="6-errors-retries-and-fallbacks" data-title="6. Errors, retries and fallbacks">
-<p class="crumb">Page 9 of 28</p><h2 id="6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</h2>
+<p class="crumb">Page 9 of 29</p><h2 id="6-errors-retries-and-fallbacks">6. Errors, retries and fallbacks</h2>
 <p><strong>Use case:</strong> survive rate limits and outages, and handle each kind of error correctly.</p>
 <p><a href="examples/06_errors_fallbacks.py"><code>06_errors_fallbacks.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="k">try</span><span class="p">:</span>
@@ -2918,7 +2923,7 @@ primary failed; answer came from gpt-4o-mini -&gt; &#x27;hello from the fallback
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#5-tool-calling"><span>Previous</span>5. Tool calling</a><a class="next" href="#7-router-load-balancing-and-failover"><span>Next</span>7. Router: load balancing and failover</a></nav>
 </section>
 <section class="page" data-page="7-router-load-balancing-and-failover" data-title="7. Router: load balancing and failover">
-<p class="crumb">Page 10 of 28</p><h2 id="7-router-load-balancing-and-failover">7. Router: load balancing and failover</h2>
+<p class="crumb">Page 10 of 29</p><h2 id="7-router-load-balancing-and-failover">7. Router: load balancing and failover</h2>
 <p><strong>Use case:</strong> spread traffic over several deployments of the same model, such as two API keys or two regions, and fail over to a different model when one breaks.</p>
 <p><a href="examples/07_router.py"><code>07_router.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">router</span> <span class="o">=</span> <span class="n">Router</span><span class="p">(</span>
@@ -3015,7 +3020,7 @@ primary failed; answer came from gpt-4o-mini -&gt; &#x27;hello from the fallback
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#6-errors-retries-and-fallbacks"><span>Previous</span>6. Errors, retries and fallbacks</a><a class="next" href="#8-counting-tokens-pricing-calls-and-capping-spend"><span>Next</span>8. Counting tokens, pricing calls and capping spend</a></nav>
 </section>
 <section class="page" data-page="8-counting-tokens-pricing-calls-and-capping-spend" data-title="8. Counting tokens, pricing calls and capping spend">
-<p class="crumb">Page 11 of 28</p><h2 id="8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</h2>
+<p class="crumb">Page 11 of 29</p><h2 id="8-counting-tokens-pricing-calls-and-capping-spend">8. Counting tokens, pricing calls and capping spend</h2>
 <p><strong>Use case:</strong> know what a call will cost before you make it, what it did cost afterwards, and stop a runaway job.</p>
 <p><a href="examples/08_cost_and_budget.py"><code>08_cost_and_budget.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"prompt tokens (estimate):"</span><span class="p">,</span> <span class="n">litellm</span><span class="o">.</span><span class="n">token_counter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">))</span>
@@ -3089,7 +3094,7 @@ call 6 refused: budget $0.001 reached (spent $0.001100)
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#7-router-load-balancing-and-failover"><span>Previous</span>7. Router: load balancing and failover</a><a class="next" href="#9-caching"><span>Next</span>9. Caching</a></nav>
 </section>
 <section class="page" data-page="9-caching" data-title="9. Caching">
-<p class="crumb">Page 12 of 28</p><h2 id="9-caching">9. Caching</h2>
+<p class="crumb">Page 12 of 29</p><h2 id="9-caching">9. Caching</h2>
 <p><strong>Use case:</strong> don't pay twice for identical requests, for example re-running an eval or a test suite.</p>
 <p><a href="examples/09_caching.py"><code>09_caching.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="kn">from</span><span class="w"> </span><span class="nn">litellm.caching.caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cache</span>
@@ -3163,7 +3168,7 @@ call 3 with no-cache: cache_hit = None
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#8-counting-tokens-pricing-calls-and-capping-spend"><span>Previous</span>8. Counting tokens, pricing calls and capping spend</a><a class="next" href="#10-callbacks-logging-metrics-and-cost-attribution"><span>Next</span>10. Callbacks: logging, metrics and cost attribution</a></nav>
 </section>
 <section class="page" data-page="10-callbacks-logging-metrics-and-cost-attribution" data-title="10. Callbacks: logging, metrics and cost attribution">
-<p class="crumb">Page 13 of 28</p><h2 id="10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</h2>
+<p class="crumb">Page 13 of 29</p><h2 id="10-callbacks-logging-metrics-and-cost-attribution">10. Callbacks: logging, metrics and cost attribution</h2>
 <p><strong>Use case:</strong> record the model, latency, tokens, cost and an owner tag for every call in one place, without touching any call site.</p>
 <p><a href="examples/10_callbacks.py"><code>10_callbacks.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="kn">from</span><span class="w"> </span><span class="nn">litellm.integrations.custom_logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomLogger</span>
@@ -3218,7 +3223,7 @@ running total: $0.000024
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#9-caching"><span>Previous</span>9. Caching</a><a class="next" href="#11-comparing-models-on-your-own-task"><span>Next</span>11. Comparing models on your own task</a></nav>
 </section>
 <section class="page" data-page="11-comparing-models-on-your-own-task" data-title="11. Comparing models on your own task">
-<p class="crumb">Page 14 of 28</p><h2 id="11-comparing-models-on-your-own-task">11. Comparing models on your own task</h2>
+<p class="crumb">Page 14 of 29</p><h2 id="11-comparing-models-on-your-own-task">11. Comparing models on your own task</h2>
 <p><strong>Use case:</strong> pick a model by running the same small eval on several and comparing accuracy, cost and latency. This is where LiteLLM's one interface pays off most.</p>
 <p><a href="examples/11_compare_models.py"><code>11_compare_models.py</code></a></p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">litellm</span><span class="o">.</span><span class="n">drop_params</span> <span class="o">=</span> <span class="kc">True</span>
@@ -3276,7 +3281,7 @@ support temperature=0. Only temperature=1 is supported. To drop unsupported para
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#10-callbacks-logging-metrics-and-cost-attribution"><span>Previous</span>10. Callbacks: logging, metrics and cost attribution</a><a class="next" href="#12-the-proxy-one-endpoint-for-every-app"><span>Next</span>12. The proxy: one endpoint for every app</a></nav>
 </section>
 <section class="page" data-page="12-the-proxy-one-endpoint-for-every-app" data-title="12. The proxy: one endpoint for every app">
-<p class="crumb">Page 15 of 28</p><h2 id="12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</h2>
+<p class="crumb">Page 15 of 29</p><h2 id="12-the-proxy-one-endpoint-for-every-app">12. The proxy: one endpoint for every app</h2>
 <p><strong>Use case:</strong> many apps, scripts and tools (anything that speaks the OpenAI API) share one endpoint. Provider keys live only on the server.</p>
 <p><a href="examples/proxy/config.yaml"><code>examples/proxy/config.yaml</code></a></p>
 <div class="code"><span class="lang">yaml</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="nt">model_list</span><span class="p">:</span>
@@ -4538,7 +4543,7 @@ uv<span class="w"> </span>run<span class="w"> </span>litellm<span class="w"> </s
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#11-comparing-models-on-your-own-task"><span>Previous</span>11. Comparing models on your own task</a><a class="next" href="#13-virtual-keys-budgets-and-rate-limits"><span>Next</span>13. Virtual keys, budgets and rate limits</a></nav>
 </section>
 <section class="page" data-page="13-virtual-keys-budgets-and-rate-limits" data-title="13. Virtual keys, budgets and rate limits">
-<p class="crumb">Page 16 of 28</p><h2 id="13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</h2>
+<p class="crumb">Page 16 of 29</p><h2 id="13-virtual-keys-budgets-and-rate-limits">13. Virtual keys, budgets and rate limits</h2>
 <p><strong>Use case:</strong> give each app, team or person their own key with an allowed model list, a dollar budget and a rate limit, without ever handing out a provider key.</p>
 <p>This needs Postgres. A throwaway one in Docker:</p>
 <div class="code"><span class="lang">bash</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>litellm-tutorial-db<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>demo<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRES_DB</span><span class="o">=</span>litellm<span class="w"> </span><span class="se">\</span>
@@ -4713,7 +4718,7 @@ bash<span class="w"> </span>keys_demo.sh<span class="w">                        
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#12-the-proxy-one-endpoint-for-every-app"><span>Previous</span>12. The proxy: one endpoint for every app</a><a class="next" href="#14-smart-routing-let-the-router-choose-the-model"><span>Next</span>14. Smart routing: let the router choose the model</a></nav>
 </section>
 <section class="page" data-page="14-smart-routing-let-the-router-choose-the-model" data-title="14. Smart routing: let the router choose the model">
-<p class="crumb">Page 17 of 28</p><h2 id="14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</h2>
+<p class="crumb">Page 17 of 29</p><h2 id="14-smart-routing-let-the-router-choose-the-model">14. Smart routing: let the router choose the model</h2>
 <p><strong>Use case:</strong> send each request to the cheapest model that can handle it, without the caller choosing a model.</p>
 <p>Section 7's router balances load across deployments of the same model. A smart router chooses between different models, request by request. LiteLLM 1.110.2 ships five. This section covers four of them; the fifth, the Switchyard stage router (<code>switchyard_router_config</code>, new in 1.110.0), sends each turn to an efficient or a capable model and escalates on signals that the cheaper answer failed, optionally with an LLM judge. It needs the <code>litellm[switchyard]</code> extra, which pins an alpha package (<code>nemo-switchyard==0.4.0a1</code>), so it is not run here. The current docs mark the semantic router as deprecated and steer new deployments to the complexity router, so read 14b to understand an existing setup, not to start a new one:</p>
 <div class="table-wrap"><table>
@@ -5276,7 +5281,7 @@ flaky Beta(alpha=5, beta=8)  mean=0.38
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#13-virtual-keys-budgets-and-rate-limits"><span>Previous</span>13. Virtual keys, budgets and rate limits</a><a class="next" href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server"><span>Next</span>15. The MCP gateway: one endpoint for every tool server</a></nav>
 </section>
 <section class="page" data-page="15-the-mcp-gateway-one-endpoint-for-every-tool-server" data-title="15. The MCP gateway: one endpoint for every tool server">
-<p class="crumb">Page 18 of 28</p><h2 id="15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</h2>
+<p class="crumb">Page 18 of 29</p><h2 id="15-the-mcp-gateway-one-endpoint-for-every-tool-server">15. The MCP gateway: one endpoint for every tool server</h2>
 <p><strong>Use case:</strong> your agents and apps use several MCP tool servers. Put them behind the proxy, so clients connect to one endpoint with their LiteLLM key, each key sees only the servers and tools it is allowed, and every tool call is logged and priced.</p>
 <p>The <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> (MCP) is the standard way to expose tools to LLM clients. The proxy's MCP gateway:</p>
 <ul>
@@ -5530,7 +5535,7 @@ call in_stock   : True Error: Tool &#x27;in_stock&#x27; is not allowed for your 
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#14-smart-routing-let-the-router-choose-the-model"><span>Previous</span>14. Smart routing: let the router choose the model</a><a class="next" href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><span>Next</span>16. The skills and agent gateways: share skills and agents through the proxy</a></nav>
 </section>
 <section class="page" data-page="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy" data-title="16. The skills and agent gateways: share skills and agents through the proxy">
-<p class="crumb">Page 19 of 28</p><h2 id="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</h2>
+<p class="crumb">Page 19 of 29</p><h2 id="16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy">16. The skills and agent gateways: share skills and agents through the proxy</h2>
 <p>Besides models (sections 12–14) and MCP tool servers (section 15), the proxy can host two more things agents use: <strong>skills</strong>, folders of instructions that any model can be given (16a), and <strong>agents themselves</strong>, reached over the A2A protocol with the same keys, limits and spend tracking as models (16b).</p>
 <div class="table-wrap"><table>
 <thead>
@@ -6267,7 +6272,7 @@ codes : [200, 200, 429]
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#15-the-mcp-gateway-one-endpoint-for-every-tool-server"><span>Previous</span>15. The MCP gateway: one endpoint for every tool server</a><a class="next" href="#17-prompt-management-templates-outside-the-code"><span>Next</span>17. Prompt management: templates outside the code</a></nav>
 </section>
 <section class="page" data-page="17-prompt-management-templates-outside-the-code" data-title="17. Prompt management: templates outside the code">
-<p class="crumb">Page 20 of 28</p><h2 id="17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</h2>
+<p class="crumb">Page 20 of 29</p><h2 id="17-prompt-management-templates-outside-the-code">17. Prompt management: templates outside the code</h2>
 <p><strong>Use case:</strong> product owners edit prompts without a code change, prompts are versioned, and the same template can pin its own model.</p>
 <p>On any call, <code>prompt_id=</code> (with <code>prompt_variables=</code>, and optionally <code>prompt_version=</code> or <code>prompt_label=</code>) hands the request to a prompt manager. The manager renders the template and returns the model, messages and parameters to use. Three ways to provide one:</p>
 <div class="table-wrap"><table>
@@ -6481,7 +6486,7 @@ no prompt_id: the manager is not called
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#16-the-skills-and-agent-gateways-share-skills-and-agents-through-the-proxy"><span>Previous</span>16. The skills and agent gateways: share skills and agents through the proxy</a><a class="next" href="#18-observability-traces-metrics-and-logging-platforms"><span>Next</span>18. Observability: traces, metrics and logging platforms</a></nav>
 </section>
 <section class="page" data-page="18-observability-traces-metrics-and-logging-platforms" data-title="18. Observability: traces, metrics and logging platforms">
-<p class="crumb">Page 21 of 28</p><h2 id="18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</h2>
+<p class="crumb">Page 21 of 29</p><h2 id="18-observability-traces-metrics-and-logging-platforms">18. Observability: traces, metrics and logging platforms</h2>
 <p><strong>Use case:</strong> see every LLM call in the tools your team already uses: traces in Jaeger, Tempo or Honeycomb, metrics and alerts in Prometheus and Grafana, conversations in Langfuse or LangSmith.</p>
 <p>Section 10 wrote a callback by hand. The built-in integrations are callbacks too, and every one of them is fed from the same record: the <strong>standard logging payload</strong>, <code>kwargs[&quot;standard_logging_object&quot;]</code>. It holds the call's ID, trace and session IDs, model and model group, tokens, <code>response_cost</code>, timings, <code>cache_hit</code>, <code>request_tags</code>, <code>metadata</code> (including section 14's routing decision), the messages and the response, and the error on failure. Turn one on with its name:</p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="n">litellm</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"otel"</span><span class="p">,</span> <span class="s2">"langsmith"</span><span class="p">]</span>          <span class="c1"># SDK; each reads its own env vars</span>
@@ -6680,7 +6685,7 @@ trace=4bf92f35 parent=00f067aa Received Proxy Server Request
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#17-prompt-management-templates-outside-the-code"><span>Previous</span>17. Prompt management: templates outside the code</a><a class="next" href="#19-lens-reviewing-agent-runs"><span>Next</span>19. Lens: reviewing agent runs</a></nav>
 </section>
 <section class="page" data-page="19-lens-reviewing-agent-runs" data-title="19. Lens: reviewing agent runs">
-<p class="crumb">Page 22 of 28</p><h2 id="19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</h2>
+<p class="crumb">Page 22 of 29</p><h2 id="19-lens-reviewing-agent-runs">19. Lens: reviewing agent runs</h2>
 <p><strong>Use case:</strong> your agents are in production and you can't read every run. You want a list of runs with their steps, a way to ask questions across all of them, the gateway's recorded cost next to each model call, and an AI reviewer that reads the runs against what the agent is supposed to do and tells you where it falls short, with quotes you can check.</p>
 <p><a href="https://docs.litellm.ai/docs/proxy/lens" target="_blank" rel="noopener">LiteLLM Lens</a> is that reviewer. Section 18 sent LiteLLM's own spans to tracing backends that store and display them. Lens stores agent traces too, but its point is what it does with them:</p>
 <ul>
@@ -7280,7 +7285,7 @@ run completed after 120s: screened 12 runs, investigated 2, failed tasks 0, cost
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#18-observability-traces-metrics-and-logging-platforms"><span>Previous</span>18. Observability: traces, metrics and logging platforms</a><a class="next" href="#20-access-control-and-secret-handling"><span>Next</span>20. Access control and secret handling</a></nav>
 </section>
 <section class="page" data-page="20-access-control-and-secret-handling" data-title="20. Access control and secret handling">
-<p class="crumb">Page 23 of 28</p><h2 id="20-access-control-and-secret-handling">20. Access control and secret handling</h2>
+<p class="crumb">Page 23 of 29</p><h2 id="20-access-control-and-secret-handling">20. Access control and secret handling</h2>
 <p><strong>Use case:</strong> the proxy holds every provider key your organisation has. Before anyone outside your laptop can reach it, you need to know exactly who can call which model, who can create and revoke keys, how people sign in with the identity provider you already run, and where each secret lives, how it rotates and what happens when its store is down.</p>
 <p>This section opens with what is free and what needs a licence, and then has three parts: the proxy's own access model (20a), connecting an identity provider and giving each person a spend cap (20b), and secret handling (20c). Section 21 then covers guardrails and the rest of a production deployment.</p>
 <p><strong>What is free and what needs a licence.</strong> Many access-control features of LiteLLM 1.110.2 check for an Enterprise licence (<code>LITELLM_LICENSE</code>). I checked each feature below against the installed source and, where the table says so, against a running proxy. The licence column matters when you plan a deployment: several gated features do not fail at startup, they fail when the first request uses them.</p>
@@ -8238,7 +8243,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#19-lens-reviewing-agent-runs"><span>Previous</span>19. Lens: reviewing agent runs</a><a class="next" href="#21-guardrails-and-hardening-the-proxy-for-production"><span>Next</span>21. Guardrails and hardening the proxy for production</a></nav>
 </section>
 <section class="page" data-page="21-guardrails-and-hardening-the-proxy-for-production" data-title="21. Guardrails and hardening the proxy for production">
-<p class="crumb">Page 24 of 28</p><h2 id="21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</h2>
+<p class="crumb">Page 24 of 29</p><h2 id="21-guardrails-and-hardening-the-proxy-for-production">21. Guardrails and hardening the proxy for production</h2>
 <p><strong>Use case:</strong> prompts carry customer data, credentials pasted by mistake, and attempts to make the model ignore its instructions; replies can carry data back out. And a proxy reachable from your network needs TLS, a closed admin surface, more than one replica, and known behaviour when its database or Redis goes down. This section covers both halves: guardrails on the content (21a) and hardening the deployment (21b).</p>
 <h3 id="21a-guardrails-checking-what-goes-in-and-what-comes-out">21a. Guardrails: checking what goes in and what comes out</h3>
 <p>A guardrail is a check the proxy runs on every request, on every response, or on both. It can <strong>mask</strong> (rewrite the text and carry on) or <strong>block</strong> (refuse with a 400). Guardrails are declared in the config, in a <code>guardrails:</code> list:</p>
@@ -8779,7 +8784,7 @@ PASS  upstream address not leaked      x-litellm-model-api-base: None
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#20-access-control-and-secret-handling"><span>Previous</span>20. Access control and secret handling</a><a class="next" href="#22-context-and-memory-management"><span>Next</span>22. Context and memory management</a></nav>
 </section>
 <section class="page" data-page="22-context-and-memory-management" data-title="22. Context and memory management">
-<p class="crumb">Page 25 of 28</p><h2 id="22-context-and-memory-management">22. Context and memory management</h2>
+<p class="crumb">Page 25 of 29</p><h2 id="22-context-and-memory-management">22. Context and memory management</h2>
 <p><strong>Use case:</strong> a support assistant, or an agent that runs for hours, has more history, documents and tool output than fits in one request. It should remember a user's preferences next week, without paying for every past token on every call.</p>
 <p>LiteLLM is a gateway, not a memory system, so it covers only part of this. This section first explains the ideas independently of any library (22a), then shows what LiteLLM does for context (22b) and for memory (22c), and what your application has to build itself. The concepts follow my note <a href="https://chuan2019.github.io/posts/quick-notes-context-and-memory-in-modern-ai-systems/" target="_blank" rel="noopener">Quick notes: context and memory in modern AI systems</a> (also <a href="https://chuan-zhang.medium.com/quick-notes-context-and-memory-in-modern-ai-systems-057ca9dfd337" target="_blank" rel="noopener">on Medium</a>), which has the reasoning and references behind them.</p>
 <h3 id="22a-the-concepts-context-memory-and-the-system-around-them">22a. The concepts: context, memory, and the system around them</h3>
@@ -9729,7 +9734,7 @@ cleaned up 2 entries
 <nav class="pager" aria-label="Section navigation"><a class="prev" href="#21-guardrails-and-hardening-the-proxy-for-production"><span>Previous</span>21. Guardrails and hardening the proxy for production</a><a class="next" href="#23-other-providers-and-endpoints-reference-not-run-here"><span>Next</span>23. Other providers and endpoints</a></nav>
 </section>
 <section class="page" data-page="23-other-providers-and-endpoints-reference-not-run-here" data-title="23. Other providers and endpoints">
-<p class="crumb">Page 26 of 28</p><h2 id="23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints (reference; not run here)</h2>
+<p class="crumb">Page 26 of 29</p><h2 id="23-other-providers-and-endpoints-reference-not-run-here">23. Other providers and endpoints (reference; not run here)</h2>
 <p>These follow the same pattern as section 1, which covers AWS Bedrock, Bedrock Mantle, Ollama and vLLM in detail from the SDK, and the other major providers in brief. Section 12 covers the cloud platforms (AWS Bedrock, Microsoft Azure, Google Vertex AI), providers called directly, and local models with Ollama and vLLM, and runs them against a real Ollama and local fakes. The lines below are a quick reference; I didn't run them as written, because each needs that provider's credentials.</p>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="c1"># Local models</span>
 <span class="n">completion</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"ollama_chat/llama3.1"</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">api_base</span><span class="o">=</span><span class="s2">"http://localhost:11434"</span><span class="p">)</span>   <span class="c1"># chat API; keeps roles and tools</span>
@@ -9782,10 +9787,357 @@ cleaned up 2 entries
 <details><summary>Hint</summary>
 <p>Build this from the pieces of earlier exercises; it should need little new code. Streaming and <code>response_format</code> don't mix well, so stream only in the non-JSON mode.</p>
 </details>
-<nav class="pager" aria-label="Section navigation"><a class="prev" href="#22-context-and-memory-management"><span>Previous</span>22. Context and memory management</a><a class="next" href="#gotchas-found-while-writing-this"><span>Next</span>Gotchas found while writing this</a></nav>
+<nav class="pager" aria-label="Section navigation"><a class="prev" href="#22-context-and-memory-management"><span>Previous</span>22. Context and memory management</a><a class="next" href="#appendix-litellm-1-110-2-against-a-gateway-reference-design"><span>Next</span>Appendix: LiteLLM 1.110.2 against a gateway reference design</a></nav>
+</section>
+<section class="page" data-page="appendix-litellm-1-110-2-against-a-gateway-reference-design" data-title="Appendix: LiteLLM 1.110.2 against a gateway reference design">
+<p class="crumb">Page 27 of 29</p><h2 id="appendix-litellm-1-110-2-against-a-gateway-reference-design">Appendix: LiteLLM 1.110.2 against a gateway reference design</h2>
+<p><strong>Use case:</strong> you are deciding whether to adopt LiteLLM as your organisation's LLM gateway or to build your own, and you have a reference design that says what the gateway must do. This appendix maps each box of such a design onto LiteLLM 1.110.2: what it provides, what is missing, and where this tutorial shows it.</p>
+<p>This is the design:</p>
+
+<figure class="diagram" role="img" aria-label="A gateway reference design. Identity and access run across the top and observability across the bottom. On the left, consumers (chats and assistants, messaging bots, services, vendor AI apps) and a platform console (admin and self-service, playground and evaluation). In the middle, the LLM gateway (API, enforcement, routing, smart router, response cache, model registry and pricing, provider adapters), context management (sessions and history, conversation search, memory, knowledge) and a capabilities hub (manifest, capability registry, credential vault, enforcement, the MCP, skills, prompts, instructions and agent capabilities, and agents and flows with a runtime, a builder and an OpenAI-compatible agent endpoint). On the right, model providers (Bedrock Runtime, Bedrock Mantle, custom deployments such as SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers call the API, context management and the capabilities hub; the provider adapters call the model providers; both enforcement points check against the policy and guardrails.">
+<div class="diagram-scroll">
+<svg viewBox="0 0 1100 1060" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>
+  <g class="edges">
+    <path d="M270,150 L308,146" marker-end="url(#arr9)"/>
+    <path d="M270,250 C288,250 286,530 298,530" marker-end="url(#arr9)"/>
+    <path d="M270,320 C286,320 288,671 308,671" marker-end="url(#arr9)"/>
+    <path d="M270,380 C282,380 288,818 308,818" marker-end="url(#arr9)"/>
+    <path d="M810,406 L848,406" marker-end="url(#arr9)"/>
+    <path d="M145,56 L145,90" stroke-dasharray="6 4"/>
+    <path d="M560,56 L560,90" stroke-dasharray="6 4"/>
+    <path d="M965,56 L965,90" stroke-dasharray="6 4"/>
+    <path d="M145,620 L145,1000" stroke-dasharray="6 4"/>
+    <path d="M560,974 L560,1000" stroke-dasharray="6 4"/>
+    <path d="M965,854 L965,1000" stroke-dasharray="6 4"/>
+    <path d="M810,198 L835,198 L835,690 L850,690" stroke-dasharray="6 4"/>
+    <path d="M810,725 L850,725" stroke-dasharray="6 4"/>
+  </g>
+  <g class="node accent"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="550" y="48" class="sub">users · roles · permissions</text></g>
+  <g class="node accent"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="550" y="1036" class="sub">OpenTelemetry · metrics · traces · cost · audit</text></g>
+  <g class="group"><rect x="20" y="90" width="250" height="320" rx="10"/></g>
+  <text x="145" y="112">Consumers</text>
+  <g class="node"><rect x="35" y="126" width="220" height="58" rx="8"/><text x="145" y="152">Chats &amp; assistants</text><text x="145" y="169" class="sub">LibreChat · custom chat UIs</text></g>
+  <g class="node"><rect x="35" y="196" width="220" height="58" rx="8"/><text x="145" y="222">Messaging bots</text><text x="145" y="239" class="sub">Teams / Slack bots</text></g>
+  <g class="node"><rect x="35" y="266" width="220" height="58" rx="8"/><text x="145" y="292">Services</text><text x="145" y="309" class="sub">your back-end services</text></g>
+  <g class="node"><rect x="35" y="336" width="220" height="58" rx="8"/><text x="145" y="362">Vendor AI apps</text><text x="145" y="379" class="sub">Claude, ChatGPT, …</text></g>
+  <g class="group"><rect x="20" y="440" width="250" height="180" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="145" y="462">Platform console</text>
+  <g class="node"><rect x="35" y="476" width="220" height="58" rx="8"/><text x="145" y="502">Admin &amp; self-service</text><text x="145" y="519" class="sub">keys · teams · budgets · usage</text></g>
+  <g class="node"><rect x="35" y="546" width="220" height="58" rx="8"/><text x="145" y="564.5">Playground &amp; evaluation</text><text x="145" y="581.5" class="sub">try prompts · compare models</text><text x="145" y="596.5" class="sub">eval sets</text></g>
+  <g class="group"><rect x="300" y="90" width="520" height="356" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="560" y="112">LLM gateway</text>
+  <g class="node"><rect x="310" y="124" width="500" height="44" rx="8"/><text x="560" y="143">API</text><text x="560" y="160" class="sub">chat completions · responses · batch · models</text></g>
+  <g class="node"><rect x="310" y="176" width="500" height="44" rx="8"/><text x="560" y="195">Enforcement</text><text x="560" y="212" class="sub">permissions · quotas · guardrail checks</text></g>
+  <g class="node"><rect x="310" y="228" width="245.0" height="44" rx="8"/><text x="432.5" y="247">Routing</text><text x="432.5" y="264" class="sub">model choice · fallbacks · retries</text></g>
+  <g class="node"><rect x="565.0" y="228" width="245.0" height="44" rx="8"/><text x="687.5" y="247">Smart router</text><text x="687.5" y="264" class="sub">best-fit model per request</text></g>
+  <g class="node"><rect x="310" y="280" width="500" height="44" rx="8"/><text x="560" y="299">Response cache</text><text x="560" y="316" class="sub">exact · semantic</text></g>
+  <g class="node"><rect x="310" y="332" width="500" height="44" rx="8"/><text x="560" y="351">Model registry &amp; pricing</text><text x="560" y="368" class="sub">model info · rates · cost per call</text></g>
+  <g class="node"><rect x="310" y="384" width="500" height="44" rx="8"/><text x="560" y="403">Provider adapters</text><text x="560" y="420" class="sub">request/response translation per provider</text></g>
+  <g class="group"><rect x="300" y="470" width="520" height="120" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="560" y="492">Context management</text>
+  <g class="node"><rect x="310.0" y="504" width="119.0" height="74" rx="8"/><text x="369.5" y="529.5">Sessions &amp;</text><text x="369.5" y="546.5">history</text><text x="369.5" y="563.5" class="sub">state · compaction</text></g>
+  <g class="node"><rect x="437.0" y="504" width="119.0" height="74" rx="8"/><text x="496.5" y="537">Conversation</text><text x="496.5" y="554">search</text></g>
+  <g class="node"><rect x="564.0" y="504" width="119.0" height="74" rx="8"/><text x="623.5" y="545.5">Memory</text></g>
+  <g class="node"><rect x="691.0" y="504" width="119.0" height="74" rx="8"/><text x="750.5" y="530.5">Knowledge</text><text x="750.5" y="547.5" class="sub">RAG · documents</text><text x="750.5" y="562.5" class="sub">vector search</text></g>
+  <g class="group"><rect x="300" y="614" width="520" height="360" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="560" y="636">Capabilities hub</text>
+  <g class="node"><rect x="310" y="648" width="245.0" height="46" rx="8"/><text x="432.5" y="668">Manifest</text><text x="432.5" y="685" class="sub">what a client gets: capabilities &amp; config</text></g>
+  <g class="node"><rect x="565.0" y="648" width="245.0" height="46" rx="8"/><text x="687.5" y="675.5">Capability registry</text></g>
+  <g class="node"><rect x="310" y="702" width="245.0" height="46" rx="8"/><text x="432.5" y="722">Credential vault</text><text x="432.5" y="739" class="sub">outbound OAuth · per-user tokens</text></g>
+  <g class="node"><rect x="565.0" y="702" width="245.0" height="46" rx="8"/><text x="687.5" y="722">Enforcement</text><text x="687.5" y="739" class="sub">permissions · quotas · guardrail checks</text></g>
+  <g class="group"><rect x="310" y="758" width="500" height="98" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="560" y="780">Capabilities · runtime &amp; proxy</text>
+  <g class="node"><rect x="320.0" y="792" width="91.2" height="52" rx="8"/><text x="365.6" y="822.5">MCP</text></g>
+  <g class="node"><rect x="417.2" y="792" width="91.2" height="52" rx="8"/><text x="462.8" y="822.5">Skills</text></g>
+  <g class="node"><rect x="514.4" y="792" width="91.2" height="52" rx="8"/><text x="560" y="822.5">Prompts</text></g>
+  <g class="node"><rect x="611.6" y="792" width="91.2" height="52" rx="8"/><text x="657.2" y="822.5" style="font-size:13px">Instructions</text></g>
+  <g class="node"><rect x="708.8" y="792" width="91.2" height="52" rx="8"/><text x="754.4" y="815">Agents</text><text x="754.4" y="832" class="sub">as capabilities</text></g>
+  <g class="group"><rect x="310" y="866" width="500" height="98" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="560" y="888">Agents &amp; flows</text>
+  <g class="node"><rect x="320.0" y="900" width="154.66666666666666" height="52" rx="8"/><text x="397.333" y="930.5">Runtime</text></g>
+  <g class="node"><rect x="482.66666666666663" y="900" width="154.66666666666666" height="52" rx="8"/><text x="560" y="930.5">Builder</text></g>
+  <g class="node"><rect x="645.3333333333333" y="900" width="154.66666666666666" height="52" rx="8"/><text x="722.667" y="923">Agent endpoint</text><text x="722.667" y="940" class="sub">OpenAI-compatible</text></g>
+  <g class="group"><rect x="850" y="90" width="230" height="356" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="965" y="112">Model providers</text>
+  <g class="node"><rect x="865" y="126" width="200" height="66" rx="8"/><text x="965" y="163.5">Bedrock Runtime</text></g>
+  <g class="node"><rect x="865" y="206" width="200" height="66" rx="8"/><text x="965" y="243.5">Bedrock Mantle</text></g>
+  <g class="node"><rect x="865" y="286" width="200" height="66" rx="8"/><text x="965" y="316">Custom deployments</text><text x="965" y="333" class="sub">e.g. SageMaker</text></g>
+  <g class="group"><rect x="865" y="366" width="200" height="66" rx="8"/><text x="965" y="396">Local LLMs</text><text x="965" y="413" class="sub">on-prem</text></g>
+  <g class="group"><rect x="850" y="614" width="230" height="240" rx="10" style="stroke-dasharray:none"/></g>
+  <text x="965" y="636">Policy &amp; guardrails</text>
+  <g class="node"><rect x="865" y="650" width="200" height="80" rx="8"/><text x="965" y="687">Quotas &amp; budgets</text><text x="965" y="704" class="sub">tokens · cost · tool calls</text></g>
+  <g class="node"><rect x="865" y="744" width="200" height="94" rx="8"/><text x="965" y="773">Guardrails</text><text x="965" y="790" class="sub">PII · prompt injection</text><text x="965" y="805" class="sub">toxicity</text><text x="965" y="820" class="sub">(Bedrock Guardrails)</text></g>
+</svg>
+</div>
+</figure>
+<p>Identity runs across the top and observability across the bottom. Consumers call the LLM gateway's API, context management and the capabilities hub; the gateway's provider adapters call the model providers; and both enforcement points check against the shared policy and guardrails. The platform console is where people manage keys and budgets and try models.</p>
+<p><strong>How this was checked.</strong> Each box was compared with the sections of this tutorial that run the feature, with the 1.110.2 source (the wheel from PyPI), and, for features this tutorial doesn't run, with LiteLLM's documentation as of November 2026. A row whose last column says <em>not covered</em> rests on the source and the docs only; nothing in it was run here. The docs describe the newest release, so try a docs-only feature on 1.110.2 before relying on it.</p>
+<p><strong>Legend:</strong> ✅ supported · 🟡 partial · 🔒 needs an Enterprise licence (section 20) · ❌ gap</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Design box</th>
+<th>Status</th>
+<th>What LiteLLM 1.110.2 provides</th>
+<th>What's missing</th>
+<th>Covered in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity &amp; access</strong></td>
+<td>🟡🔒</td>
+<td>Users, teams, roles and virtual keys are free. <code>custom_auth</code> lets your own code validate a company token</td>
+<td>Using the company identity directly needs a licence: IdP JWT auth, OAuth2 introspection, SCIM, organizations and <code>org_admin</code>, team admins, and SSO beyond 5 users. Without one, you build token validation and the mapping from IdP groups to teams yourself</td>
+<td>20a, 20b</td>
+</tr>
+<tr>
+<td>Chats &amp; assistants</td>
+<td>✅</td>
+<td>Any OpenAI client works with a changed base URL. The Admin UI's own Chat UI is beta, and keeps its history in one browser</td>
+<td>—</td>
+<td>12; Chat UI not covered (<a href="https://docs.litellm.ai/docs/proxy/ui/chat_ui" target="_blank" rel="noopener">docs</a>)</td>
+</tr>
+<tr>
+<td>Messaging bots</td>
+<td>❌</td>
+<td>Nothing</td>
+<td>No Teams or Slack bot framework. You build the bot, and it calls the gateway like any other service</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Services</td>
+<td>✅</td>
+<td>Any OpenAI client</td>
+<td>—</td>
+<td>12, 13</td>
+</tr>
+<tr>
+<td>Vendor AI apps</td>
+<td>🟡</td>
+<td>Claude Code, Claude Desktop and Codex have documented gateway setups. Claude Code can also use the plugin marketplace at <code>/claude-code/marketplace.json</code> (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/anthropic_endpoints/claude_code_endpoints/claude_code_marketplace.py" target="_blank" rel="noopener">source</a>)</td>
+<td>Apps that don't accept a custom base URL, such as the consumer ChatGPT and Claude apps, send model traffic to the vendor, so keys, budgets, guardrails and logs don't apply. At most they can call the MCP endpoint as a connector; check each app</td>
+<td>Not covered (<a href="https://docs.litellm.ai/docs/proxy/client_setup/claude_desktop" target="_blank" rel="noopener">docs</a>)</td>
+</tr>
+<tr>
+<td>Admin &amp; self-service</td>
+<td>✅</td>
+<td>Admin UI for keys, teams, budgets and usage; <code>internal_user</code> can create their own keys</td>
+<td>—</td>
+<td>13, 20a</td>
+</tr>
+<tr>
+<td>Playground &amp; evaluation</td>
+<td>🟡</td>
+<td>The Playground, and its Compare tab with up to 3 models side by side, showing latency, tokens and cost</td>
+<td>No eval sets: nothing stores test cases, runs them across models, scores the outputs or keeps results across runs. The Evals API's only backend is <a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/llms/openai/evals/transformation.py" target="_blank" rel="noopener"><code>llms/openai/evals</code></a>, which forwards to OpenAI and can't evaluate Bedrock models</td>
+<td>11 (SDK loop), 19 (Lens); Playground not covered (<a href="https://docs.litellm.ai/docs/proxy/model_compare_ui" target="_blank" rel="noopener">docs</a>)</td>
+</tr>
+<tr>
+<td>API</td>
+<td>✅</td>
+<td><code>/chat/completions</code>, <code>/responses</code>, <code>/v1/models</code> and <code>/v1/batches</code>, with a <a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/llms/bedrock/batches/transformation.py" target="_blank" rel="noopener">Bedrock batch adapter</a></td>
+<td>—</td>
+<td>12; batches not covered</td>
+</tr>
+<tr>
+<td>Enforcement (gateway)</td>
+<td>✅</td>
+<td>Permissions, budgets, rpm/tpm limits and guardrails</td>
+<td>—</td>
+<td>13, 20a, 21</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td>✅</td>
+<td>Fallbacks, retries and load balancing</td>
+<td>—</td>
+<td>6, 7</td>
+</tr>
+<tr>
+<td>Smart router</td>
+<td>✅</td>
+<td>Five routers. The semantic router is deprecated and Switchyard pins an alpha package</td>
+<td>— (some complexity-router options are metered by licence)</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Response cache</td>
+<td>✅</td>
+<td>Exact caching, plus semantic caching through Redis, Qdrant and Valkey</td>
+<td>—</td>
+<td>9 (exact only)</td>
+</tr>
+<tr>
+<td>Model registry &amp; pricing</td>
+<td>✅</td>
+<td>Model info, the price table and cost per call</td>
+<td>—</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Provider adapters</td>
+<td>✅</td>
+<td>One adapter per provider and route</td>
+<td>—</td>
+<td>1, 12</td>
+</tr>
+<tr>
+<td>Bedrock Runtime and Mantle</td>
+<td>✅</td>
+<td>The <code>bedrock/</code> and <code>bedrock_mantle</code> adapters</td>
+<td>—</td>
+<td>1, 12</td>
+</tr>
+<tr>
+<td>Custom deployments (SageMaker)</td>
+<td>✅</td>
+<td>The <code>sagemaker/</code> adapter</td>
+<td>—</td>
+<td>12 (mentioned, not run)</td>
+</tr>
+<tr>
+<td>Local LLMs</td>
+<td>✅</td>
+<td>Ollama and vLLM</td>
+<td>—</td>
+<td>1, 12</td>
+</tr>
+<tr>
+<td><strong>Sessions &amp; history</strong></td>
+<td>🟡</td>
+<td>On <code>/v1/responses</code>, <code>previous_response_id</code> rebuilds earlier turns from the spend logs when <code>store_prompts_in_spend_logs</code> is on. Compaction through <code>context_management</code> and the Responses compact endpoint</td>
+<td>No session object for <code>/chat/completions</code>, so clients still send the full history; <code>litellm_session_id</code> only groups log rows and feeds rate limiting. No way to list, browse, rename or delete conversations (there is no <code>/v1/conversations</code>). History lives in spend logs, under log retention rather than a session policy</td>
+<td>22b, 22c</td>
+</tr>
+<tr>
+<td><strong>Conversation search</strong></td>
+<td>❌</td>
+<td>Nothing</td>
+<td>Nothing indexes or searches past conversations</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>🟡</td>
+<td><code>/v1/memory</code>, a key-value store in Postgres, scoped to users and teams</td>
+<td>No read path: nothing injects memories into prompts. No write path: nothing extracts or consolidates facts. Its <code>search</code> matches only a key prefix or an exact <code>memory_id</code> (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/memory/memory_endpoints.py" target="_blank" rel="noopener">source</a>), with no embeddings or relevance threshold. No memory types, expiry or conflict handling</td>
+<td>22c</td>
+</tr>
+<tr>
+<td>Knowledge (RAG)</td>
+<td>✅</td>
+<td>Vector stores (Bedrock Knowledge Bases, S3 Vectors, pgvector, Vertex AI RAG Engine and others), <code>/rag/ingest</code> (upload, chunk, embed, store), <code>/rag/query</code> (search, optional rerank, completion), and a <code>file_search</code> tool on chat completions</td>
+<td>—</td>
+<td>Not covered (<a href="https://docs.litellm.ai/docs/vector_stores/" target="_blank" rel="noopener">vector stores</a>, <a href="https://docs.litellm.ai/docs/rag_ingest" target="_blank" rel="noopener">ingest</a>, <a href="https://docs.litellm.ai/docs/rag_query" target="_blank" rel="noopener">query</a>)</td>
+</tr>
+<tr>
+<td><strong>Manifest</strong></td>
+<td>❌</td>
+<td>Separate per-key lists: <code>/v1/models</code>, <code>/v1/agents</code>, MCP tool lists and skills</td>
+<td>No endpoint that returns, for one client, all its capabilities and config together</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Capability registry</td>
+<td>🟡</td>
+<td>Separate registries for models, MCP servers, agents, skills, prompts and plugins. Read-only catalogue pages at <code>/public/model_hub</code>, <code>mcp_hub</code>, <code>agent_hub</code> and <code>skill_hub</code></td>
+<td>No single registry, schema or API across types; each type has its own endpoints and access model. No cross-type metadata (owner, version, dependencies, lifecycle) and no single search. Versioning only for some types, such as prompts and Skills Hub entries</td>
+<td>13, 15, 16, 17</td>
+</tr>
+<tr>
+<td>Credential vault</td>
+<td>✅</td>
+<td>Per-user OAuth tokens, per-user API keys and per-user env vars for MCP servers, stored encrypted and keyed by user and server; on-behalf-of token exchange</td>
+<td>—</td>
+<td>15 (mentioned, not run; <a href="https://docs.litellm.ai/docs/mcp_per_user_auth" target="_blank" rel="noopener">docs</a>)</td>
+</tr>
+<tr>
+<td>Enforcement (capabilities)</td>
+<td>✅</td>
+<td>Per key and team: MCP server and tool permissions, agent allowlists, per-server <code>mcp_rpm_limit</code>, and the MCP guardrail modes</td>
+<td>—</td>
+<td>15, 16b, 21a</td>
+</tr>
+<tr>
+<td>MCP · Skills · Prompts</td>
+<td>✅</td>
+<td>MCP gateway, <code>/v1/skills</code> and the Skills Hub, the prompt registry</td>
+<td>—</td>
+<td>15, 16a, 17</td>
+</tr>
+<tr>
+<td>Instructions</td>
+<td>🟡</td>
+<td>A prompt template, or a skill whose <code>SKILL.md</code> the proxy puts into the system prompt</td>
+<td>No first-class instructions object that you assign to a team, key or client and the gateway prepends to every request. Templates apply only when the caller passes <code>prompt_id</code>. Skills are procedures, not standing policy text</td>
+<td>16a, 17</td>
+</tr>
+<tr>
+<td>Agents as capabilities</td>
+<td>✅</td>
+<td>The A2A agent gateway: registry, access control and cost</td>
+<td>—</td>
+<td>16b</td>
+</tr>
+<tr>
+<td><strong>Agent runtime</strong></td>
+<td>🟡</td>
+<td>The SDK's <code>litellm.agent()</code> runs Claude Code, Codex, OpenCode, pi, Deep Agents or a tool loop in a sandbox (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/harness/__init__.py" target="_blank" rel="noopener">source</a>). <code>/v1/workflows/runs</code> records run state, events and messages (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_endpoints/workflow_management_endpoints.py" target="_blank" rel="noopener">source</a>). The A2A gateway forwards calls to agents hosted elsewhere</td>
+<td>No runtime hosted by the gateway: the harness runs inside your own process, and no proxy route starts or schedules a run. The workflow tables only record what your agent writes. Nothing deploys, schedules, scales or resumes agents</td>
+<td>Not covered</td>
+</tr>
+<tr>
+<td><strong>Agent builder</strong></td>
+<td>❌</td>
+<td>Nothing</td>
+<td>No way to build or configure agents in the gateway</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Agent endpoint (OpenAI-compatible)</td>
+<td>✅</td>
+<td>A registered agent can be called as <code>model: a2a/&lt;agent&gt;</code> on <code>/v1/chat/completions</code>, <code>/v1/responses</code> and <code>/v1/messages</code></td>
+<td>—</td>
+<td>16b uses <code>/a2a</code>; <code>a2a/</code> models not covered (<a href="https://docs.litellm.ai/docs/a2a_invoking_agents" target="_blank" rel="noopener">docs</a>)</td>
+</tr>
+<tr>
+<td>Quotas &amp; budgets</td>
+<td>🟡</td>
+<td>Token limits (tpm) and dollar budgets per key, user and team. Per-MCP-server <code>mcp_rpm_limit</code> for keys and teams. Each tool call can have a cost that counts toward the dollar budget</td>
+<td>No quota on the number of tool calls over a period. No limit per tool, only per server. No per-user tool limit (it is stored but not enforced). Capping tools through cost means tools and models share one dollar budget. Tag budgets and <code>model_max_budget</code> need a licence</td>
+<td>13, 15</td>
+</tr>
+<tr>
+<td>Guardrails</td>
+<td>✅🔒</td>
+<td>PII masking, prompt injection, Bedrock Guardrails and the content filter, all free</td>
+<td>Per-key guardrails need a licence. The <a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/policy_engine/architecture.md" target="_blank" rel="noopener">policy engine</a> attaches guardrails per team, key or model and has no licence check in its source; it is not run here, so test it before relying on it</td>
+<td>21a</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>✅🔒</td>
+<td>OpenTelemetry, Prometheus, traces, cost and spend logs, all free</td>
+<td>The audit log of admin changes needs a licence: <code>is_audit_logging_enabled()</code> returns false unless the proxy has one (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py" target="_blank" rel="noopener">source</a>)</td>
+<td>13, 18</td>
+</tr>
+</tbody>
+</table></div>
+<p>What this shows:</p>
+<ul>
+<li><strong>The gateway core is covered.</strong> Every box of the LLM gateway and of the model providers is supported, and so are guardrails and observability. This is the part of the design that sections 1–14 and 18 run.</li>
+<li><strong>Context management is the weakest area.</strong> LiteLLM stores Responses API sessions and memory entries, and serves RAG over vector stores, but it has no session store for chat completions, no conversation search, and no read or write path for memory. Section 22 explains why a gateway leaves these to the application.</li>
+<li><strong>The capabilities exist as separate registries, not as a hub.</strong> MCP servers, skills, prompts and agents each have their own registry and access control, and the credential vault is there. What is missing is the layer that ties them together: one registry and one manifest per client.</li>
+<li><strong>Agents are reachable, not built or hosted.</strong> The A2A gateway and the <code>a2a/</code> models put agents behind the same keys and limits, but there is no agent builder, and the agent runtime is an SDK call in your own process.</li>
+<li><strong>Nine boxes need your own code:</strong> server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. &quot;Instructions&quot; can be approximated with prompt templates or skills.</li>
+<li><strong>The licence decides identity and audit.</strong> IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails and tag budgets are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.</li>
+</ul>
+<nav class="pager" aria-label="Section navigation"><a class="prev" href="#23-other-providers-and-endpoints-reference-not-run-here"><span>Previous</span>23. Other providers and endpoints</a><a class="next" href="#gotchas-found-while-writing-this"><span>Next</span>Gotchas found while writing this</a></nav>
 </section>
 <section class="page" data-page="gotchas-found-while-writing-this" data-title="Gotchas found while writing this">
-<p class="crumb">Page 27 of 28</p><h2 id="gotchas-found-while-writing-this">Gotchas found while writing this</h2>
+<p class="crumb">Page 28 of 29</p><h2 id="gotchas-found-while-writing-this">Gotchas found while writing this</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -10182,10 +10534,10 @@ cleaned up 2 entries
 </tr>
 </tbody>
 </table></div>
-<nav class="pager" aria-label="Section navigation"><a class="prev" href="#23-other-providers-and-endpoints-reference-not-run-here"><span>Previous</span>23. Other providers and endpoints</a><a class="next" href="#cheat-sheet"><span>Next</span>Cheat sheet</a></nav>
+<nav class="pager" aria-label="Section navigation"><a class="prev" href="#appendix-litellm-1-110-2-against-a-gateway-reference-design"><span>Previous</span>Appendix: LiteLLM 1.110.2 against a gateway reference design</a><a class="next" href="#cheat-sheet"><span>Next</span>Cheat sheet</a></nav>
 </section>
 <section class="page" data-page="cheat-sheet" data-title="Cheat sheet">
-<p class="crumb">Page 28 of 28</p><h2 id="cheat-sheet">Cheat sheet</h2>
+<p class="crumb">Page 29 of 29</p><h2 id="cheat-sheet">Cheat sheet</h2>
 <div class="code"><span class="lang">python</span><button type="button" class="copy" aria-label="Copy code">Copy</button><pre class="hl"><code><span class="kn">import</span><span class="w"> </span><span class="nn">litellm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litellm</span><span class="w"> </span><span class="kn">import</span> <span class="n">completion</span><span class="p">,</span> <span class="n">acompletion</span><span class="p">,</span> <span class="n">Router</span><span class="p">,</span> <span class="n">completion_cost</span>
 

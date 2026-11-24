@@ -160,6 +160,7 @@ Each section is one practical use case with a runnable script in [`examples/`](e
 | 20–21 | The licence breakdown, access control, identity providers, secret handling, guardrails and a hardened production deployment |
 | 22 | Context and memory management |
 | 23 | Other providers, for reference |
+| Appendix | LiteLLM 1.110.2 against a gateway reference design: what each box maps to, what is missing, and where this tutorial shows it |
 
 **Which version this covers.** This is version 0.2.2 of the tutorial (the `version` in [`pyproject.toml`](pyproject.toml)), and it is written for LiteLLM 1.110.2. The same file pins `litellm[proxy,extra_proxy]==1.110.2`, and the Docker commands use the matching image tag, `ghcr.io/berriai/litellm:v1.110.2`. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says "in 1.110.2". When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.
 
@@ -185,6 +186,7 @@ This edition also adds to the tutorial itself. Section 1 now explains the provid
 - **Section 19:** against the Lens 0.1.0 release bundle (Lens and ClickHouse in Docker) and a local proxy with Postgres, with a fake model for the agent. Only its investigations call a real model (Claude Haiku 5.5 on Bedrock, $0.05 to $0.13 per run).
 - **Sections 20–21:** against local proxies, Postgres, Redis and nginx in Docker, with a fake identity provider, a fake Vault and a fake LLM provider. Nothing in them calls a real provider.
 - **Section 22:** the SDK scripts offline with mocks and local fakes of the Anthropic API and Bedrock, and the proxy script against a local proxy with Postgres.
+- **The appendix:** not run. It compares a gateway reference design with the sections above, the 1.110.2 source and LiteLLM's documentation, and each row says which.
 - **Exercises:** the reference solutions in [`solutions/`](solutions/) pass on 1.110.2, including those for exercises 1.4–1.11 and 12.10, which are new in this edition. The other exercises were written and solved on 1.109.1; for 1.110.2 their text was checked against the changes listed above, not solved again.
 
 Where a claim comes from the source or the docs and was not run, the text says so.
@@ -8353,6 +8355,127 @@ Build this from the pieces of earlier exercises; it should need little new code.
 </details>
 
 ---
+
+## Appendix: LiteLLM 1.110.2 against a gateway reference design
+
+**Use case:** you are deciding whether to adopt LiteLLM as your organisation's LLM gateway or to build your own, and you have a reference design that says what the gateway must do. This appendix maps each box of such a design onto LiteLLM 1.110.2: what it provides, what is missing, and where this tutorial shows it.
+
+This is the design:
+
+```mermaid
+%% fig: gateway-reference
+flowchart LR
+    IAM["Identity & access<br/>users · roles · permissions"]
+    subgraph CON["Consumers"]
+        C1["Chats & assistants<br/>LibreChat · custom chat UIs"]
+        C2["Messaging bots<br/>Teams / Slack bots"]
+        C3["Services<br/>your back-end services"]
+        C4["Vendor AI apps<br/>Claude, ChatGPT, …"]
+    end
+    subgraph PC["Platform console"]
+        P1["Admin & self-service<br/>keys · teams · budgets · usage"]
+        P2["Playground & evaluation<br/>try prompts · compare models · eval sets"]
+    end
+    subgraph GW["LLM gateway"]
+        G1["API<br/>chat completions · responses · batch · models"]
+        G2["Enforcement<br/>permissions · quotas · guardrail checks"]
+        G3["Routing<br/>model choice · fallbacks · retries"]
+        G4["Smart router<br/>best-fit model per request"]
+        G5["Response cache<br/>exact · semantic"]
+        G6["Model registry & pricing<br/>model info · rates · cost per call"]
+        G7["Provider adapters<br/>request/response translation per provider"]
+    end
+    subgraph CM["Context management"]
+        M1["Sessions & history<br/>state · compaction"]
+        M2["Conversation search"]
+        M3["Memory"]
+        M4["Knowledge<br/>RAG · documents · vector search"]
+    end
+    subgraph CH["Capabilities hub"]
+        H1["Manifest<br/>what a client gets: capabilities & config"]
+        H2["Capability registry"]
+        H3["Credential vault<br/>outbound OAuth · per-user tokens"]
+        H4["Enforcement<br/>permissions · quotas · guardrail checks"]
+        H5["Capabilities · runtime & proxy<br/>MCP · Skills · Prompts · Instructions · Agents as capabilities"]
+        H6["Agents & flows<br/>Runtime · Builder · Agent endpoint (OpenAI-compatible)"]
+    end
+    subgraph MP["Model providers"]
+        R1["Bedrock Runtime"]
+        R2["Bedrock Mantle"]
+        R3["Custom deployments<br/>e.g. SageMaker"]
+        R4["Local LLMs<br/>on-prem"]
+    end
+    subgraph PG["Policy & guardrails"]
+        Q1["Quotas & budgets<br/>tokens · cost · tool calls"]
+        Q2["Guardrails<br/>PII · prompt injection · toxicity (Bedrock Guardrails)"]
+    end
+    OBS["Observability<br/>OpenTelemetry · metrics · traces · cost · audit"]
+    CON --> G1
+    CON --> CM
+    CON --> H1
+    CON --> H5
+    G7 --> MP
+    G2 -.- PG
+    H4 -.- PG
+    IAM -.- CON
+    IAM -.- GW
+    IAM -.- MP
+    PC -.- OBS
+    CH -.- OBS
+    PG -.- OBS
+```
+
+Identity runs across the top and observability across the bottom. Consumers call the LLM gateway's API, context management and the capabilities hub; the gateway's provider adapters call the model providers; and both enforcement points check against the shared policy and guardrails. The platform console is where people manage keys and budgets and try models.
+
+**How this was checked.** Each box was compared with the sections of this tutorial that run the feature, with the 1.110.2 source (the wheel from PyPI), and, for features this tutorial doesn't run, with LiteLLM's documentation as of November 2026. A row whose last column says *not covered* rests on the source and the docs only; nothing in it was run here. The docs describe the newest release, so try a docs-only feature on 1.110.2 before relying on it.
+
+**Legend:** ✅ supported · 🟡 partial · 🔒 needs an Enterprise licence (section 20) · ❌ gap
+
+| Design box | Status | What LiteLLM 1.110.2 provides | What's missing | Covered in |
+| --- | --- | --- | --- | --- |
+| **Identity & access** | 🟡🔒 | Users, teams, roles and virtual keys are free. `custom_auth` lets your own code validate a company token | Using the company identity directly needs a licence: IdP JWT auth, OAuth2 introspection, SCIM, organizations and `org_admin`, team admins, and SSO beyond 5 users. Without one, you build token validation and the mapping from IdP groups to teams yourself | 20a, 20b |
+| Chats & assistants | ✅ | Any OpenAI client works with a changed base URL. The Admin UI's own Chat UI is beta, and keeps its history in one browser | — | 12; Chat UI not covered ([docs](https://docs.litellm.ai/docs/proxy/ui/chat_ui)) |
+| Messaging bots | ❌ | Nothing | No Teams or Slack bot framework. You build the bot, and it calls the gateway like any other service | — |
+| Services | ✅ | Any OpenAI client | — | 12, 13 |
+| Vendor AI apps | 🟡 | Claude Code, Claude Desktop and Codex have documented gateway setups. Claude Code can also use the plugin marketplace at `/claude-code/marketplace.json` ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/anthropic_endpoints/claude_code_endpoints/claude_code_marketplace.py)) | Apps that don't accept a custom base URL, such as the consumer ChatGPT and Claude apps, send model traffic to the vendor, so keys, budgets, guardrails and logs don't apply. At most they can call the MCP endpoint as a connector; check each app | Not covered ([docs](https://docs.litellm.ai/docs/proxy/client_setup/claude_desktop)) |
+| Admin & self-service | ✅ | Admin UI for keys, teams, budgets and usage; `internal_user` can create their own keys | — | 13, 20a |
+| Playground & evaluation | 🟡 | The Playground, and its Compare tab with up to 3 models side by side, showing latency, tokens and cost | No eval sets: nothing stores test cases, runs them across models, scores the outputs or keeps results across runs. The Evals API's only backend is [`llms/openai/evals`](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/llms/openai/evals/transformation.py), which forwards to OpenAI and can't evaluate Bedrock models | 11 (SDK loop), 19 (Lens); Playground not covered ([docs](https://docs.litellm.ai/docs/proxy/model_compare_ui)) |
+| API | ✅ | `/chat/completions`, `/responses`, `/v1/models` and `/v1/batches`, with a [Bedrock batch adapter](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/llms/bedrock/batches/transformation.py) | — | 12; batches not covered |
+| Enforcement (gateway) | ✅ | Permissions, budgets, rpm/tpm limits and guardrails | — | 13, 20a, 21 |
+| Routing | ✅ | Fallbacks, retries and load balancing | — | 6, 7 |
+| Smart router | ✅ | Five routers. The semantic router is deprecated and Switchyard pins an alpha package | — (some complexity-router options are metered by licence) | 14 |
+| Response cache | ✅ | Exact caching, plus semantic caching through Redis, Qdrant and Valkey | — | 9 (exact only) |
+| Model registry & pricing | ✅ | Model info, the price table and cost per call | — | 8 |
+| Provider adapters | ✅ | One adapter per provider and route | — | 1, 12 |
+| Bedrock Runtime and Mantle | ✅ | The `bedrock/` and `bedrock_mantle` adapters | — | 1, 12 |
+| Custom deployments (SageMaker) | ✅ | The `sagemaker/` adapter | — | 12 (mentioned, not run) |
+| Local LLMs | ✅ | Ollama and vLLM | — | 1, 12 |
+| **Sessions & history** | 🟡 | On `/v1/responses`, `previous_response_id` rebuilds earlier turns from the spend logs when `store_prompts_in_spend_logs` is on. Compaction through `context_management` and the Responses compact endpoint | No session object for `/chat/completions`, so clients still send the full history; `litellm_session_id` only groups log rows and feeds rate limiting. No way to list, browse, rename or delete conversations (there is no `/v1/conversations`). History lives in spend logs, under log retention rather than a session policy | 22b, 22c |
+| **Conversation search** | ❌ | Nothing | Nothing indexes or searches past conversations | — |
+| **Memory** | 🟡 | `/v1/memory`, a key-value store in Postgres, scoped to users and teams | No read path: nothing injects memories into prompts. No write path: nothing extracts or consolidates facts. Its `search` matches only a key prefix or an exact `memory_id` ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/memory/memory_endpoints.py)), with no embeddings or relevance threshold. No memory types, expiry or conflict handling | 22c |
+| Knowledge (RAG) | ✅ | Vector stores (Bedrock Knowledge Bases, S3 Vectors, pgvector, Vertex AI RAG Engine and others), `/rag/ingest` (upload, chunk, embed, store), `/rag/query` (search, optional rerank, completion), and a `file_search` tool on chat completions | — | Not covered ([vector stores](https://docs.litellm.ai/docs/vector_stores/), [ingest](https://docs.litellm.ai/docs/rag_ingest), [query](https://docs.litellm.ai/docs/rag_query)) |
+| **Manifest** | ❌ | Separate per-key lists: `/v1/models`, `/v1/agents`, MCP tool lists and skills | No endpoint that returns, for one client, all its capabilities and config together | — |
+| Capability registry | 🟡 | Separate registries for models, MCP servers, agents, skills, prompts and plugins. Read-only catalogue pages at `/public/model_hub`, `mcp_hub`, `agent_hub` and `skill_hub` | No single registry, schema or API across types; each type has its own endpoints and access model. No cross-type metadata (owner, version, dependencies, lifecycle) and no single search. Versioning only for some types, such as prompts and Skills Hub entries | 13, 15, 16, 17 |
+| Credential vault | ✅ | Per-user OAuth tokens, per-user API keys and per-user env vars for MCP servers, stored encrypted and keyed by user and server; on-behalf-of token exchange | — | 15 (mentioned, not run; [docs](https://docs.litellm.ai/docs/mcp_per_user_auth)) |
+| Enforcement (capabilities) | ✅ | Per key and team: MCP server and tool permissions, agent allowlists, per-server `mcp_rpm_limit`, and the MCP guardrail modes | — | 15, 16b, 21a |
+| MCP · Skills · Prompts | ✅ | MCP gateway, `/v1/skills` and the Skills Hub, the prompt registry | — | 15, 16a, 17 |
+| Instructions | 🟡 | A prompt template, or a skill whose `SKILL.md` the proxy puts into the system prompt | No first-class instructions object that you assign to a team, key or client and the gateway prepends to every request. Templates apply only when the caller passes `prompt_id`. Skills are procedures, not standing policy text | 16a, 17 |
+| Agents as capabilities | ✅ | The A2A agent gateway: registry, access control and cost | — | 16b |
+| **Agent runtime** | 🟡 | The SDK's `litellm.agent()` runs Claude Code, Codex, OpenCode, pi, Deep Agents or a tool loop in a sandbox ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/harness/__init__.py)). `/v1/workflows/runs` records run state, events and messages ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_endpoints/workflow_management_endpoints.py)). The A2A gateway forwards calls to agents hosted elsewhere | No runtime hosted by the gateway: the harness runs inside your own process, and no proxy route starts or schedules a run. The workflow tables only record what your agent writes. Nothing deploys, schedules, scales or resumes agents | Not covered |
+| **Agent builder** | ❌ | Nothing | No way to build or configure agents in the gateway | — |
+| Agent endpoint (OpenAI-compatible) | ✅ | A registered agent can be called as `model: a2a/<agent>` on `/v1/chat/completions`, `/v1/responses` and `/v1/messages` | — | 16b uses `/a2a`; `a2a/` models not covered ([docs](https://docs.litellm.ai/docs/a2a_invoking_agents)) |
+| Quotas & budgets | 🟡 | Token limits (tpm) and dollar budgets per key, user and team. Per-MCP-server `mcp_rpm_limit` for keys and teams. Each tool call can have a cost that counts toward the dollar budget | No quota on the number of tool calls over a period. No limit per tool, only per server. No per-user tool limit (it is stored but not enforced). Capping tools through cost means tools and models share one dollar budget. Tag budgets and `model_max_budget` need a licence | 13, 15 |
+| Guardrails | ✅🔒 | PII masking, prompt injection, Bedrock Guardrails and the content filter, all free | Per-key guardrails need a licence. The [policy engine](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/policy_engine/architecture.md) attaches guardrails per team, key or model and has no licence check in its source; it is not run here, so test it before relying on it | 21a |
+| Observability | ✅🔒 | OpenTelemetry, Prometheus, traces, cost and spend logs, all free | The audit log of admin changes needs a licence: `is_audit_logging_enabled()` returns false unless the proxy has one ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py)) | 13, 18 |
+
+What this shows:
+
+- **The gateway core is covered.** Every box of the LLM gateway and of the model providers is supported, and so are guardrails and observability. This is the part of the design that sections 1–14 and 18 run.
+- **Context management is the weakest area.** LiteLLM stores Responses API sessions and memory entries, and serves RAG over vector stores, but it has no session store for chat completions, no conversation search, and no read or write path for memory. Section 22 explains why a gateway leaves these to the application.
+- **The capabilities exist as separate registries, not as a hub.** MCP servers, skills, prompts and agents each have their own registry and access control, and the credential vault is there. What is missing is the layer that ties them together: one registry and one manifest per client.
+- **Agents are reachable, not built or hosted.** The A2A gateway and the `a2a/` models put agents behind the same keys and limits, but there is no agent builder, and the agent runtime is an SDK call in your own process.
+- **Nine boxes need your own code:** server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. "Instructions" can be approximated with prompt templates or skills.
+- **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails and tag budgets are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
 
 ## Gotchas found while writing this
 
