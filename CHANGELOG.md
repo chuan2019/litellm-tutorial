@@ -2,6 +2,15 @@
 
 Every release of the tutorial, newest first. A release is tagged `v<tutorial version>-litellm<LiteLLM version>` (see [Editions](README.md#editions)). Each LiteLLM version is an edition on its own branch, so an older edition can get a later tutorial version than a newer one; the heading of each entry names both versions.
 
+## [0.2.5] for LiteLLM 1.110.2 (2026-11-23)
+
+### Changed
+
+- **Appendix, the reference design figure shows LiteLLM's support.** Each box is colored by its row in the table, with a legend:
+  - light red for the four boxes LiteLLM 1.110.2 doesn't provide at all;
+  - light yellow for the boxes it supports in part;
+  - light blue for the boxes that need an Enterprise licence (identity and access, guardrails, observability).
+
 ## [0.2.4] for LiteLLM 1.110.2 (2026-11-23)
 
 ### Added
