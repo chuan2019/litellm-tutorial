@@ -9,16 +9,22 @@
   --bg: #ffffff; --surface: #f6f8fa; --text: #1b1f24; --muted: #57606a; --border: #d8dee4;
   --accent: #2f5bd3; --accent-soft: #e8eefc; --code-bg: #f6f8fa; --inline-code-bg: #eff1f4;
   --node: #ffffff; --node-accent: #e8eefc; --edge: #8c959f; --ok: #1f7a43; --details-bg: #fafbfc;
+  --node-gap: #fde2e1; --node-gap-edge: #d1453b; --node-partial: #fff4c2; --node-partial-edge: #c9a227;
+  --node-licence: #dcebfb; --node-licence-edge: #3b7fc4;
   --sidebar: 280px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
     --bg: #111418; --surface: #1a1e24; --text: #e6e9ee; --muted: #9aa4b2; --border: #333b47;
     --accent: #7aa2ff; --accent-soft: #1d2a45; --code-bg: #161b22; --inline-code-bg: #252c36;
-    --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22; } }
+    --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22;
+    --node-gap: #4a2124; --node-gap-edge: #e5737a; --node-partial: #463b14; --node-partial-edge: #d9b84a;
+    --node-licence: #1a3350; --node-licence-edge: #6aa6e0; } }
 :root[data-theme="dark"] {
     --bg: #111418; --surface: #1a1e24; --text: #e6e9ee; --muted: #9aa4b2; --border: #333b47;
     --accent: #7aa2ff; --accent-soft: #1d2a45; --code-bg: #161b22; --inline-code-bg: #252c36;
-    --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22; }
+    --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22;
+    --node-gap: #4a2124; --node-gap-edge: #e5737a; --node-partial: #463b14; --node-partial-edge: #d9b84a;
+    --node-licence: #1a3350; --node-licence-edge: #6aa6e0; }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 16px; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -65,6 +71,9 @@ li > p { margin: .2em 0; }
 .diagram svg { display: block; width: 100%; min-width: 640px; height: auto; }
 .diagram .node rect { fill: var(--node); stroke: var(--edge); stroke-width: 1.2; }
 .diagram .node.accent rect { fill: var(--node-accent); stroke: var(--accent); }
+.diagram .node.partial rect { fill: var(--node-partial); stroke: var(--node-partial-edge); }
+.diagram .node.gap rect { fill: var(--node-gap); stroke: var(--node-gap-edge); }
+.diagram .node.licence rect { fill: var(--node-licence); stroke: var(--node-licence-edge); }
 .diagram text { fill: var(--text); font: 600 14px system-ui, sans-serif; text-anchor: middle; }
 .diagram text.sub { font-weight: 400; font-size: 12px; fill: var(--muted); }
 .diagram text.mono { font-family: ui-monospace, Menlo, Consolas, monospace; }
@@ -9794,9 +9803,9 @@ cleaned up 2 entries
 <p><strong>Use case:</strong> you are deciding whether to adopt LiteLLM as your organisation's LLM gateway or to build your own, and you have a reference design that says what the gateway must do. This appendix maps each box of such a design onto LiteLLM 1.110.2: what it provides, what is missing, and where this tutorial shows it.</p>
 <p>This is the design:</p>
 
-<figure class="diagram" role="img" aria-label="A gateway reference design. Identity and access run across the top and observability across the bottom. On the left, consumers (chats and assistants, messaging bots, services, vendor AI apps) and a platform console (admin and self-service, playground and evaluation). In the middle, the LLM gateway (API, enforcement, routing, smart router, response cache, model registry and pricing, provider adapters), context management (sessions and history, conversation search, memory, knowledge) and a capabilities hub (manifest, capability registry, credential vault, enforcement, the MCP, skills, prompts, instructions and agent capabilities, and agents and flows with a runtime, a builder and an OpenAI-compatible agent endpoint). On the right, model providers (Bedrock Runtime, Bedrock Mantle, custom deployments such as SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers call the API, context management and the capabilities hub; the provider adapters call the model providers; both enforcement points check against the policy and guardrails.">
+<figure class="diagram" role="img" aria-label="A gateway reference design. Identity and access run across the top and observability across the bottom. On the left, consumers (chats and assistants, messaging bots, services, vendor AI apps) and a platform console (admin and self-service, playground and evaluation). In the middle, the LLM gateway (API, enforcement, routing, smart router, response cache, model registry and pricing, provider adapters), context management (sessions and history, conversation search, memory, knowledge) and a capabilities hub (manifest, capability registry, credential vault, enforcement, the MCP, skills, prompts, instructions and agent capabilities, and agents and flows with a runtime, a builder and an OpenAI-compatible agent endpoint). On the right, model providers (Bedrock Runtime, Bedrock Mantle, custom deployments such as SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers call the API, context management and the capabilities hub; the provider adapters call the model providers; both enforcement points check against the policy and guardrails. Boxes LiteLLM 1.110.2 supports only in part have a light yellow background, boxes it doesn&#x27;t support at all a light red one, and boxes that need an Enterprise licence (identity and access, guardrails, observability) a light blue one.">
 <div class="diagram-scroll">
-<svg viewBox="0 0 1100 1060" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1100 1092" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>
   <g class="edges">
     <path d="M270,150 L308,146" marker-end="url(#arr9)"/>
@@ -9813,18 +9822,18 @@ cleaned up 2 entries
     <path d="M810,198 L835,198 L835,690 L850,690" stroke-dasharray="6 4"/>
     <path d="M810,725 L850,725" stroke-dasharray="6 4"/>
   </g>
-  <g class="node accent"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="550" y="48" class="sub">users · roles · permissions</text></g>
-  <g class="node accent"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="550" y="1036" class="sub">OpenTelemetry · metrics · traces · cost · audit</text></g>
+  <g class="node licence"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="550" y="48" class="sub">users · roles · permissions</text></g>
+  <g class="node licence"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="550" y="1036" class="sub">OpenTelemetry · metrics · traces · cost · audit</text></g>
   <g class="group"><rect x="20" y="90" width="250" height="320" rx="10"/></g>
   <text x="145" y="112">Consumers</text>
   <g class="node"><rect x="35" y="126" width="220" height="58" rx="8"/><text x="145" y="152">Chats &amp; assistants</text><text x="145" y="169" class="sub">LibreChat · custom chat UIs</text></g>
-  <g class="node"><rect x="35" y="196" width="220" height="58" rx="8"/><text x="145" y="222">Messaging bots</text><text x="145" y="239" class="sub">Teams / Slack bots</text></g>
+  <g class="node gap"><rect x="35" y="196" width="220" height="58" rx="8"/><text x="145" y="222">Messaging bots</text><text x="145" y="239" class="sub">Teams / Slack bots</text></g>
   <g class="node"><rect x="35" y="266" width="220" height="58" rx="8"/><text x="145" y="292">Services</text><text x="145" y="309" class="sub">your back-end services</text></g>
-  <g class="node"><rect x="35" y="336" width="220" height="58" rx="8"/><text x="145" y="362">Vendor AI apps</text><text x="145" y="379" class="sub">Claude, ChatGPT, …</text></g>
+  <g class="node partial"><rect x="35" y="336" width="220" height="58" rx="8"/><text x="145" y="362">Vendor AI apps</text><text x="145" y="379" class="sub">Claude, ChatGPT, …</text></g>
   <g class="group"><rect x="20" y="440" width="250" height="180" rx="10" style="stroke-dasharray:none"/></g>
   <text x="145" y="462">Platform console</text>
   <g class="node"><rect x="35" y="476" width="220" height="58" rx="8"/><text x="145" y="502">Admin &amp; self-service</text><text x="145" y="519" class="sub">keys · teams · budgets · usage</text></g>
-  <g class="node"><rect x="35" y="546" width="220" height="58" rx="8"/><text x="145" y="564.5">Playground &amp; evaluation</text><text x="145" y="581.5" class="sub">try prompts · compare models</text><text x="145" y="596.5" class="sub">eval sets</text></g>
+  <g class="node partial"><rect x="35" y="546" width="220" height="58" rx="8"/><text x="145" y="564.5">Playground &amp; evaluation</text><text x="145" y="581.5" class="sub">try prompts · compare models</text><text x="145" y="596.5" class="sub">eval sets</text></g>
   <g class="group"><rect x="300" y="90" width="520" height="356" rx="10" style="stroke-dasharray:none"/></g>
   <text x="560" y="112">LLM gateway</text>
   <g class="node"><rect x="310" y="124" width="500" height="44" rx="8"/><text x="560" y="143">API</text><text x="560" y="160" class="sub">chat completions · responses · batch · models</text></g>
@@ -9836,14 +9845,14 @@ cleaned up 2 entries
   <g class="node"><rect x="310" y="384" width="500" height="44" rx="8"/><text x="560" y="403">Provider adapters</text><text x="560" y="420" class="sub">request/response translation per provider</text></g>
   <g class="group"><rect x="300" y="470" width="520" height="120" rx="10" style="stroke-dasharray:none"/></g>
   <text x="560" y="492">Context management</text>
-  <g class="node"><rect x="310.0" y="504" width="119.0" height="74" rx="8"/><text x="369.5" y="529.5">Sessions &amp;</text><text x="369.5" y="546.5">history</text><text x="369.5" y="563.5" class="sub">state · compaction</text></g>
-  <g class="node"><rect x="437.0" y="504" width="119.0" height="74" rx="8"/><text x="496.5" y="537">Conversation</text><text x="496.5" y="554">search</text></g>
-  <g class="node"><rect x="564.0" y="504" width="119.0" height="74" rx="8"/><text x="623.5" y="545.5">Memory</text></g>
+  <g class="node partial"><rect x="310.0" y="504" width="119.0" height="74" rx="8"/><text x="369.5" y="529.5">Sessions &amp;</text><text x="369.5" y="546.5">history</text><text x="369.5" y="563.5" class="sub">state · compaction</text></g>
+  <g class="node gap"><rect x="437.0" y="504" width="119.0" height="74" rx="8"/><text x="496.5" y="537">Conversation</text><text x="496.5" y="554">search</text></g>
+  <g class="node partial"><rect x="564.0" y="504" width="119.0" height="74" rx="8"/><text x="623.5" y="545.5">Memory</text></g>
   <g class="node"><rect x="691.0" y="504" width="119.0" height="74" rx="8"/><text x="750.5" y="530.5">Knowledge</text><text x="750.5" y="547.5" class="sub">RAG · documents</text><text x="750.5" y="562.5" class="sub">vector search</text></g>
   <g class="group"><rect x="300" y="614" width="520" height="360" rx="10" style="stroke-dasharray:none"/></g>
   <text x="560" y="636">Capabilities hub</text>
-  <g class="node"><rect x="310" y="648" width="245.0" height="46" rx="8"/><text x="432.5" y="668">Manifest</text><text x="432.5" y="685" class="sub">what a client gets: capabilities &amp; config</text></g>
-  <g class="node"><rect x="565.0" y="648" width="245.0" height="46" rx="8"/><text x="687.5" y="675.5">Capability registry</text></g>
+  <g class="node gap"><rect x="310" y="648" width="245.0" height="46" rx="8"/><text x="432.5" y="668">Manifest</text><text x="432.5" y="685" class="sub">what a client gets: capabilities &amp; config</text></g>
+  <g class="node partial"><rect x="565.0" y="648" width="245.0" height="46" rx="8"/><text x="687.5" y="675.5">Capability registry</text></g>
   <g class="node"><rect x="310" y="702" width="245.0" height="46" rx="8"/><text x="432.5" y="722">Credential vault</text><text x="432.5" y="739" class="sub">outbound OAuth · per-user tokens</text></g>
   <g class="node"><rect x="565.0" y="702" width="245.0" height="46" rx="8"/><text x="687.5" y="722">Enforcement</text><text x="687.5" y="739" class="sub">permissions · quotas · guardrail checks</text></g>
   <g class="group"><rect x="310" y="758" width="500" height="98" rx="10" style="stroke-dasharray:none"/></g>
@@ -9851,12 +9860,12 @@ cleaned up 2 entries
   <g class="node"><rect x="320.0" y="792" width="91.2" height="52" rx="8"/><text x="365.6" y="822.5">MCP</text></g>
   <g class="node"><rect x="417.2" y="792" width="91.2" height="52" rx="8"/><text x="462.8" y="822.5">Skills</text></g>
   <g class="node"><rect x="514.4" y="792" width="91.2" height="52" rx="8"/><text x="560" y="822.5">Prompts</text></g>
-  <g class="node"><rect x="611.6" y="792" width="91.2" height="52" rx="8"/><text x="657.2" y="822.5" style="font-size:13px">Instructions</text></g>
+  <g class="node partial"><rect x="611.6" y="792" width="91.2" height="52" rx="8"/><text x="657.2" y="822.5" style="font-size:13px">Instructions</text></g>
   <g class="node"><rect x="708.8" y="792" width="91.2" height="52" rx="8"/><text x="754.4" y="815">Agents</text><text x="754.4" y="832" class="sub">as capabilities</text></g>
   <g class="group"><rect x="310" y="866" width="500" height="98" rx="10" style="stroke-dasharray:none"/></g>
   <text x="560" y="888">Agents &amp; flows</text>
-  <g class="node"><rect x="320.0" y="900" width="154.66666666666666" height="52" rx="8"/><text x="397.333" y="930.5">Runtime</text></g>
-  <g class="node"><rect x="482.66666666666663" y="900" width="154.66666666666666" height="52" rx="8"/><text x="560" y="930.5">Builder</text></g>
+  <g class="node partial"><rect x="320.0" y="900" width="154.66666666666666" height="52" rx="8"/><text x="397.333" y="930.5">Runtime</text></g>
+  <g class="node gap"><rect x="482.66666666666663" y="900" width="154.66666666666666" height="52" rx="8"/><text x="560" y="930.5">Builder</text></g>
   <g class="node"><rect x="645.3333333333333" y="900" width="154.66666666666666" height="52" rx="8"/><text x="722.667" y="923">Agent endpoint</text><text x="722.667" y="940" class="sub">OpenAI-compatible</text></g>
   <g class="group"><rect x="850" y="90" width="230" height="356" rx="10" style="stroke-dasharray:none"/></g>
   <text x="965" y="112">Model providers</text>
@@ -9866,8 +9875,12 @@ cleaned up 2 entries
   <g class="group"><rect x="865" y="366" width="200" height="66" rx="8"/><text x="965" y="396">Local LLMs</text><text x="965" y="413" class="sub">on-prem</text></g>
   <g class="group"><rect x="850" y="614" width="230" height="240" rx="10" style="stroke-dasharray:none"/></g>
   <text x="965" y="636">Policy &amp; guardrails</text>
-  <g class="node"><rect x="865" y="650" width="200" height="80" rx="8"/><text x="965" y="687">Quotas &amp; budgets</text><text x="965" y="704" class="sub">tokens · cost · tool calls</text></g>
-  <g class="node"><rect x="865" y="744" width="200" height="94" rx="8"/><text x="965" y="773">Guardrails</text><text x="965" y="790" class="sub">PII · prompt injection</text><text x="965" y="805" class="sub">toxicity</text><text x="965" y="820" class="sub">(Bedrock Guardrails)</text></g>
+  <g class="node partial"><rect x="865" y="650" width="200" height="80" rx="8"/><text x="965" y="687">Quotas &amp; budgets</text><text x="965" y="704" class="sub">tokens · cost · tool calls</text></g>
+  <g class="node licence"><rect x="865" y="744" width="200" height="94" rx="8"/><text x="965" y="773">Guardrails</text><text x="965" y="790" class="sub">PII · prompt injection</text><text x="965" y="805" class="sub">toxicity</text><text x="965" y="820" class="sub">(Bedrock Guardrails)</text></g>
+  <g class="node"><rect x="240" y="1062" width="22" height="16" rx="3"/></g><text x="270" y="1075" class="sub" style="text-anchor:start">supported</text>
+  <g class="node partial"><rect x="380" y="1062" width="22" height="16" rx="3"/></g><text x="410" y="1075" class="sub" style="text-anchor:start">partial</text>
+  <g class="node gap"><rect x="500" y="1062" width="22" height="16" rx="3"/></g><text x="530" y="1075" class="sub" style="text-anchor:start">gap in LiteLLM 1.110.2</text>
+  <g class="node licence"><rect x="710" y="1062" width="22" height="16" rx="3"/></g><text x="740" y="1075" class="sub" style="text-anchor:start">needs an Enterprise licence</text>
 </svg>
 </div>
 </figure>

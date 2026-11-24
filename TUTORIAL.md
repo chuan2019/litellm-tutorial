@@ -8423,6 +8423,12 @@ flowchart LR
     PC -.- OBS
     CH -.- OBS
     PG -.- OBS
+    classDef partial fill:#fff4c2,stroke:#c9a227,color:#1b1f24
+    classDef gap fill:#fde2e1,stroke:#d1453b,color:#1b1f24
+    classDef licence fill:#dcebfb,stroke:#3b7fc4,color:#1b1f24
+    class C4,P2,M1,M3,H2,Q1 partial
+    class C2,M2,H1 gap
+    class IAM,Q2,OBS licence
 ```
 
 Identity runs across the top and observability across the bottom. Consumers call the LLM gateway's API, context management and the capabilities hub; the gateway's provider adapters call the model providers; and both enforcement points check against the shared policy and guardrails. The platform console is where people manage keys and budgets and try models.
