@@ -9,22 +9,22 @@
   --bg: #ffffff; --surface: #f6f8fa; --text: #1b1f24; --muted: #57606a; --border: #d8dee4;
   --accent: #2f5bd3; --accent-soft: #e8eefc; --code-bg: #f6f8fa; --inline-code-bg: #eff1f4;
   --node: #ffffff; --node-accent: #e8eefc; --edge: #8c959f; --ok: #1f7a43; --details-bg: #fafbfc;
-  --node-gap: #fde2e1; --node-gap-edge: #d1453b; --node-partial: #fff4c2; --node-partial-edge: #c9a227;
-  --node-licence: #dcebfb; --node-licence-edge: #3b7fc4;
+  --node-gap: #dcebfb; --node-gap-edge: #3b7fc4; --node-partial: #fff4c2; --node-partial-edge: #c9a227;
+  --licence-text: #c62828;
   --sidebar: 280px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
     --bg: #111418; --surface: #1a1e24; --text: #e6e9ee; --muted: #9aa4b2; --border: #333b47;
     --accent: #7aa2ff; --accent-soft: #1d2a45; --code-bg: #161b22; --inline-code-bg: #252c36;
     --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22;
-    --node-gap: #4a2124; --node-gap-edge: #e5737a; --node-partial: #463b14; --node-partial-edge: #d9b84a;
-    --node-licence: #1a3350; --node-licence-edge: #6aa6e0; } }
+    --node-gap: #1a3350; --node-gap-edge: #6aa6e0; --node-partial: #463b14; --node-partial-edge: #d9b84a;
+    --licence-text: #ff7b72; } }
 :root[data-theme="dark"] {
     --bg: #111418; --surface: #1a1e24; --text: #e6e9ee; --muted: #9aa4b2; --border: #333b47;
     --accent: #7aa2ff; --accent-soft: #1d2a45; --code-bg: #161b22; --inline-code-bg: #252c36;
     --node: #1f252e; --node-accent: #1d2a45; --edge: #7d8796; --ok: #6fd39a; --details-bg: #171c22;
-    --node-gap: #4a2124; --node-gap-edge: #e5737a; --node-partial: #463b14; --node-partial-edge: #d9b84a;
-    --node-licence: #1a3350; --node-licence-edge: #6aa6e0; }
+    --node-gap: #1a3350; --node-gap-edge: #6aa6e0; --node-partial: #463b14; --node-partial-edge: #d9b84a;
+    --licence-text: #ff7b72; }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 16px; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -73,7 +73,7 @@ li > p { margin: .2em 0; }
 .diagram .node.accent rect { fill: var(--node-accent); stroke: var(--accent); }
 .diagram .node.partial rect { fill: var(--node-partial); stroke: var(--node-partial-edge); }
 .diagram .node.gap rect { fill: var(--node-gap); stroke: var(--node-gap-edge); }
-.diagram .node.licence rect { fill: var(--node-licence); stroke: var(--node-licence-edge); }
+.diagram text.sub.lic, .diagram text .lic { fill: var(--licence-text); font-weight: 700; }
 .diagram text { fill: var(--text); font: 600 14px system-ui, sans-serif; text-anchor: middle; }
 .diagram text.sub { font-weight: 400; font-size: 12px; fill: var(--muted); }
 .diagram text.mono { font-family: ui-monospace, Menlo, Consolas, monospace; }
@@ -9803,7 +9803,7 @@ cleaned up 2 entries
 <p><strong>Use case:</strong> you are deciding whether to adopt LiteLLM as your organisation's LLM gateway or to build your own, and you have a reference design that says what the gateway must do. This appendix maps each box of such a design onto LiteLLM 1.110.2: what it provides, what is missing, and where this tutorial shows it.</p>
 <p>This is the design:</p>
 
-<figure class="diagram" role="img" aria-label="A gateway reference design. Identity and access run across the top and observability across the bottom. On the left, consumers (chats and assistants, messaging bots, services, vendor AI apps) and a platform console (admin and self-service, playground and evaluation). In the middle, the LLM gateway (API, enforcement, routing, smart router, response cache, model registry and pricing, provider adapters), context management (sessions and history, conversation search, memory, knowledge) and a capabilities hub (manifest, capability registry, credential vault, enforcement, the MCP, skills, prompts, instructions and agent capabilities, and agents and flows with a runtime, a builder and an OpenAI-compatible agent endpoint). On the right, model providers (Bedrock Runtime, Bedrock Mantle, custom deployments such as SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers call the API, context management and the capabilities hub; the provider adapters call the model providers; both enforcement points check against the policy and guardrails. Boxes LiteLLM 1.110.2 supports only in part have a light yellow background, boxes it doesn&#x27;t support at all a light red one, and boxes that need an Enterprise licence (identity and access, guardrails, observability) a light blue one.">
+<figure class="diagram" role="img" aria-label="A gateway reference design. Identity and access run across the top and observability across the bottom. On the left, consumers (chats and assistants, messaging bots, services, vendor AI apps) and a platform console (admin and self-service, playground and evaluation). In the middle, the LLM gateway (API, enforcement, routing, smart router, response cache, model registry and pricing, provider adapters), context management (sessions and history, conversation search, memory, knowledge) and a capabilities hub (manifest, capability registry, credential vault, enforcement, the MCP, skills, prompts, instructions and agent capabilities, and agents and flows with a runtime, a builder and an OpenAI-compatible agent endpoint). On the right, model providers (Bedrock Runtime, Bedrock Mantle, custom deployments such as SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers call the API, context management and the capabilities hub; the provider adapters call the model providers; both enforcement points check against the policy and guardrails. Boxes LiteLLM 1.110.2 supports only in part have a light yellow background, boxes it doesn&#x27;t support at all a light blue one, and the parts that need an Enterprise licence are in bold red: IdP JWT, SCIM and SSO under identity and access, per-key guardrails, and the audit log under observability.">
 <div class="diagram-scroll">
 <svg viewBox="0 0 1100 1092" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>
@@ -9822,8 +9822,8 @@ cleaned up 2 entries
     <path d="M810,198 L835,198 L835,690 L850,690" stroke-dasharray="6 4"/>
     <path d="M810,725 L850,725" stroke-dasharray="6 4"/>
   </g>
-  <g class="node licence"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="550" y="48" class="sub">users · roles · permissions</text></g>
-  <g class="node licence"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="550" y="1036" class="sub">OpenTelemetry · metrics · traces · cost · audit</text></g>
+  <g class="node"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="566" y="48" class="sub" style="text-anchor:end">users · roles · permissions ·</text><text x="570" y="48" class="sub lic" style="text-anchor:start">IdP JWT · SCIM · SSO</text></g>
+  <g class="node"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="652" y="1036" class="sub" style="text-anchor:end">OpenTelemetry · metrics · traces · cost ·</text><text x="656" y="1036" class="sub lic" style="text-anchor:start">audit</text></g>
   <g class="group"><rect x="20" y="90" width="250" height="320" rx="10"/></g>
   <text x="145" y="112">Consumers</text>
   <g class="node"><rect x="35" y="126" width="220" height="58" rx="8"/><text x="145" y="152">Chats &amp; assistants</text><text x="145" y="169" class="sub">LibreChat · custom chat UIs</text></g>
@@ -9876,11 +9876,11 @@ cleaned up 2 entries
   <g class="group"><rect x="850" y="614" width="230" height="240" rx="10" style="stroke-dasharray:none"/></g>
   <text x="965" y="636">Policy &amp; guardrails</text>
   <g class="node partial"><rect x="865" y="650" width="200" height="80" rx="8"/><text x="965" y="687">Quotas &amp; budgets</text><text x="965" y="704" class="sub">tokens · cost · tool calls</text></g>
-  <g class="node licence"><rect x="865" y="744" width="200" height="94" rx="8"/><text x="965" y="773">Guardrails</text><text x="965" y="790" class="sub">PII · prompt injection</text><text x="965" y="805" class="sub">toxicity</text><text x="965" y="820" class="sub">(Bedrock Guardrails)</text></g>
+  <g class="node"><rect x="865" y="744" width="200" height="100" rx="8"/><text x="965" y="768">Guardrails</text><text x="965" y="785" class="sub">PII · prompt injection</text><text x="965" y="800" class="sub">toxicity</text><text x="965" y="815" class="sub">(Bedrock Guardrails)</text><text x="965" y="832" class="sub lic">per-key guardrails</text></g>
   <g class="node"><rect x="240" y="1062" width="22" height="16" rx="3"/></g><text x="270" y="1075" class="sub" style="text-anchor:start">supported</text>
   <g class="node partial"><rect x="380" y="1062" width="22" height="16" rx="3"/></g><text x="410" y="1075" class="sub" style="text-anchor:start">partial</text>
   <g class="node gap"><rect x="500" y="1062" width="22" height="16" rx="3"/></g><text x="530" y="1075" class="sub" style="text-anchor:start">gap in LiteLLM 1.110.2</text>
-  <g class="node licence"><rect x="710" y="1062" width="22" height="16" rx="3"/></g><text x="740" y="1075" class="sub" style="text-anchor:start">needs an Enterprise licence</text>
+  <text x="710" y="1075" class="sub" style="text-anchor:start"><tspan class="lic">bold red text</tspan>: needs an Enterprise licence</text>
 </svg>
 </div>
 </figure>
@@ -10132,8 +10132,8 @@ cleaned up 2 entries
 <tr>
 <td>Observability</td>
 <td>✅🔒</td>
-<td>OpenTelemetry, Prometheus, traces, cost and spend logs, all free</td>
-<td>The audit log of admin changes needs a licence: <code>is_audit_logging_enabled()</code> returns false unless the proxy has one (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py" target="_blank" rel="noopener">source</a>)</td>
+<td>OpenTelemetry, Prometheus, traces, cost and spend logs, all free, and so is logging to S3</td>
+<td>The audit log of admin changes needs a licence: <code>store_audit_logs</code> turns it on, but <code>create_audit_log_for_update()</code> writes nothing unless the proxy has one (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py" target="_blank" rel="noopener">source</a>). So does logging to three destinations: GCS buckets (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/gcs_bucket/gcs_bucket.py" target="_blank" rel="noopener">source</a>), GCS Pub/Sub (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/gcs_pubsub/pub_sub.py" target="_blank" rel="noopener">source</a>) and Azure Blob Storage (<a href="https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/azure_storage/azure_storage.py" target="_blank" rel="noopener">source</a>)</td>
 <td>13, 18</td>
 </tr>
 </tbody>
@@ -10145,7 +10145,7 @@ cleaned up 2 entries
 <li><strong>The capabilities exist as separate registries, not as a hub.</strong> MCP servers, skills, prompts and agents each have their own registry and access control, and the credential vault is there. What is missing is the layer that ties them together: one registry and one manifest per client.</li>
 <li><strong>Agents are reachable, not built or hosted.</strong> The A2A gateway and the <code>a2a/</code> models put agents behind the same keys and limits, but there is no agent builder, and the agent runtime is an SDK call in your own process.</li>
 <li><strong>Nine boxes need your own code:</strong> server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. &quot;Instructions&quot; can be approximated with prompt templates or skills.</li>
-<li><strong>The licence decides identity and audit.</strong> IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails and tag budgets are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.</li>
+<li><strong>The licence decides identity and audit.</strong> IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails, tag budgets and logging to GCS or Azure Blob Storage are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.</li>
 </ul>
 <p>The four ❌ boxes, where LiteLLM 1.110.2 provides nothing:</p>
 <ul>

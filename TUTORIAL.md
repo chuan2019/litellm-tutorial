@@ -8365,7 +8365,7 @@ This is the design:
 ```mermaid
 %% fig: gateway-reference
 flowchart LR
-    IAM["Identity & access<br/>users · roles · permissions"]
+    IAM["Identity & access<br/>users · roles · permissions · <b style='color:#c62828'>IdP JWT · SCIM · SSO</b>"]
     subgraph CON["Consumers"]
         C1["Chats & assistants<br/>LibreChat · custom chat UIs"]
         C2["Messaging bots<br/>Teams / Slack bots"]
@@ -8407,9 +8407,9 @@ flowchart LR
     end
     subgraph PG["Policy & guardrails"]
         Q1["Quotas & budgets<br/>tokens · cost · tool calls"]
-        Q2["Guardrails<br/>PII · prompt injection · toxicity (Bedrock Guardrails)"]
+        Q2["Guardrails<br/>PII · prompt injection · toxicity (Bedrock Guardrails)<br/><b style='color:#c62828'>per-key guardrails</b>"]
     end
-    OBS["Observability<br/>OpenTelemetry · metrics · traces · cost · audit"]
+    OBS["Observability<br/>OpenTelemetry · metrics · traces · cost · <b style='color:#c62828'>audit</b>"]
     CON --> G1
     CON --> CM
     CON --> H1
@@ -8424,11 +8424,9 @@ flowchart LR
     CH -.- OBS
     PG -.- OBS
     classDef partial fill:#fff4c2,stroke:#c9a227,color:#1b1f24
-    classDef gap fill:#fde2e1,stroke:#d1453b,color:#1b1f24
-    classDef licence fill:#dcebfb,stroke:#3b7fc4,color:#1b1f24
+    classDef gap fill:#dcebfb,stroke:#3b7fc4,color:#1b1f24
     class C4,P2,M1,M3,H2,Q1 partial
     class C2,M2,H1 gap
-    class IAM,Q2,OBS licence
 ```
 
 Identity runs across the top and observability across the bottom. Consumers call the LLM gateway's API, context management and the capabilities hub; the gateway's provider adapters call the model providers; and both enforcement points check against the shared policy and guardrails. The platform console is where people manage keys and budgets and try models.
@@ -8472,7 +8470,7 @@ Identity runs across the top and observability across the bottom. Consumers call
 | Agent endpoint (OpenAI-compatible) | ✅ | A registered agent can be called as `model: a2a/<agent>` on `/v1/chat/completions`, `/v1/responses` and `/v1/messages` | — | 16b uses `/a2a`; `a2a/` models not covered ([docs](https://docs.litellm.ai/docs/a2a_invoking_agents)) |
 | Quotas & budgets | 🟡 | Token limits (tpm) and dollar budgets per key, user and team. Per-MCP-server `mcp_rpm_limit` for keys and teams. Each tool call can have a cost that counts toward the dollar budget | No quota on the number of tool calls over a period. No limit per tool, only per server. No per-user tool limit (it is stored but not enforced). Capping tools through cost means tools and models share one dollar budget. Tag budgets and `model_max_budget` need a licence | 13, 15 |
 | Guardrails | ✅🔒 | PII masking, prompt injection, Bedrock Guardrails and the content filter, all free | Per-key guardrails need a licence. The [policy engine](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/policy_engine/architecture.md) attaches guardrails per team, key or model and has no licence check in its source; it is not run here, so test it before relying on it | 21a |
-| Observability | ✅🔒 | OpenTelemetry, Prometheus, traces, cost and spend logs, all free | The audit log of admin changes needs a licence: `is_audit_logging_enabled()` returns false unless the proxy has one ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py)) | 13, 18 |
+| Observability | ✅🔒 | OpenTelemetry, Prometheus, traces, cost and spend logs, all free, and so is logging to S3 | The audit log of admin changes needs a licence: `store_audit_logs` turns it on, but `create_audit_log_for_update()` writes nothing unless the proxy has one ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/proxy/management_helpers/audit_logs.py)). So does logging to three destinations: GCS buckets ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/gcs_bucket/gcs_bucket.py)), GCS Pub/Sub ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/gcs_pubsub/pub_sub.py)) and Azure Blob Storage ([source](https://github.com/BerriAI/litellm/blob/v1.110.2/litellm/integrations/azure_storage/azure_storage.py)) | 13, 18 |
 
 What this shows:
 
@@ -8481,7 +8479,7 @@ What this shows:
 - **The capabilities exist as separate registries, not as a hub.** MCP servers, skills, prompts and agents each have their own registry and access control, and the credential vault is there. What is missing is the layer that ties them together: one registry and one manifest per client.
 - **Agents are reachable, not built or hosted.** The A2A gateway and the `a2a/` models put agents behind the same keys and limits, but there is no agent builder, and the agent runtime is an SDK call in your own process.
 - **Nine boxes need your own code:** server-side sessions for chat completions, conversation search, the memory read and write paths, a per-client manifest, a unified capability registry, an agent builder and hosted runtime, messaging bots, eval sets for non-OpenAI models, and tool-call count quotas. "Instructions" can be approximated with prompt templates or skills.
-- **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails and tag budgets are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
+- **The licence decides identity and audit.** IdP JWT auth, SCIM, SSO beyond 5 users, admin audit logs, per-key guardrails, tag budgets and logging to GCS or Azure Blob Storage are Enterprise features in 1.110.2. Section 20 lists the free workarounds for identity; an audit log of admin changes has no free equivalent in the proxy.
 
 The four ❌ boxes, where LiteLLM 1.110.2 provides nothing:
 

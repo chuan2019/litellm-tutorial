@@ -44,8 +44,8 @@ GATEWAY_REFERENCE = """<svg viewBox="0 0 1100 1092" xmlns="http://www.w3.org/200
     <path d="M810,198 L835,198 L835,690 L850,690" stroke-dasharray="6 4"/>
     <path d="M810,725 L850,725" stroke-dasharray="6 4"/>
   </g>
-  <g class="node licence"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="550" y="48" class="sub">users · roles · permissions</text></g>
-  <g class="node licence"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="550" y="1036" class="sub">OpenTelemetry · metrics · traces · cost · audit</text></g>
+  <g class="node"><rect x="20" y="12" width="1060" height="44" rx="8"/><text x="550" y="31">Identity &amp; access</text><text x="566" y="48" class="sub" style="text-anchor:end">users · roles · permissions ·</text><text x="570" y="48" class="sub lic" style="text-anchor:start">IdP JWT · SCIM · SSO</text></g>
+  <g class="node"><rect x="20" y="1000" width="1060" height="44" rx="8"/><text x="550" y="1019">Observability</text><text x="652" y="1036" class="sub" style="text-anchor:end">OpenTelemetry · metrics · traces · cost ·</text><text x="656" y="1036" class="sub lic" style="text-anchor:start">audit</text></g>
   <g class="group"><rect x="20" y="90" width="250" height="320" rx="10"/></g>
   <text x="145" y="112">Consumers</text>
   <g class="node"><rect x="35" y="126" width="220" height="58" rx="8"/><text x="145" y="152">Chats &amp; assistants</text><text x="145" y="169" class="sub">LibreChat · custom chat UIs</text></g>
@@ -98,11 +98,11 @@ GATEWAY_REFERENCE = """<svg viewBox="0 0 1100 1092" xmlns="http://www.w3.org/200
   <g class="group"><rect x="850" y="614" width="230" height="240" rx="10" style="stroke-dasharray:none"/></g>
   <text x="965" y="636">Policy &amp; guardrails</text>
   <g class="node partial"><rect x="865" y="650" width="200" height="80" rx="8"/><text x="965" y="687">Quotas &amp; budgets</text><text x="965" y="704" class="sub">tokens · cost · tool calls</text></g>
-  <g class="node licence"><rect x="865" y="744" width="200" height="94" rx="8"/><text x="965" y="773">Guardrails</text><text x="965" y="790" class="sub">PII · prompt injection</text><text x="965" y="805" class="sub">toxicity</text><text x="965" y="820" class="sub">(Bedrock Guardrails)</text></g>
+  <g class="node"><rect x="865" y="744" width="200" height="100" rx="8"/><text x="965" y="768">Guardrails</text><text x="965" y="785" class="sub">PII · prompt injection</text><text x="965" y="800" class="sub">toxicity</text><text x="965" y="815" class="sub">(Bedrock Guardrails)</text><text x="965" y="832" class="sub lic">per-key guardrails</text></g>
   <g class="node"><rect x="240" y="1062" width="22" height="16" rx="3"/></g><text x="270" y="1075" class="sub" style="text-anchor:start">supported</text>
   <g class="node partial"><rect x="380" y="1062" width="22" height="16" rx="3"/></g><text x="410" y="1075" class="sub" style="text-anchor:start">partial</text>
   <g class="node gap"><rect x="500" y="1062" width="22" height="16" rx="3"/></g><text x="530" y="1075" class="sub" style="text-anchor:start">gap in LiteLLM 1.110.2</text>
-  <g class="node licence"><rect x="710" y="1062" width="22" height="16" rx="3"/></g><text x="740" y="1075" class="sub" style="text-anchor:start">needs an Enterprise licence</text>
+  <text x="710" y="1075" class="sub" style="text-anchor:start"><tspan class="lic">bold red text</tspan>: needs an Enterprise licence</text>
 </svg>"""
 
 EXTRA = {
@@ -122,6 +122,7 @@ EXTRA = {
                           "SageMaker, on-prem local LLMs) and policy and guardrails (quotas and budgets, guardrails). Consumers "
                           "call the API, context management and the capabilities hub; the provider adapters call the model "
                           "providers; both enforcement points check against the policy and guardrails. Boxes LiteLLM 1.110.2 "
-                          "supports only in part have a light yellow background, boxes it doesn't support at all a light red one, "
-                          "and boxes that need an Enterprise licence (identity and access, guardrails, observability) a light blue one."),
+                          "supports only in part have a light yellow background, boxes it doesn't support at all a light blue one, "
+                          "and the parts that need an Enterprise licence are in bold red: IdP JWT, SCIM and SSO under identity and access, "
+                          "per-key guardrails, and the audit log under observability."),
 }
