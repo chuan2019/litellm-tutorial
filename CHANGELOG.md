@@ -2,6 +2,12 @@
 
 Every release of the tutorial, newest first. A release is tagged `v<tutorial version>-litellm<LiteLLM version>` (see [Editions](README.md#editions)). Each LiteLLM version is an edition on its own branch, so an older edition can get a later tutorial version than a newer one; the heading of each entry names both versions.
 
+## [0.2.4] for LiteLLM 1.110.2 (2026-11-23)
+
+### Added
+
+- **Appendix, the four gaps.** For each box LiteLLM 1.110.2 doesn't provide at all (messaging bots, conversation search, the manifest, the agent builder): what it is, whether it is important or optional, and how to fill it with your own code or another service.
+
 ## [0.2.3] for LiteLLM 1.110.2 (2026-11-23)
 
 ### Added

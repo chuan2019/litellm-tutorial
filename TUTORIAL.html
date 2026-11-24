@@ -365,7 +365,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 <article>
 <section class="page" data-page="what-litellm-is" data-title="What LiteLLM is">
 <h1>Tutorial: LiteLLM by Worked Example</h1>
-<p class="byline">Nov 23, 2026 · Tutorial version 0.2.3 · written for LiteLLM 1.110.2</p>
+<p class="byline">Nov 23, 2026 · Tutorial version 0.2.4 · written for LiteLLM 1.110.2</p>
 <p class="crumb">Page 1 of 29</p><h2 id="what-litellm-is">What LiteLLM is</h2>
 <h3 id="the-problem-it-solves">The problem it solves</h3>
 <p>Every LLM provider has its own API. Anthropic, OpenAI, Google, AWS Bedrock and Azure differ in request fields, message and tool-call formats, streaming events, error types, authentication and pricing. Code written against one provider's SDK is tied to that provider. An app that uses three providers carries three integrations, and the cross-cutting work (retries, failover to another provider, spend tracking, rate limits, logging) has to be built once per provider.</p>
@@ -742,7 +742,7 @@ mark.flash { background: var(--accent-soft); outline: 2px solid var(--accent); b
 </tr>
 </tbody>
 </table></div>
-<p><strong>Which version this covers.</strong> This is version 0.2.3 of the tutorial (the <code>version</code> in <a href="pyproject.toml"><code>pyproject.toml</code></a>), and it is written for LiteLLM 1.110.2. The same file pins <code>litellm[proxy,extra_proxy]==1.110.2</code>, and the Docker commands use the matching image tag, <code>ghcr.io/berriai/litellm:v1.110.2</code>. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says &quot;in 1.110.2&quot;. When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.</p>
+<p><strong>Which version this covers.</strong> This is version 0.2.4 of the tutorial (the <code>version</code> in <a href="pyproject.toml"><code>pyproject.toml</code></a>), and it is written for LiteLLM 1.110.2. The same file pins <code>litellm[proxy,extra_proxy]==1.110.2</code>, and the Docker commands use the matching image tag, <code>ghcr.io/berriai/litellm:v1.110.2</code>. Every output, signature, licence check and gotcha below describes that release. LiteLLM releases often, so on any other version expect some of them to differ, most of all where the text says &quot;in 1.110.2&quot;. When the tutorial moves to a newer LiteLLM release, the examples are run again and the pin, this paragraph and the tutorial's version change together.</p>
 <p><strong>What changed since the 1.109.1 edition.</strong> Most behaviour in this tutorial is the same on 1.110.2. These are the differences that show up in it:</p>
 <ul>
 <li><strong>The router core runs in Rust</strong> (since 1.110.0). The <code>Router</code> API is unchanged, and so is every routing output in sections 6, 7, 12 and 14; log lines now name the Rust core's modules, such as <code>registry.py</code> (How it works, 20c).</li>
